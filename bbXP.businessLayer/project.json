@@ -1,7 +1,7 @@
 ﻿{
 	"version": "1.0.0-*",
 	"dependencies": {
-		"EntityFramework": "7.0.0-beta5-12814",
+		"EntityFramework": "7.0.0-beta5-12820",
 		"EntityFramework.Core": "7.0.0-beta3",
 		"EntityFramework.SqlServer": "7.0.0-beta3",
 		"EntityFramework.Commands": "7.0.0-beta3",

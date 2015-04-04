@@ -6,7 +6,9 @@ namespace bbXP.dataLayer.Models {
 
 		public DateTime Created { get; set; }
 
-		public DateTime Modified { get; set; }
+	    public bool Active { get; set; }
+
+	    public DateTime Modified { get; set; }
 
 		public string Title { get; set; }
 

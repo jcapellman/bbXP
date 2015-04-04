@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-
+using bbXP.businessLayer.Global;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Diagnostics;
 using Microsoft.AspNet.Diagnostics.Entity;
@@ -9,8 +9,6 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.Framework.ConfigurationModel;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
-
-using bbXP.pcl.Transports.Global;
 
 namespace bbXP.mvc {
     public class Startup {

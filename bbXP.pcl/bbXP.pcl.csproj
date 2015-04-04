@@ -39,7 +39,6 @@
   <ItemGroup>
     <Compile Include="Helpers\SyntaxHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Startup.cs" />
     <Compile Include="Transports\Global\GlobalVars.cs" />
     <Compile Include="Transports\Posts\PostFeedResponseItem.cs" />
     <Compile Include="Transports\Posts\PostResponseItem.cs" />
