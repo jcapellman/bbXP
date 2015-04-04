@@ -40,8 +40,6 @@ namespace bbXP.mvc {
 		public void ConfigureServices(IServiceCollection services) {
             services.AddMvc();
 
-			services.AddEntityFramework().AddSqlServer();
-
             services.AddWebApiConventions();
 
 			var options = readConfig<GlobalVars>();
