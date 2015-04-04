@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net46": {
+      "wrappedProject": "../../bbXP.dataLayer/bbXP.dataLayer.csproj",
+      "bin": {
+        "assembly": "../../bbXP.dataLayer/obj/{configuration}/bbXP.dataLayer.dll",
+        "pdb": "../../bbXP.dataLayer/obj/{configuration}/bbXP.dataLayer.pdb"
+      },
+      "dependencies": {
+        "EntityFramework": "6.1.3-beta1"
+      }
+    }
+  }
+}
