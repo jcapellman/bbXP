@@ -20,6 +20,7 @@ Middle Tier:
 Frontend:
 
 -Angular JS for MVVM
+
 -Bootstrap usage for responsive design
 
 Also all functionality will be exposed via a WebAPI Service (planning ahead for the mobile apps)
