@@ -8,7 +8,9 @@ A very brief game plan as far as architecture:
 Backend:
 
 -EntityFramework 7 with async calls
+
 -Change Tracking (configurable in the config file)
+
 -POCO PCL usage so the eventual mobile apps can just use the same models
 
 Middle Tier:
