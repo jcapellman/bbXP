@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 
 using bbXP.dataLayer.Context;
 using bbXP.dataLayer.Models;
@@ -11,6 +12,12 @@ namespace bbXP.businessLayer.Managers {
 			    return await pContext.SaveChangesAsync() > 0;
 		    }
 	    }
+
+		public Post GetPostForAdmin(int postID) {
+			using (var pContext = new PostDataContext()) {
+				return pContext.Posts.FirstOrDefault(a => a.ID == postID);
+			}
+		}
 
 	    public async Task<bool> UpdatePost(Post revisedPost) {
 			using (var pContext = new PostDataContext()) {
