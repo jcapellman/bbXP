@@ -2,20 +2,19 @@
 	"version": "1.0.0-*",
 	"frameworks": {
 		"aspnet50": {
-			"dependencies": {
-			}
-		},
-		"aspnetcore50": {
-			"dependencies": {
-				"System.Runtime": "4.0.20-beta-22523"
-			}
 		}
 	},
 	"dependencies": {
-		"EntityFramework": "7.0.0-beta5-12820",
-		"EntityFramework.Commands": "7.0.0-beta5-12820",
-		"EntityFramework.Core": "7.0.0-beta5-12820",
-		"EntityFramework.SqlServer": "7.0.0-beta5-12820",
-		"Remotion.Linq": "2.0.0-alpha-002"
+		"EntityFramework": "7.0.0-beta5-12855",
+		"EntityFramework.Commands": "7.0.0-beta5-12855",
+		"EntityFramework.Core": "7.0.0-beta5-12855",
+		"EntityFramework.SqlServer": "7.0.0-beta5-12855",
+		"System.Threading.Tasks": "4.0.10-beta-22807",
+		"System.Threading": "4.0.10-beta-22807",
+		"System.Runtime": "4.0.20-beta-22807",
+		"System.Runtime.InteropServices": "4.0.20-beta-22807",
+		"System.Collections.Concurrent": "4.0.10-beta-22807",
+		"System.Collections": "4.0.10-beta-22807",
+		"System.Linq": "4.0.0-beta-22807"
 	}
 }

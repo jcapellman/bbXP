@@ -23,7 +23,7 @@ namespace bbXP.mvc.Controllers {
 		    }
 	    }
 
-	    public Task<ActionResult> Save(Post post) {
+	    public async Task<ActionResult> Save(Post post) {
 			var pManager = new PostManager();
 
 		    var result = await pManager.UpdatePost(post);

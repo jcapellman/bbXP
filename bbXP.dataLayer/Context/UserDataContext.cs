@@ -1,5 +1,4 @@
 ﻿using bbXP.dataLayer.Models;
-
 using Microsoft.Data.Entity;
 
 namespace bbXP.dataLayer.Context {
