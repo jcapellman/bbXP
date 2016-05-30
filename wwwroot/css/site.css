@@ -85,11 +85,14 @@ footer p {
     text-transform: uppercase;
     vertical-align: middle;
     line-height: 30px;
-    padding-left: 10px;
 }
 
-#PostContainer #TagsContainer p {
+#PostContainer #TagsContainer .TagLabel {
     float: left;
+    background-color: #1e1e1e;
+    width: 60px;
+    padding-left: 10px;
+    margin-right:10px;
 }
 
 #PostContainer #TagsContainer .TagContainer {
@@ -97,15 +100,15 @@ footer p {
     padding-left: 10px;
     padding-right: 10px;
     float: left;
-    margin-left: 10px;
     border: 1px #000 solid;
     margin-top: 4px;
+    margin-right: 10px;
     height: 22px;
     line-height: 22px;
 }
 
 #PostContainer #TagsContainer .notags {
-    margin-left: 10px;
+    padding-left: 20px;
     color: #FFF;
     text-transform: uppercase;
 }

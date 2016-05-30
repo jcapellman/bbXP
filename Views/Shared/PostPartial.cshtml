@@ -11,10 +11,10 @@
     </div>
 
     <div id="TagsContainer">
-        <p>TAGS</p>
+        <span class="TagLabel">TAGS</span>
 
         @if (Model.Tags.Count() == 0) {
-            <p class="notags">none on this post</p>
+            <div class="notags">none on this post</div>
         } else {
             @foreach (var tag in Model.Tags) {
                 <div class="TagContainer">

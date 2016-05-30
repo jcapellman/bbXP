@@ -5,3 +5,5 @@ appsettings.json
 *.xproj.user
 .bin/
 node_modules/
+/Properties/PublishProfiles
+/.vs/config/applicationhost.config
