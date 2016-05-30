@@ -1,0 +1,7 @@
+bin/
+obj/
+appsettings.json
+*.lock.json
+*.xproj.user
+.bin/
+node_modules/

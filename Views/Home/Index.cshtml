@@ -1,0 +1,9 @@
+﻿@model List<bbxp.MVC.Models.PostViewModel>
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+@foreach (var post in Model) {
+    @Html.Partial("PostPartial", post)
+}

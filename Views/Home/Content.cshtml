@@ -1,0 +1,15 @@
+﻿@model bbxp.MVC.Models.ContentViewModel
+
+@{
+    ViewData["Title"] = @Model.Title;
+}
+
+<div id="PostContainer">
+    <div id="Header">
+        <h2>@Model.Title</h2>
+    </div>
+
+    <div id="ContentContainer">
+        @Html.Raw(Model.Body)
+    </div>
+</div>

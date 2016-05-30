@@ -1,0 +1,26 @@
+﻿@model bbxp.MVC.Models.PostViewModel
+
+<div id="PostContainer">
+    <div id="Header">
+        <h2>@Model.Title</h2>
+        <h4>@Model.PostDate.ToString("MMM dd, yyyy")</h4>
+    </div>
+
+    <div id="ContentContainer">
+        @Html.Raw(Model.Body)
+    </div>
+
+    <div id="TagsContainer">
+        <p>TAGS</p>
+
+        @if (Model.Tags.Count() == 0) {
+            <p class="notags">none on this post</p>
+        } else {
+            @foreach (var tag in Model.Tags) {
+                <div class="TagContainer">
+                    <a href="~/tag/@tag.URLString/">@tag.DisplayString</a>
+                </div>
+            }
+        }
+    </div>
+</div>
