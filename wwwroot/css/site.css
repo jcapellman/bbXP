@@ -12,6 +12,10 @@
     color: rgb(0, 204, 0) !important;
 }
 
+.PageTitle {
+    margin: 5px 0 5px 0;
+}
+
 body {
     background-color: #3e3e3e;
     color: #FFF;
@@ -22,7 +26,15 @@ body {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
-    padding-top: 15px;
+}
+
+a:link {
+    color: rgb(0, 204, 0);
+}
+
+a:hover {
+    font-weight: bold;
+    text-decoration: none;
 }
 
 input,
@@ -34,6 +46,14 @@ textarea {
 footer p {
     font-size: 10px !important;
     text-align: center;
+}
+
+#ArchivesContainer {
+    background-color: #0e0e0e;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 16px;
 }
 
 #PostContainer {

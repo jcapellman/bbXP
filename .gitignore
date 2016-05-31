@@ -7,3 +7,4 @@ appsettings.json
 node_modules/
 /Properties/PublishProfiles
 /.vs/config/applicationhost.config
+/.vs/bbxp.MVC/v14/.suo

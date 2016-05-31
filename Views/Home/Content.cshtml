@@ -4,11 +4,9 @@
     ViewData["Title"] = @Model.Title;
 }
 
-<div id="PostContainer">
-    <div id="Header">
-        <h2>@Model.Title</h2>
-    </div>
+<h2 class="PageTitle">@Model.Title</h2>
 
+<div id="PostContainer">
     <div id="ContentContainer">
         @Html.Raw(Model.Body)
     </div>

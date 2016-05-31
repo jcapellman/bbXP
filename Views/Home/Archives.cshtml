@@ -1,0 +1,13 @@
+﻿@model List<bbxp.MVC.Models.ArchiveListViewModel>
+
+@{
+    ViewData["Title"] = "Archives";
+}
+
+<h2 class="PageTitle">Archives</h2>
+
+<div id="ArchivesContainer">
+    @foreach (var item in Model) {
+        <a href="/@item.RelativeURL">@item.DateString (@item.Count)</a><br />
+    }
+</div>

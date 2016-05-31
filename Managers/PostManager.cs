@@ -50,9 +50,17 @@ namespace bbxp.MVC.Managers {
             }
         }
 
-        public List<PostViewModel> GetHomeListing(int numLatestPosts = 3) {
+        public List<PostViewModel> GetHomeListing() {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
-                var posts = eFactory.DGT_Posts.OrderByDescending(a => a.PostDate).Take(numLatestPosts).ToList();
+                var posts = eFactory.DGT_Posts.OrderByDescending(a => a.PostDate).Take(mContainer.GSetings.NumPostsToList).ToList();
+
+                return posts.Select(generatePostModel).ToList();
+            }
+        }
+
+        public List<PostViewModel> GetMonthPosts(int year, int month) {
+            using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
+                var posts = eFactory.DGT_Posts.Where(a => a.PostDate.Year == year && a.PostDate.Month == month).OrderByDescending(b => b.PostDate).ToList();
 
                 return posts.Select(generatePostModel).ToList();
             }
