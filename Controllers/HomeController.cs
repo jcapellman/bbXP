@@ -21,14 +21,14 @@ namespace bbxp.MVC.Controllers {
         public IActionResult Archives() => View(new ArchivesManager(MANAGER_CONTAINER).GetArchives());
 
         [Route("{year}/{month}/")]
-        public IActionResult MonthPosts(int year, string month) {
+        public PartialViewResult ArchivePosts(int year, string month) {
             var monthInt = Convert.ToDateTime(month + " 01, 1900").Month;
 
             var posts = new PostManager(MANAGER_CONTAINER).GetMonthPosts(year, monthInt);
 
             ViewData["Title"] = $"{month} {year}";
 
-            return View("ArchivePosts", posts);
+            return PartialView(posts);
         }
 
         [Route("{year}/{month}/{day}/{postURL}")]

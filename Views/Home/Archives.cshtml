@@ -7,7 +7,11 @@
 <h2 class="PageTitle">Archives</h2>
 
 <div id="ArchivesContainer">
-    @foreach (var item in Model) {
-        <a href="/@item.RelativeURL">@item.DateString (@item.Count)</a><br />
+    @using (Html.BeginForm("ArchivePosts", "Home", FormMethod.Get, new { data_ajax = "true" })) {
+        @foreach (var item in Model) {
+            @Html.ActionLink(@item.DateString, "ArchivePosts", new { year = 2016, month = 3 })
+
+            <div id="@item.DateString.Replace(" ", "")"></div>
+        }
     }
 </div>
