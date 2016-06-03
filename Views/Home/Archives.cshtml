@@ -7,11 +7,22 @@
 <h2 class="PageTitle">Archives</h2>
 
 <div id="ArchivesContainer">
-    @using (Html.BeginForm("ArchivePosts", "Home", FormMethod.Get, new { data_ajax = "true" })) {
-        @foreach (var item in Model) {
-            @Html.ActionLink(@item.DateString, "ArchivePosts", new { year = 2016, month = 3 })
+    @foreach (var item in Model) {
+        <a href="#" onclick="loadPosts('2016/3')">@item.DateString</a>
 
-            <div id="@item.DateString.Replace(" ", "")"></div>
-        }
+        <div id="20163"></div>
     }
 </div>
+
+<script type="text/javascript">
+    function loadPosts(arg) {
+        $.ajax({
+            url: arg,
+            contentType: 'application/html; charset=utf-8',
+            type: 'GET',
+            dataType: 'html'
+        }).success(function(result) {
+            $('#20163').html(result);
+        });
+    }
+</script>

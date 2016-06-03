@@ -1,7 +1,5 @@
 ﻿@model List<bbxp.MVC.Models.PostViewModel>
 
-<h2 class="PageTitle">@ViewData["Title"]</h2>
-
 @foreach (var post in Model) {
     @Html.Partial("PostPartial", post)
 }
