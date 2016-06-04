@@ -51,9 +51,39 @@ footer p {
 #ArchivesContainer {
     background-color: #0e0e0e;
     padding-left: 10px;
+    padding-right: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: 16px;
+}
+
+#ArchivesContainer .Element {
+    background-color: #4e4e4e;
+    color: rgb(0,204,0);
+    height: 30px;
+    line-height: normal;
+    margin-bottom: 10px;
+}
+
+#ArchivesContainer .Element:hover {
+    background-color: #2e2e2e;
+    cursor: pointer;
+}
+
+#ArchivesContainer .Element .Date {
+    float: left;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding-left: 10px;
+    line-height: 30px;
+    vertical-align: middle;
+}
+
+#ArchivesContainer .Element .Count {
+    float: right;
+    padding-right: 10px;
+    line-height: 30px;
+    vertical-align: middle;
 }
 
 #PostContainer {
