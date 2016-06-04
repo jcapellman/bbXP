@@ -37,7 +37,7 @@ namespace bbxp.MVC.Controllers {
             
             ViewData["Title"] = post.Title;
 
-            return View("PostPartial", post);
+            return View("_PostPartial", post);
         }
     }
 }
