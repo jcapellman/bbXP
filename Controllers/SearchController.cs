@@ -12,6 +12,6 @@ namespace bbxp.MVC.Controllers {
         public IActionResult Index() => View();
 
         [Route("search/{query}")]
-        public PartialViewResult Search(string query) => PartialView("_PostPartial", new PostManager(MANAGER_CONTAINER).SearchPosts(query));
+        public PartialViewResult Search(string query) => PartialView("_SearchResults", new PostManager(MANAGER_CONTAINER).SearchPosts(query));
     }
 }

@@ -11,7 +11,7 @@
     function loadPosts() {
         var searchQuery = document.getElementById('search').value;
 
-        if (searchQuery.length == 0) {
+        if (searchQuery.length < 3) {
             return;
         }
 
