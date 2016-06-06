@@ -1,5 +1,7 @@
 ﻿@model List<bbxp.MVC.Models.PostViewModel>
 
+<h2>Search Results</h2>
+
 @foreach (var post in Model) {
     @Html.Partial("_PostPartial", post)
 }
