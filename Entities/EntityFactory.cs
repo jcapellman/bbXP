@@ -12,11 +12,15 @@ namespace bbxp.MVC.Entities {
 
         public DbSet<DGT_Archives> DGT_Archives { get; set; } 
 
+        public DbSet<Requests> Requests { get; set; }
+         
         private readonly string _connectionString;
 
         public EntityFactory(string connectionString) {
             _connectionString = connectionString;
         }
+
+        public EntityFactory() { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             optionsBuilder.UseSqlServer(_connectionString);

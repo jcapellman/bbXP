@@ -1,4 +1,5 @@
-﻿using bbxp.MVC.Settings;
+﻿using bbxp.MVC.Middleware;
+using bbxp.MVC.Settings;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,6 +28,7 @@ namespace bbxp.MVC {
             app.UseExceptionHandler("/Home/Error");
 
             app.UseStaticFiles();
+            app.UseHTTPRequestLogger();
 
             app.UseMvcWithDefaultRoute();
         }
