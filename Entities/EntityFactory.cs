@@ -20,8 +20,6 @@ namespace bbxp.MVC.Entities {
             _connectionString = connectionString;
         }
 
-        public EntityFactory() { }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             optionsBuilder.UseSqlServer(_connectionString);
         }
