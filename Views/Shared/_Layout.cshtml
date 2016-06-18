@@ -10,9 +10,9 @@
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment names="Staging,Production">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />    
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    </environment>
+    </environment>    
 </head>
 <body>
     <div id="LoadingContainer">
@@ -57,8 +57,7 @@
     </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js">
-    </script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
 
     @RenderSection("scripts", required: false)

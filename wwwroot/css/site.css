@@ -228,3 +228,16 @@ footer p {
 
     position: absolute; color: White; top: 50%; left: 45%;
 }
+
+/* Syntax Highlighting */
+.CodeBlockContainer {
+    background-color: #3e3e3e;
+    color: #FFF;
+    padding: 10px;
+}
+
+.CodeBlockContainer .Keyword {
+    color: rgb(0,204,0);
+    font-weight: bold;
+}
+/* end Sytax Highlighting */

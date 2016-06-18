@@ -10,6 +10,21 @@ namespace bbxp.MVC.Managers {
     public class PostManager : BaseManager {
         public PostManager(ManagerContainer container) : base(container) { }
         
+        private string applySyntaxHighlighting(string content) {
+            var keywords = new List<string> { "public", "private", "bool", "int", "void" };
+
+            foreach (var keyword in keywords) {
+                content = content.Replace(keyword, $"<span class=\"Keyword\">{keyword}</span>");
+            }
+
+            content = content.Replace("{", "{<br/>\n&nbsp&nbsp&nbsp;&nbsp;");
+
+            content = content.Replace("[csharp]", "<div class=\"CodeBlockContainer\"><![CDATA[]]>");
+            content = content.Replace("[/csharp]", "]]></div>");
+
+            return content;
+        }
+
         private PostViewModel generatePostModel(DGT_Posts post) {
             var modelItem = new PostViewModel {
                 Body = post.Body,
@@ -17,6 +32,10 @@ namespace bbxp.MVC.Managers {
                 Title = post.Title,
                 Tags = new List<Tag>()
             };
+
+            if (modelItem.Body.Contains("[csharp]")) {
+                modelItem.Body = applySyntaxHighlighting(modelItem.Body);
+            }
 
             if (string.IsNullOrEmpty(post.TagList)) {
                 return modelItem;
