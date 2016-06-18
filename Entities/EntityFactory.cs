@@ -13,7 +13,11 @@ namespace bbxp.MVC.Entities {
         public DbSet<DGT_Archives> DGT_Archives { get; set; } 
 
         public DbSet<Requests> Requests { get; set; }
-         
+        
+        public DbSet<DGT_MostFrequentedPages> DGT_MostFrequentedPages { get; set; }
+
+        public DbSet<DGT_MostFrequentedPagesHeader> DGT_MostFrequentedPagesHeader { get; set; }
+
         private readonly string _connectionString;
 
         public EntityFactory(string connectionString) {
