@@ -14,6 +14,8 @@ namespace bbxp.MVC.Entities {
 
         public DbSet<Requests> Requests { get; set; }
         
+        public DbSet<Users> Users { get; set; }
+
         public DbSet<DGT_MostFrequentedPages> DGT_MostFrequentedPages { get; set; }
 
         public DbSet<DGT_MostFrequentedPagesHeader> DGT_MostFrequentedPagesHeader { get; set; }

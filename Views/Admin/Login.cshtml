@@ -1,0 +1,11 @@
+﻿@model bbxp.MVC.Models.LoginViewModel
+
+@Html.BeginForm("AttemptLogin", "Admin", FormMethod.Post) {
+    @Html.AntiForgeryToken();
+
+    @Html.EditorFor(a => a.Username);
+
+    @Html.EditorFor(a => a.Password);
+
+    <input type="submit" />
+}

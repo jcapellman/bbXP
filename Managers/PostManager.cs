@@ -5,19 +5,34 @@ using bbxp.MVC.Containers;
 using bbxp.MVC.Entities;
 using bbxp.MVC.Entities.Objects.Table;
 using bbxp.MVC.Models;
+using System.Text.RegularExpressions;
+using System;
 
 namespace bbxp.MVC.Managers {
     public class PostManager : BaseManager {
         public PostManager(ManagerContainer container) : base(container) { }
         
         private string applySyntaxHighlighting(string content) {
-            var keywords = new List<string> { "public", "private", "bool", "int", "void" };
+            var keywords = new List<string> {
+                "abstract", "as", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const",
+                "continue", "decimal", "default", "delegate", "do", "double", "dynamic", "else", "enum", "event", "explicit",
+                "extern", "false", "finally", "fixed", "float", "for", "foreach", "get", "goto", "if", "implicit", "in", "int",
+                "interface", "internal", "is", "lock", "long", "namespace", "new", "null", "object", "operator", "out",
+                "override", "params", "private", "protected", "public", "readonly", "ref", "return", "sbyte", "sealed", "set",
+                "short", "sizeof", "stackalloc", "static", "string", "struct", "switch", "this", "throw", "true", "try",
+                "typeof", "uint", "ulong", "unchecked", "unsafe", "ushort", "using", "virtual", "void", "while" };
+
+            var replace = new Dictionary<string, string>();
 
             foreach (var keyword in keywords) {
-                content = content.Replace(keyword, $"<span class=\"Keyword\">{keyword}</span>");
+                replace.Add($"{keyword} ", $"<span class\"Keyword\">{keyword}&nbsp;</span>");
             }
 
+            var regex = new Regex(String.Join("|", replace.Keys.Select(k => Regex.Escape(k))));
+            content = regex.Replace(content, m => replace[m.Value]);
+
             content = content.Replace("{", "{<br/>\n&nbsp&nbsp&nbsp;&nbsp;");
+            content = content.Replace("}", "}<br/>\n");
 
             content = content.Replace("[csharp]", "<div class=\"CodeBlockContainer\"><![CDATA[]]>");
             content = content.Replace("[/csharp]", "]]></div>");
