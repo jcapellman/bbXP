@@ -70,10 +70,7 @@ footer p {
 /* Archives */
 #ArchivesContainer {
     background-color: #0e0e0e;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 10px;
     font-size: 16px;
 }
 
@@ -116,10 +113,7 @@ footer p {
 /* Stats */
 #StatsContainer {
     background-color: #0e0e0e;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 10px;
     font-size: 16px;
 }
 
@@ -166,13 +160,10 @@ footer p {
 }
 
 #PostContainer #ContentContainer {
-    background-color: #0e0e0e;
-    padding-left: 10px;
+    background-color: #0e0e0e;    
     margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    padding-bottom: 10px;
-    padding-top: 5px;
-    padding-right: 10px;
+    margin-bottom: 0 !important;    
+    padding: 5px 10px 10px 10px;
 }
 
 #PostContainer #TagsContainer {
