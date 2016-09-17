@@ -19,8 +19,8 @@
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "Microsoft.NETCore.App": "1.0.1",
-    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0"
-  },
+    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
+    "bbxp.CommonLibrary": "1.0.0-*"  },
 
   "tools": {
     "Microsoft.AspNetCore.Razor.Tools": {
