@@ -10,7 +10,12 @@
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "Microsoft.AspNetCore.Mvc": "1.0.1",
     "Microsoft.AspNetCore.Server.Kestrel": "1.0.1",
-    "Microsoft.NETCore.App": "1.0.0"
+    "Microsoft.NETCore.App": "1.0.0",
+    "Microsoft.EntityFrameworkCore": "1.0.1",
+    "Newtonsoft.Json": "9.0.1",
+    "bbxp.BusinessLayer": "1.0.0-*",
+    "bbxp.DataLayer": "1.0.0-*",
+    "bbxp.CommonLibrary": "1.0.0-*"
   },
   "runtimes": {
     "win10-x64": {}
