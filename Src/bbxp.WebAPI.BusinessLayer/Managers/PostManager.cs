@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-
+using bbxp.CommonLibrary.Common;
 using bbxp.CommonLibrary.Containers;
 using bbxp.CommonLibrary.Transports.Posts;
 
@@ -68,43 +68,43 @@ namespace bbxp.WebAPI.BusinessLayer.Managers {
             return modelItem;
         }
 
-        public List<PostResponseItem> GetPostsFromTag(string urlSafeTag) {
+        public ReturnSet<List<PostResponseItem>> GetPostsFromTag(string urlSafeTag) {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var posts = eFactory.DGT_Posts.Where(a => a.SafeTagList.Contains(urlSafeTag)).OrderByDescending(a => a.PostDate).ToList();
 
-                return posts.Select(generatePostModel).ToList();
+                return new ReturnSet<List<PostResponseItem>>(posts.Select(generatePostModel).ToList());
             }
         }
 
-        public PostResponseItem GetSinglePost(string relativeURL) {
+        public ReturnSet<PostResponseItem> GetSinglePost(string relativeURL) {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var post = eFactory.DGT_Posts.FirstOrDefault(a => a.RelativeURL == relativeURL);
 
-                return generatePostModel(post);
+                return new ReturnSet<PostResponseItem>(generatePostModel(post));
             }
         }
 
-        public List<PostResponseItem> SearchPosts(string query) {
+        public ReturnSet<List<PostResponseItem>> SearchPosts(string query) {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var posts = eFactory.DGT_Posts.Where(a => a.Title.Contains(query)).OrderByDescending(b => b.PostDate).ToList();
 
-                return posts.Select(generatePostModel).ToList();
+                return new ReturnSet<List<PostResponseItem>>(posts.Select(generatePostModel).ToList());
             }
         }
 
-        public List<PostResponseItem> GetHomeListing() {
+        public ReturnSet<List<PostResponseItem>> GetHomeListing() {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var posts = eFactory.DGT_Posts.OrderByDescending(a => a.PostDate).Take(mContainer.GSetings.NumPostsToList).ToList();
 
-                return posts.Select(generatePostModel).ToList();
+                return new ReturnSet<List<PostResponseItem>>(posts.Select(generatePostModel).ToList());
             }
         }
 
-        public List<PostResponseItem> GetMonthPosts(int year, int month) {
+        public ReturnSet<List<PostResponseItem>> GetMonthPosts(int year, int month) {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var posts = eFactory.DGT_Posts.Where(a => a.PostDate.Year == year && a.PostDate.Month == month).OrderByDescending(b => b.PostDate).ToList();
 
-                return posts.Select(generatePostModel).ToList();
+                return new ReturnSet<List<PostResponseItem>>(posts.Select(generatePostModel).ToList());
             }
         }
     }
