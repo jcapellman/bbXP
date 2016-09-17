@@ -1,4 +1,4 @@
-﻿@model bbxp.MVC.Models.PostViewModel
+﻿@model bbxp.CommonLibrary.Transports.Posts.PostResponseItem
 
 <div id="PostContainer">
     <div id="Header">
@@ -13,10 +13,10 @@
     <div id="TagsContainer">
         <span class="TagLabel">TAGS</span>
 
-        @if (Model.Tags.Count() == 0) {
+        @if (!Model.Tags.Any()) {
             <div class="notags">none on this post</div>
         } else {
-            @foreach (var tag in Model.Tags) {
+            foreach (var tag in Model.Tags) {
                 <div class="TagContainer">
                     <a href="~/tag/@tag.URLString/">@tag.DisplayString</a>
                 </div>
