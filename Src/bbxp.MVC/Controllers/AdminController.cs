@@ -2,16 +2,14 @@
 using bbxp.MVC.Models;
 using bbxp.MVC.Settings;
 
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-
 namespace bbxp.MVC.Controllers {
+    [Route("Admin")]
     public class AdminController : BaseController {
         public AdminController(IOptions<GlobalSettings> globalSettings) : base(globalSettings.Value) { }
-
-        [Authorize]
+        
         public IActionResult Index() => View();
 
         public IActionResult Login() => View();

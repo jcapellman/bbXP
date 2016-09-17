@@ -1,4 +1,6 @@
-﻿.navbar .navbar-inverse .navbar-fixed-top {
+﻿@baseHover rgb(0,204,0)
+
+.navbar .navbar-inverse .navbar-fixed-top {
     background-color: #111 !important;
 }
 

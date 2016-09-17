@@ -1,0 +1,15 @@
+{
+  "name": "bbxp.nodejs",
+  "version": "0.0.0",
+  "description": "bbxp.NODEJS",
+  "main": "server.js",
+  "author": {
+    "name": "jcape"
+  },
+  "dependencies": {
+    "pm2": "^2.0.12",
+    "redis": "^2.6.2",
+    "restify": "^4.1.1",
+    "restify-router": "^0.2.1"
+  }
+}

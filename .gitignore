@@ -1,10 +1,6 @@
+.vs/
 bin/
 obj/
-appsettings.json
-*.lock.json
-*.xproj.user
-.bin/
 node_modules/
-/Properties/PublishProfiles
-/.vs/config/applicationhost.config
-/.vs/bbxp.MVC/v14/.suo
+typings/
+*.lock.json
