@@ -1,5 +1,6 @@
-﻿using bbxp.MVC.Middleware;
-using bbxp.MVC.Settings;
+﻿using bbxp.CommonLibrary.Settings;
+
+using bbxp.MVC.Middleware;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

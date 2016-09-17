@@ -1,5 +1,5 @@
-﻿using bbxp.MVC.Containers;
-using bbxp.MVC.Settings;
+﻿using bbxp.CommonLibrary.Containers;
+using bbxp.CommonLibrary.Settings;
 
 using Microsoft.AspNetCore.Mvc;
 

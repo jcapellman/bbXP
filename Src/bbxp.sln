@@ -7,17 +7,15 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "bbxp.MVC", "bbxp.MVC\bbxp.M
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "bbxp.NODEJS", "bbxp.NODEJS\bbxp.NODEJS.njsproj", "{2B1718CC-F73F-486A-A982-AE4DBDBA3BC3}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "bbxp.WebAPI.DataLayer", "bbxp.DataLayer\bbxp.WebAPI.DataLayer.xproj", "{AD832CF4-60E0-4D64-BB35-A1CE71E125FE}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "bbxp.WebAPI.DataLayer", "bbxp.WebAPI.DataLayer\bbxp.WebAPI.DataLayer.xproj", "{AD832CF4-60E0-4D64-BB35-A1CE71E125FE}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "bbxp.WebAPI", "bbxp.WebAPI\bbxp.WebAPI.xproj", "{6DD6BB23-BFBC-4CF3-B610-B750E857D507}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "bbxp.WebAPI.BusinessLayer", "bbxp.BusinessLayer\bbxp.WebAPI.BusinessLayer.xproj", "{5BBF8F9C-6334-426F-960C-9AB4BA8E200F}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "bbxp.WebAPI.BusinessLayer", "bbxp.WebAPI.BusinessLayer\bbxp.WebAPI.BusinessLayer.xproj", "{5BBF8F9C-6334-426F-960C-9AB4BA8E200F}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "bbxp.CommonLibrary", "bbxp.CommonLibrary\bbxp.CommonLibrary.xproj", "{62502892-6C4F-4B97-8790-4E9382A1F9C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bbxp.UWP", "bbxp.UWP\bbxp.UWP.csproj", "{CDADA000-DC21-48AD-93C7-51B1AC961956}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bbxp.PCL", "bbxp.PCL\bbxp.PCL.csproj", "{D97F3F98-C28A-412A-AF12-539156B64B6D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -147,22 +145,6 @@ Global
 		{CDADA000-DC21-48AD-93C7-51B1AC961956}.Release|x86.ActiveCfg = Release|x86
 		{CDADA000-DC21-48AD-93C7-51B1AC961956}.Release|x86.Build.0 = Release|x86
 		{CDADA000-DC21-48AD-93C7-51B1AC961956}.Release|x86.Deploy.0 = Release|x86
-		{D97F3F98-C28A-412A-AF12-539156B64B6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D97F3F98-C28A-412A-AF12-539156B64B6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D97F3F98-C28A-412A-AF12-539156B64B6D}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{D97F3F98-C28A-412A-AF12-539156B64B6D}.Debug|ARM.Build.0 = Debug|Any CPU
-		{D97F3F98-C28A-412A-AF12-539156B64B6D}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{D97F3F98-C28A-412A-AF12-539156B64B6D}.Debug|x64.Build.0 = Debug|Any CPU
-		{D97F3F98-C28A-412A-AF12-539156B64B6D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D97F3F98-C28A-412A-AF12-539156B64B6D}.Debug|x86.Build.0 = Debug|Any CPU
-		{D97F3F98-C28A-412A-AF12-539156B64B6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D97F3F98-C28A-412A-AF12-539156B64B6D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D97F3F98-C28A-412A-AF12-539156B64B6D}.Release|ARM.ActiveCfg = Release|Any CPU
-		{D97F3F98-C28A-412A-AF12-539156B64B6D}.Release|ARM.Build.0 = Release|Any CPU
-		{D97F3F98-C28A-412A-AF12-539156B64B6D}.Release|x64.ActiveCfg = Release|Any CPU
-		{D97F3F98-C28A-412A-AF12-539156B64B6D}.Release|x64.Build.0 = Release|Any CPU
-		{D97F3F98-C28A-412A-AF12-539156B64B6D}.Release|x86.ActiveCfg = Release|Any CPU
-		{D97F3F98-C28A-412A-AF12-539156B64B6D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
