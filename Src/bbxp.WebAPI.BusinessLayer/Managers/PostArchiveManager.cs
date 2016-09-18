@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-
-using bbxp.CommonLibrary.Common;
-using bbxp.CommonLibrary.Containers;
-using bbxp.CommonLibrary.Transports.PostArchive;
-
+using bbxp.PCL.Common;
+using bbxp.PCL.Containers;
+using bbxp.PCL.Transports.PostArchive;
 using bbxp.WebAPI.DataLayer.Entities;
 
 namespace bbxp.WebAPI.BusinessLayer.Managers {

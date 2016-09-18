@@ -1,8 +1,7 @@
 ﻿using System;
-
 using Newtonsoft.Json;
 
-namespace bbxp.CommonLibrary.Common {    
+namespace bbxp.PCL.Common {    
     public class ReturnSet<T> {
         [JsonProperty("ReturnValue")]
         public T ReturnValue;

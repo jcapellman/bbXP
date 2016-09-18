@@ -4,5 +4,20 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:bbxp.UWP"
     RequestedTheme="Light">
+    <Application.Resources>
+        <Style TargetType="Grid" x:Key="GridPageBackground">
+            <Setter Property="Background" Value="#2e2e2e" />
+        </Style>
 
+        <Style TargetType="TextBlock" x:Key="PostTitle">
+            <Setter Property="Foreground" Value="#00CC00" />
+            <Setter Property="FontSize" Value="30" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="PostDate">
+            <Setter Property="Foreground" Value="#FFFFFF" />
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+    </Application.Resources>
 </Application>

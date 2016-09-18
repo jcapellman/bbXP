@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
+using bbxp.PCL.Common;
+using bbxp.PCL.Settings;
+using bbxp.PCL.Transports.PageStats;
 
-using bbxp.CommonLibrary.Common;
-using bbxp.CommonLibrary.Settings;
-using bbxp.CommonLibrary.Transports.PageStats;
-
-namespace bbxp.CommonLibrary.Handlers {
+namespace bbxp.PCL.Handlers {
     public class PageStatsHandler : BaseHandler {
         public PageStatsHandler(GlobalSettings globalSettings) : base(globalSettings) { }
 

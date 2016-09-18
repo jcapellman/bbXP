@@ -1,9 +1,7 @@
 ﻿using System.Linq;
-
-using bbxp.CommonLibrary.Common;
-using bbxp.CommonLibrary.Containers;
-using bbxp.CommonLibrary.Transports.PageStats;
-
+using bbxp.PCL.Common;
+using bbxp.PCL.Containers;
+using bbxp.PCL.Transports.PageStats;
 using bbxp.WebAPI.DataLayer.Entities;
 
 namespace bbxp.WebAPI.BusinessLayer.Managers {

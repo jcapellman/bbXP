@@ -1,0 +1,44 @@
+﻿<Page
+    x:Class="bbxp.UWP.Views.MainListingPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:bbxp.UWP.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:bbxp.UWP.ViewModels"
+    xmlns:posts="using:bbxp.PCL.Transports.Posts"
+    mc:Ignorable="d">
+
+    <Grid Style="{StaticResource GridPageBackground}">
+        <ListView ItemsSource="{x:Bind Path=viewModel.Posts, Mode=OneWay}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="posts:PostResponseItem">
+                    <Grid Background="Black" Margin="0,0,0,10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        
+                        <Grid Grid.Row="0" Background="#202020">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="{Binding Title}" Style="{StaticResource PostTitle}" />
+                            <TextBlock Grid.Column="1" Text="{Binding PostDate}" Style="{StaticResource PostDate}" />
+                        </Grid>
+                        
+                        <WebView Grid.Row="1" Source="{Binding Body}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

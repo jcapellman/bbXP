@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
+using bbxp.PCL.Common;
+using bbxp.PCL.Settings;
+using bbxp.PCL.Transports.Content;
 
-using bbxp.CommonLibrary.Common;
-using bbxp.CommonLibrary.Settings;
-using bbxp.CommonLibrary.Transports.Content;
-
-namespace bbxp.CommonLibrary.Handlers {
+namespace bbxp.PCL.Handlers {
     public class ContentHandler : BaseHandler {
         public ContentHandler(GlobalSettings globalSettings) : base(globalSettings) { }
 

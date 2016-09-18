@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-
-using bbxp.CommonLibrary.Common;
-using bbxp.CommonLibrary.Settings;
-using bbxp.CommonLibrary.Transports.Posts;
-
+using bbxp.PCL.Common;
+using bbxp.PCL.Settings;
+using bbxp.PCL.Transports.Posts;
 using bbxp.WebAPI.BusinessLayer.Managers;
 
 using Microsoft.AspNetCore.Mvc;

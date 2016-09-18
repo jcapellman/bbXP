@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using bbxp.PCL.Common;
+using bbxp.PCL.Settings;
+using bbxp.PCL.Transports.PostArchive;
+using bbxp.PCL.Transports.Posts;
 
-using bbxp.CommonLibrary.Common;
-using bbxp.CommonLibrary.Settings;
-using bbxp.CommonLibrary.Transports.PostArchive;
-using bbxp.CommonLibrary.Transports.Posts;
-
-namespace bbxp.CommonLibrary.Handlers {
+namespace bbxp.PCL.Handlers {
     public class PostArchiveHandler : BaseHandler {
         public PostArchiveHandler(GlobalSettings globalSettings) : base(globalSettings) { }
 

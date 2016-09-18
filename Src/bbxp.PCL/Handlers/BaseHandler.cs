@@ -4,12 +4,12 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-using bbxp.CommonLibrary.Common;
-using bbxp.CommonLibrary.Settings;
+using bbxp.PCL.Common;
+using bbxp.PCL.Settings;
 
 using Newtonsoft.Json;
 
-namespace bbxp.CommonLibrary.Handlers {
+namespace bbxp.PCL.Handlers {
     public abstract class BaseHandler {
         private readonly GlobalSettings _gSettings;
 

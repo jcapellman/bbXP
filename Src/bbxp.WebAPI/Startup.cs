@@ -1,5 +1,4 @@
-﻿using bbxp.CommonLibrary.Settings;
-
+﻿using bbxp.PCL.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

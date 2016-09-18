@@ -1,7 +1,6 @@
-﻿using bbxp.CommonLibrary.Common;
-using bbxp.CommonLibrary.Settings;
-using bbxp.CommonLibrary.Transports.Content;
-
+﻿using bbxp.PCL.Common;
+using bbxp.PCL.Settings;
+using bbxp.PCL.Transports.Content;
 using bbxp.WebAPI.BusinessLayer.Managers;
 
 using Microsoft.AspNetCore.Mvc;

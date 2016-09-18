@@ -1,4 +1,5 @@
-﻿@model List<bbxp.CommonLibrary.Transports.Posts.PostResponseItem>
+﻿@using bbxp.PCL.Transports.Posts
+@model List<bbxp.PCL.Transports.Posts.PostResponseItem>
 
 @foreach (var post in Model) {
     @Html.Partial("_PostPartial", post)

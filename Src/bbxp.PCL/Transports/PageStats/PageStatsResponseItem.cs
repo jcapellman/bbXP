@@ -7,6 +7,6 @@ namespace bbxp.PCL.Transports.PageStats {
 
         public int NumberRequests { get; set; }
 
-        public DateTime CurrentAsOf { get; internal set; }
+        public DateTime CurrentAsOf { get; set; }
     }
 }

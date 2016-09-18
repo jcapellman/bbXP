@@ -1,4 +1,4 @@
-﻿namespace bbxp.CommonLibrary.Settings {
+﻿namespace bbxp.PCL.Settings {
     public class GlobalSettings {
         public string SiteName { get; set; }
 

@@ -17,8 +17,7 @@
     "Microsoft.EntityFrameworkCore.SqlServer": "1.0.1",
     "Newtonsoft.Json": "9.0.1",
     "bbxp.WebAPI.BusinessLayer": "1.0.0-*",
-    "bbxp.WebAPI.DataLayer": "1.0.0-*",
-    "bbxp.CommonLibrary": "1.0.0-*"
+    "bbxp.WebAPI.DataLayer": "1.0.0-*"    
   },
   "runtimes": {
     "win10-x64": {}
@@ -30,7 +29,11 @@
   
   "frameworks": {
     "netcoreapp1.0": {
-      "dependencies": {},
+      "dependencies": {
+        "bbxp.PCL": {
+          "target": "project"
+        }
+      },
       "imports": [
         "dotnet5.6",
         "dnxcore50",

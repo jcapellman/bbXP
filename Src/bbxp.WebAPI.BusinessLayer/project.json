@@ -1,8 +1,7 @@
 {
   "version": "1.0.0-*",
 
-  "dependencies": {
-    "bbxp.CommonLibrary": "1.0.0-*",
+  "dependencies": {    
     "bbxp.WebAPI.DataLayer": "1.0.0-*",
     "Microsoft.EntityFrameworkCore": "1.0.1",
     "NETStandard.Library": "1.6.0",
@@ -10,6 +9,11 @@
   },
   "frameworks": {
     "netstandard1.6": {
+      "dependencies": {
+        "bbxp.PCL": {
+          "target": "project"
+        }
+      },
       "imports": "dnxcore50"
     }
   }

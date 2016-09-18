@@ -1,6 +1,6 @@
-﻿using bbxp.CommonLibrary.Settings;
+﻿using bbxp.PCL.Settings;
 
-namespace bbxp.CommonLibrary.Containers {
+namespace bbxp.PCL.Containers {
     public class ManagerContainer {
 
         public GlobalSettings GSetings { get; set; }

@@ -1,6 +1,5 @@
-﻿using bbxp.CommonLibrary.Containers;
-using bbxp.CommonLibrary.Settings;
-
+﻿using bbxp.PCL.Containers;
+using bbxp.PCL.Settings;
 using Microsoft.AspNetCore.Mvc;
 
 namespace bbxp.WebAPI.Controllers {
