@@ -1,10 +1,27 @@
 ﻿var redis = require("redis");
 var settings = require('./config');
 
-var client = redis.createClient(settings.REDIS_DATABASE_PORT, settings.REDIS_DATABASE_HOSTNAME);
+module.exports = function RedisFactory(key, response) {
+    var client = redis.createClient(settings.REDIS_DATABASE_PORT, settings.REDIS_DATABASE_HOSTNAME);
 
-client.on("error", function (err) {
-    console.log("Error " + err);
-});
+    client.on("error",
+        function(err) {
+            console.log("Error " + err);
+        });
+    
+    client.get(key, function(err, reply) {
+        if (reply == null) {
+            response.writeHead(200, { 'Content-Type': 'application/json' });
 
-module.exports = client;
+            response.end("");
+
+            return response;
+        }
+
+        response.writeHead(200, { 'Content-Type': 'application/json' });
+
+        response.end(reply);
+
+        return response;
+    });    
+};

@@ -15,11 +15,15 @@ namespace bbxp.WebAPI.BusinessLayer.Managers {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var result = eFactory.DGT_Archives.OrderByDescending(a => a.PostDate).ToList();
 
-                return new ReturnSet<List<PostArchiveListingResponseItem>>(result.Select(a => new PostArchiveListingResponseItem {
+                var response = new ReturnSet<List<PostArchiveListingResponseItem>>(result.Select(a => new PostArchiveListingResponseItem {
                     Count = a.Count,
                     RelativeURL = a.RelativeURL,
                     DateString = a.DateString
                 }).ToList());
+
+                rFactory.WriteJSON("PostArchive", response);
+
+                return response;
             }
         }
     }

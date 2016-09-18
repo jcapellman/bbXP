@@ -115,7 +115,11 @@ namespace bbxp.WebAPI.BusinessLayer.Managers {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var posts = eFactory.DGT_Posts.Where(a => a.PostDate.Year == year && a.PostDate.Month == month).OrderByDescending(b => b.PostDate).ToList();
 
-                return new ReturnSet<List<PostResponseItem>>(posts.Select(generatePostModel).ToList());
+                var response = new ReturnSet<List<PostResponseItem>>(posts.Select(generatePostModel).ToList());
+
+                rFactory.WriteJSON($"{year}-{month}", response);
+
+                return response;                
             }
         }
     }

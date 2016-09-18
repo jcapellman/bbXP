@@ -1,39 +1,13 @@
 ﻿var Router = require('restify-router').Router;
 var router = new Router();
-var RedisClient = require('./dbFactory');
+var RedisFactoryClient = require("./dbFactory");
 
 function getListing(request, response, next) {
-    RedisClient.get("PostListing", function (err, reply) {
-        if (reply == null) {
-            return response.write('');
-        }
-
-        response.writeHead(200, { 'Content-Type': 'application/json' });
-
-        response.end(reply);
-
-        return response;
-    });
+    return RedisFactoryClient("PostListing", response);
 };
 
 function getSinglePost(request, response, next) {
-    var urlArg = request.params.urlArg;
-
-    RedisClient.get(urlArg, function (err, reply) {        
-        if (reply == null) {
-            response.writeHead(200, { 'Content-Type': 'application/json' });
-
-            response.end('');
-
-            return response;
-        }
-
-        response.writeHead(200, { 'Content-Type': 'application/json' });
-
-        response.end(reply);
-        
-        return response;
-    });
+    return RedisFactoryClient(request.params.urlArg, response);    
 };
 
 router.get('/node/Posts', getListing);

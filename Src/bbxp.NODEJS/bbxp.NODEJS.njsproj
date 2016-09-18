@@ -32,6 +32,7 @@
   <ItemGroup>
     <Compile Include="config.js" />
     <Compile Include="dbFactory.js" />
+    <Compile Include="postarchive-router.js" />
     <Compile Include="posts-router.js" />
     <Compile Include="server.js" />
     <Content Include="package.json" />
