@@ -31,9 +31,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="config.js" />
+    <Compile Include="content-router.js" />
     <Compile Include="dbFactory.js" />
+    <Compile Include="pagestats-router.js" />
     <Compile Include="postarchive-router.js" />
     <Compile Include="posts-router.js" />
+    <Compile Include="search-router.js" />
     <Compile Include="server.js" />
     <Content Include="package.json" />
   </ItemGroup>

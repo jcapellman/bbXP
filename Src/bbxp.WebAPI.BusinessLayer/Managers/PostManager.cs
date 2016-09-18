@@ -95,7 +95,11 @@ namespace bbxp.WebAPI.BusinessLayer.Managers {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var posts = eFactory.DGT_Posts.Where(a => a.Title.Contains(query)).OrderByDescending(b => b.PostDate).ToList();
 
-                return new ReturnSet<List<PostResponseItem>>(posts.Select(generatePostModel).ToList());
+                var result = new ReturnSet<List<PostResponseItem>>(posts.Select(generatePostModel).ToList());
+
+                rFactory.WriteJSON($"bbxpSQ_{query}", result);
+
+                return result;
             }
         }
 

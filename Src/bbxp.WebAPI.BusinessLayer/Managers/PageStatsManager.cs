@@ -16,7 +16,7 @@ namespace bbxp.WebAPI.BusinessLayer.Managers {
 
                 var requestsHeader = eFactory.DGT_MostFrequentedPagesHeader.FirstOrDefault();
 
-                return new ReturnSet<PageStatsResponseItem>(new PageStatsResponseItem {
+                var request = new ReturnSet<PageStatsResponseItem>(new PageStatsResponseItem {
                     TopRequests = topRequests.Select(a => new PageRequestStatsResponseItem {
                         Count = a.Count,
                         ID = a.ID
@@ -24,6 +24,10 @@ namespace bbxp.WebAPI.BusinessLayer.Managers {
                     NumberRequests = requestsHeader.RequestCount,
                     CurrentAsOf = requestsHeader.CurrentAsOf
                 });
+
+                rFactory.WriteJSON("PageStats", request);
+
+                return request;
             }
         }
     }
