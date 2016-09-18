@@ -7,5 +7,7 @@
         public string DatabaseConnection { get; set; }
 
         public string WebAPIAddress { get; set; }
+
+        public string CachingWebAPIAddress { get; set; }
     }
 }

@@ -3,13 +3,15 @@ var router = new Router();
 var RedisClient = require('./dbFactory');
 
 function respond(request, response, next) {
-    var argId = request.params.id;
+    RedisClient.get("PostListing", function (err, reply) {
+        if (reply == null) {
+            return response.json('');
+        }
 
-    RedisClient.set(argId.toString(), 2);
+        return response.json(reply);
+    });
+};
 
-    return response.json({ message: true });
-}
-
-router.get('/v1/Posts', respond);
+router.get('/node/Posts', respond);
 
 module.exports = router;
