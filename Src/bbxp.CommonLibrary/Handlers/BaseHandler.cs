@@ -31,7 +31,7 @@ namespace bbxp.CommonLibrary.Handlers {
 
             return string.IsNullOrEmpty(arguments)
                 ? $"{webApiAddress}{BaseControllerName()}"
-                : $"{webApiAddress}{BaseControllerName()}?{arguments}";
+                : $"{webApiAddress}{BaseControllerName()}{arguments}";
         }
 
         internal async Task<TK> GetAsync<T, TK>(T obj) {
@@ -42,8 +42,16 @@ namespace bbxp.CommonLibrary.Handlers {
 
         public async Task<T> GetAsync<T>() => await GetAsync<T>(string.Empty);
 
+        private string cleanURL(string url) {
+            if (string.IsNullOrEmpty(url)) {
+                return url;
+            }
+
+            return url[0] + url.Substring(1).Replace("/", "_");
+        }
+
         protected async Task<T> GetAsync<T>(string urlArguments, bool useFallbackWebAPIAddress = false) {
-            var url = generateURL(urlArguments, useFallbackWebAPIAddress);
+            var url = generateURL(cleanURL(urlArguments), useFallbackWebAPIAddress);
 
             var str = await GetHttpClient().GetStringAsync(url);
 

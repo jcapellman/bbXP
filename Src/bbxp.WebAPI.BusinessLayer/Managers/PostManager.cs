@@ -82,7 +82,11 @@ namespace bbxp.WebAPI.BusinessLayer.Managers {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var post = eFactory.DGT_Posts.FirstOrDefault(a => a.RelativeURL == relativeURL);
 
-                return new ReturnSet<PostResponseItem>(generatePostModel(post));
+                var result = new ReturnSet<PostResponseItem>(generatePostModel(post));
+
+                rFactory.WriteJSON(relativeURL, result);
+
+                return result;
             }
         }
 

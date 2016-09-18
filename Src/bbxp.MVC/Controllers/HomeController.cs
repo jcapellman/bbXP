@@ -11,11 +11,14 @@ namespace bbxp.MVC.Controllers {
     public class HomeController : BaseController {
         public HomeController(IOptions<GlobalSettings> globalSettings) : base(globalSettings.Value) { }
 
-        public async Task<IActionResult> Index()
-        {
+        public async Task<IActionResult> Index() {
             var result = await new PostHandler(MANAGER_CONTAINER.GSetings).GetMainListing();
 
-            return View(result);
+            if (result.HasError) {
+                throw new Exception(result.ExceptionMessage);
+            }
+
+            return View(result.ReturnValue);
         }
 
         [Route("tag/{urlSafeTagName}")]

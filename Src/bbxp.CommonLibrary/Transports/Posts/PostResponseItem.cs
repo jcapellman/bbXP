@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+
 using Newtonsoft.Json;
 
-namespace bbxp.CommonLibrary.Transports.Posts {    
-    [DataContract]
+namespace bbxp.CommonLibrary.Transports.Posts {        
     public class PostResponseItem {        
-        [DataMember]
+        [JsonProperty("Title")]
         public string Title { get; set; }
         
-        [DataMember]
+        [JsonProperty("Body")]
         public string Body { get; set; }
 
-        [JsonProperty(ItemTypeNameHandling = TypeNameHandling.Auto, TypeNameHandling = TypeNameHandling.Auto)]
+        [JsonProperty("Tags")]
         public List<TagResponseItem> Tags { get; set; }
 
-        [DataMember]
+        [JsonProperty("PostDate")]
         public DateTime PostDate { get; set; } 
     }
 }

@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
-namespace bbxp.CommonLibrary.Common {
-    [DataContract]
+using Newtonsoft.Json;
+
+namespace bbxp.CommonLibrary.Common {    
     public class ReturnSet<T> {
-        [DataMember]
+        [JsonProperty("ReturnValue")]
         public T ReturnValue;
 
-        [DataMember]
+        [JsonProperty("ExceptionMessage")]
         public string ExceptionMessage;
 
         public bool HasError => !string.IsNullOrEmpty(ExceptionMessage);

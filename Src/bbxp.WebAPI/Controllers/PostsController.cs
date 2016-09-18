@@ -13,8 +13,9 @@ namespace bbxp.WebAPI.Controllers {
         [HttpGet]
         public ReturnSet<List<PostResponseItem>> GET() => new PostManager(MANAGER_CONTAINER).GetHomeListing();
 
-        [HttpGet("{urlArg}")]
-        public ReturnSet<PostResponseItem> GET(string urlArg) => new PostManager(MANAGER_CONTAINER).GetSinglePost(urlArg);
+        [HttpGet]
+        [Route("{urlArg}")]
+        public ReturnSet<PostResponseItem> GET(string urlArg) => new PostManager(MANAGER_CONTAINER).GetSinglePost(urlArg.Replace("_", "/"));
 
         public PostsController(IOptions<GlobalSettings> globalSettings) : base(globalSettings.Value) { }
     }

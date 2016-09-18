@@ -2,16 +2,37 @@
 var router = new Router();
 var RedisClient = require('./dbFactory');
 
-function respond(request, response, next) {
+function getListing(request, response, next) {
     RedisClient.get("PostListing", function (err, reply) {
         if (reply == null) {
             return response.json('');
         }
 
-        return response.json(reply);
+        response.writeHead(200, { 'Content-Type': 'application/json' });
+
+        response.end(reply);
+
+        return response;
     });
 };
 
-router.get('/node/Posts', respond);
+function getSinglePost(request, response, next) {
+    var urlArg = request.params.urlArg;
+
+    RedisClient.get(urlArg, function (err, reply) {        
+        if (reply == null) {
+            return response.json('');
+        }
+
+        response.writeHead(200, { 'Content-Type': 'application/json' });
+
+        response.end(reply);
+        
+        return response;
+    });
+};
+
+router.get('/node/Posts', getListing);
+router.get('/node/Posts/:urlArg', getSinglePost);
 
 module.exports = router;

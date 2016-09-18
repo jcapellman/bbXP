@@ -17,6 +17,8 @@ namespace bbxp.WebAPI.DataLayer {
             }
         }
 
+        private string cleanKey(string key) => key.Replace("/", "_");
+
         public async void WriteJSON<T>(string key, T objectValue) {
             var settings = new JsonSerializerSettings();
 
@@ -26,7 +28,7 @@ namespace bbxp.WebAPI.DataLayer {
 
             value = JToken.Parse(value).ToString();
 
-            await db.StringSetAsync(key, value, flags: CommandFlags.FireAndForget);
+            await db.StringSetAsync(cleanKey(key), value, flags: CommandFlags.FireAndForget);
         }
     }
 }
