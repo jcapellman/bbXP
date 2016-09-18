@@ -72,7 +72,9 @@ namespace bbxp.WebAPI.BusinessLayer.Managers {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var posts = eFactory.DGT_Posts.Where(a => a.SafeTagList.Contains(urlSafeTag)).OrderByDescending(a => a.PostDate).ToList();
 
-                return new ReturnSet<List<PostResponseItem>>(posts.Select(generatePostModel).ToList());
+                var result = new ReturnSet<List<PostResponseItem>>(posts.Select(generatePostModel).ToList());
+                
+                return result;
             }
         }
 
@@ -96,7 +98,11 @@ namespace bbxp.WebAPI.BusinessLayer.Managers {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var posts = eFactory.DGT_Posts.OrderByDescending(a => a.PostDate).Take(mContainer.GSetings.NumPostsToList).ToList();
 
-                return new ReturnSet<List<PostResponseItem>>(posts.Select(generatePostModel).ToList());
+                var result = new ReturnSet<List<PostResponseItem>>(posts.Select(generatePostModel).ToList());
+
+                rFactory.WriteJSON("PostListing", result);
+
+                return result;
             }
         }
 
