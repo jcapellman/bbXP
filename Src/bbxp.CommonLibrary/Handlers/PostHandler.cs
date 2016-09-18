@@ -13,7 +13,6 @@ namespace bbxp.CommonLibrary.Handlers {
 
         public async Task<ReturnSet<List<PostResponseItem>>> GetMainListing() => await GetAsync<ReturnSet<List<PostResponseItem>>>();
 
-        public async Task<ReturnSet<PostResponseItem>> GetSinglePost(string urlArg)
-            => await GetAsync<ReturnSet<PostResponseItem>>($"/{urlArg}");
+        public async Task<ReturnSet<PostResponseItem>> GetSinglePost(string urlArg) => await GetAsync<ReturnSet<PostResponseItem>>($"/{urlArg}");
     }
 }

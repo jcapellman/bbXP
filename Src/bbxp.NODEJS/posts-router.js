@@ -5,7 +5,7 @@ var RedisClient = require('./dbFactory');
 function getListing(request, response, next) {
     RedisClient.get("PostListing", function (err, reply) {
         if (reply == null) {
-            return response.json('');
+            return response.write('');
         }
 
         response.writeHead(200, { 'Content-Type': 'application/json' });
@@ -21,7 +21,11 @@ function getSinglePost(request, response, next) {
 
     RedisClient.get(urlArg, function (err, reply) {        
         if (reply == null) {
-            return response.json('');
+            response.writeHead(200, { 'Content-Type': 'application/json' });
+
+            response.end('');
+
+            return response;
         }
 
         response.writeHead(200, { 'Content-Type': 'application/json' });

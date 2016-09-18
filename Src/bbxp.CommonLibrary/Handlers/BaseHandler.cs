@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,7 +48,7 @@ namespace bbxp.CommonLibrary.Handlers {
                 return url;
             }
 
-            return url[0] + url.Substring(1).Replace("/", "_");
+            return url[0] + WebUtility.UrlEncode(url.Substring(1));
         }
 
         protected async Task<T> GetAsync<T>(string urlArguments, bool useFallbackWebAPIAddress = false) {

@@ -45,6 +45,7 @@ namespace bbxp.WebAPI.BusinessLayer.Managers {
                 Body = post.Body,
                 PostDate = post.PostDate,
                 Title = post.Title,
+                RelativeURL = post.RelativeURL,
                 Tags = new List<TagResponseItem>()
             };
 

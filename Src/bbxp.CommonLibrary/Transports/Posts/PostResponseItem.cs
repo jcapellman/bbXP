@@ -8,6 +8,9 @@ namespace bbxp.CommonLibrary.Transports.Posts {
         [JsonProperty("Title")]
         public string Title { get; set; }
         
+        [JsonProperty("RelativeURL")]
+        public string RelativeURL { get; set; }
+
         [JsonProperty("Body")]
         public string Body { get; set; }
 
