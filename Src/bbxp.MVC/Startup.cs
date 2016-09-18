@@ -26,11 +26,12 @@ namespace bbxp.MVC {
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory) {
-            app.UseExceptionHandler("/Home/Error");
+        //    app.UseExceptionHandler("/Home/Error");
 
             app.UseStaticFiles();
-            app.UseHTTPRequestLogger();
+        //    app.UseHTTPRequestLogger();
 
+            app.UseDeveloperExceptionPage();
             app.UseMvcWithDefaultRoute();
         }
     }

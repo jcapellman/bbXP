@@ -10,10 +10,9 @@ namespace bbxp.WebAPI {
     public class Startup {
         public Startup(IHostingEnvironment env) {
             var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
+               .SetBasePath(env.ContentRootPath)
+               .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+               .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
 
@@ -24,7 +23,10 @@ namespace bbxp.WebAPI {
             services.AddMvc();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory) {
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        {
+            app.UseStaticFiles();
+            app.UseDeveloperExceptionPage();
             app.UseMvcWithDefaultRoute();
         }
     }

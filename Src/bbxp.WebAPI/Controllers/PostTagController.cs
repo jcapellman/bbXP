@@ -7,6 +7,7 @@ using bbxp.CommonLibrary.Transports.Posts;
 using bbxp.WebAPI.BusinessLayer.Managers;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace bbxp.WebAPI.Controllers {    
     public class PostTagController : BaseController {
@@ -14,6 +15,6 @@ namespace bbxp.WebAPI.Controllers {
         public ReturnSet<List<PostResponseItem>> GET(string tag)
             => new PostManager(MANAGER_CONTAINER).GetPostsFromTag(tag);
 
-        public PostTagController(GlobalSettings globalSettings) : base(globalSettings) { }
+        public PostTagController(IOptions<GlobalSettings> globalSettings) : base(globalSettings.Value) { }
     }
 }

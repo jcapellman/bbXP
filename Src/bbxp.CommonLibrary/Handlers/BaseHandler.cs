@@ -43,15 +43,15 @@ namespace bbxp.CommonLibrary.Handlers {
         public async Task<T> GetAsync<T>() => await GetAsync<T>(string.Empty);
 
         protected async Task<T> GetAsync<T>(string urlArguments, bool useFallbackWebAPIAddress = false) {
-            var url = generateURL(urlArguments);
+            var url = generateURL(urlArguments, useFallbackWebAPIAddress);
 
             var str = await GetHttpClient().GetStringAsync(url);
 
             if (string.IsNullOrEmpty(str) && !useFallbackWebAPIAddress) {
                 return await GetAsync<T>(urlArguments, true);
             }
-
-            return JsonConvert.DeserializeObject<T>(str);
+            
+            return (T)JsonConvert.DeserializeObject<T>(str);
         }
 
         protected async void GetAsync(string urlArguments) {

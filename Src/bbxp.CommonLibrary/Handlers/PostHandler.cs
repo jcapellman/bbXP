@@ -9,7 +9,7 @@ namespace bbxp.CommonLibrary.Handlers {
     public class PostHandler : BaseHandler {
         public PostHandler(GlobalSettings globalSettings) : base(globalSettings) { }
 
-        protected override string BaseControllerName() => "Post";
+        protected override string BaseControllerName() => "Posts";
 
         public async Task<ReturnSet<List<PostResponseItem>>> GetMainListing() => await GetAsync<ReturnSet<List<PostResponseItem>>>();
 

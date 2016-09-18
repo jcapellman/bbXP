@@ -7,6 +7,7 @@ using bbxp.CommonLibrary.Transports.Posts;
 using bbxp.WebAPI.BusinessLayer.Managers;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace bbxp.WebAPI.Controllers {    
     public class SearchController : BaseController {
@@ -14,6 +15,6 @@ namespace bbxp.WebAPI.Controllers {
         public ReturnSet<List<PostResponseItem>> GET(string query)
             => new PostManager(MANAGER_CONTAINER).SearchPosts(query);
 
-        public SearchController(GlobalSettings globalSettings) : base(globalSettings) { }
+        public SearchController(IOptions<GlobalSettings> globalSettings) : base(globalSettings.Value) { }
     }
 }

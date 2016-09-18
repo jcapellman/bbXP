@@ -7,6 +7,7 @@ using bbxp.CommonLibrary.Transports.PostArchive;
 using bbxp.WebAPI.BusinessLayer.Managers;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace bbxp.WebAPI.Controllers {    
     public class PostArchiveController : BaseController {
@@ -14,6 +15,6 @@ namespace bbxp.WebAPI.Controllers {
         public ReturnSet<List<PostArchiveListingResponseItem>> GET()
             => new PostArchiveManager(MANAGER_CONTAINER).GetArchives();
 
-        public PostArchiveController(GlobalSettings globalSettings) : base(globalSettings) { }
+        public PostArchiveController(IOptions<GlobalSettings> globalSettings) : base(globalSettings.Value) { }
     }
 }

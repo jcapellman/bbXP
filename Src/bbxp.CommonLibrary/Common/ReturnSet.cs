@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace bbxp.CommonLibrary.Common {
+    [DataContract]
     public class ReturnSet<T> {
+        [DataMember]
         public T ReturnValue;
 
+        [DataMember]
         public string ExceptionMessage;
 
         public bool HasError => !string.IsNullOrEmpty(ExceptionMessage);

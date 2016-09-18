@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-
+using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
 
 namespace bbxp.WebAPI.DataLayer {
@@ -18,7 +18,13 @@ namespace bbxp.WebAPI.DataLayer {
         }
 
         public async void WriteJSON<T>(string key, T objectValue) {
-            var value = JsonConvert.SerializeObject(objectValue);
+            var settings = new JsonSerializerSettings();
+
+            settings.StringEscapeHandling = StringEscapeHandling.Default;
+
+            var value = JsonConvert.SerializeObject(objectValue, Formatting.None, settings);
+
+            value = JToken.Parse(value).ToString();
 
             await db.StringSetAsync(key, value, flags: CommandFlags.FireAndForget);
         }
