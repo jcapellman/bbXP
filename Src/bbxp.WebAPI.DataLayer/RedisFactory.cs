@@ -1,5 +1,5 @@
 ﻿using System;
-
+using bbxp.PCL.Enums;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -19,13 +19,12 @@ namespace bbxp.WebAPI.DataLayer {
                 db = redis.GetDatabase();
             }
         }
-        
+
+        public void WriteJSON<T>(MainCacheKeys cacheKey, T objectValue)
+            => WriteJSON(cacheKey.ToString(), objectValue);
+
         public async void WriteJSON<T>(string key, T objectValue) {
-            var settings = new JsonSerializerSettings();
-
-            settings.StringEscapeHandling = StringEscapeHandling.Default;
-
-            var value = JsonConvert.SerializeObject(objectValue, Formatting.None, settings);
+            var value = JsonConvert.SerializeObject(objectValue, Formatting.None);
 
             value = JToken.Parse(value).ToString();
 

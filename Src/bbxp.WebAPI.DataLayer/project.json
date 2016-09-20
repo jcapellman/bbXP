@@ -12,6 +12,11 @@
 
   "frameworks": {
     "netstandard1.6": {
+      "dependencies": {
+        "bbxp.PCL": {
+          "target": "project"
+        }
+      },
       "imports": "dnxcore50"
     }
   }

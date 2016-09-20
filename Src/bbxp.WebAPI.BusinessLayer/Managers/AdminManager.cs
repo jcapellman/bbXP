@@ -1,9 +1,8 @@
 ﻿using System.Linq;
 using bbxp.PCL.Containers;
-using bbxp.WebAPI.BusinessLayer.Managers;
 using bbxp.WebAPI.DataLayer.Entities;
 
-namespace bbxp.MVC.Managers {
+namespace bbxp.WebAPI.BusinessLayer.Managers {
     public class AdminManager : BaseManager {
         public AdminManager(ManagerContainer container) : base(container) { }
 

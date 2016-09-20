@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Common\ReturnSet.cs" />
     <Compile Include="Containers\ManagerContainer.cs" />
+    <Compile Include="Enums\MainCacheKeys.cs" />
     <Compile Include="Handlers\BaseHandler.cs" />
     <Compile Include="Handlers\ContentHandler.cs" />
     <Compile Include="Handlers\PageStatsHandler.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="Handlers\SearchHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\GlobalSettings.cs" />
+    <Compile Include="Transports\AdminPost\AdminPostRequestItem.cs" />
     <Compile Include="Transports\Auth\LoginRequestItem.cs" />
     <Compile Include="Transports\Content\ContentResponseItem.cs" />
     <Compile Include="Transports\PageStats\PageRequestStatsResponseItem.cs" />

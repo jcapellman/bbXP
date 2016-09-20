@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
 using bbxp.PCL.Common;
 using bbxp.PCL.Containers;
+using bbxp.PCL.Enums;
 using bbxp.PCL.Transports.PostArchive;
+
 using bbxp.WebAPI.DataLayer.Entities;
 
 namespace bbxp.WebAPI.BusinessLayer.Managers {
@@ -19,7 +22,7 @@ namespace bbxp.WebAPI.BusinessLayer.Managers {
                     DateString = a.DateString
                 }).ToList());
 
-                rFactory.WriteJSON("PostArchive", response);
+                rFactory.WriteJSON(MainCacheKeys.PostArchive, response);
 
                 return response;
             }

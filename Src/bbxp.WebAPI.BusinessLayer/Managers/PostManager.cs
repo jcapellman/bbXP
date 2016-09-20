@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using bbxp.PCL.Common;
 using bbxp.PCL.Containers;
+using bbxp.PCL.Enums;
 using bbxp.PCL.Transports.Posts;
 using bbxp.WebAPI.DataLayer.Entities;
 using bbxp.WebAPI.DataLayer.Entities.Objects.Table;
@@ -78,6 +79,14 @@ namespace bbxp.WebAPI.BusinessLayer.Managers {
             }
         }
 
+        public ReturnSet<PostResponseItem> GetSinglePost(int postID) {
+            using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
+                var post = eFactory.DGT_Posts.FirstOrDefault(a => a.ID == postID);
+
+                return new ReturnSet<PostResponseItem>(generatePostModel(post));
+            }
+        }
+
         public ReturnSet<PostResponseItem> GetSinglePost(string relativeURL) {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var post = eFactory.DGT_Posts.FirstOrDefault(a => a.RelativeURL == relativeURL);
@@ -108,7 +117,7 @@ namespace bbxp.WebAPI.BusinessLayer.Managers {
 
                 var result = new ReturnSet<List<PostResponseItem>>(posts.Select(generatePostModel).ToList());
 
-                rFactory.WriteJSON("PostListing", result);
+                rFactory.WriteJSON(MainCacheKeys.PostListing, result);
 
                 return result;
             }
