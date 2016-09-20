@@ -11,9 +11,12 @@ namespace bbxp.UWP.Views {
 
         public Type PageType { get; set; }
 
+        public string Parameter { get; set; }
+
         public static List<MenuItem> GetMainItems() {
             var items = new List<MenuItem> {
                     new MenuItem() {Icon = Symbol.Home, Name = "Home", PageType = typeof (Views.MainListingPage)},
+                    new MenuItem() {Icon = Symbol.People, Name = "About Me", PageType = typeof (Views.ContentPage), Parameter = "About-Me"},
                 };
 
             return items;
@@ -36,7 +39,7 @@ namespace bbxp.UWP.Views {
                 return;
             }
 
-            fMain.Navigate(clickedItem.PageType);
+            fMain.Navigate(clickedItem.PageType, clickedItem.Parameter);
         }
     }
 }

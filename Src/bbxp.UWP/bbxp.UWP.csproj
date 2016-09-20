@@ -95,6 +95,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ContentViewModel.cs" />
+    <Compile Include="Views\ContentPage.xaml.cs">
+      <DependentUpon>ContentPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BasePage.cs" />
     <Compile Include="Views\MainListingPage.xaml.cs">
       <DependentUpon>MainListingPage.xaml</DependentUpon>
@@ -127,6 +131,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Views\ContentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainListingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
