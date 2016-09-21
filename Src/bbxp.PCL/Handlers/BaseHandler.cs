@@ -67,7 +67,11 @@ namespace bbxp.PCL.Handlers {
                     return await GetAsync<T>(urlArguments, true);
                 }
 
-                return new ReturnSet<T>(ex);
+                dynamic response = Activator.CreateInstance(typeof (T));
+
+                response.Exception = ex.ToString();
+
+                return response;
             }
         }
 
