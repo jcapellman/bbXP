@@ -51,16 +51,24 @@ namespace bbxp.PCL.Handlers {
             return url[0] + WebUtility.UrlEncode(url.Substring(1));
         }
 
-        protected async Task<T> GetAsync<T>(string urlArguments, bool useFallbackWebAPIAddress = false) {
-            var url = generateURL(cleanURL(urlArguments), useFallbackWebAPIAddress);
+        protected async Task<dynamic> GetAsync<T>(string urlArguments, bool useFallbackWebAPIAddress = false) {
+            try {
+                var url = generateURL(cleanURL(urlArguments), useFallbackWebAPIAddress);
 
-            var str = await GetHttpClient().GetStringAsync(url);
+                var str = await GetHttpClient().GetStringAsync(url);
 
-            if (string.IsNullOrEmpty(str) && !useFallbackWebAPIAddress) {
-                return await GetAsync<T>(urlArguments, true);
+                if (string.IsNullOrEmpty(str) && !useFallbackWebAPIAddress) {
+                    return await GetAsync<T>(urlArguments, true);
+                }
+
+                return (T)JsonConvert.DeserializeObject<T>(str);
+            } catch (Exception ex) {
+                if (!useFallbackWebAPIAddress) {
+                    return await GetAsync<T>(urlArguments, true);
+                }
+
+                return new ReturnSet<T>(ex);
             }
-            
-            return (T)JsonConvert.DeserializeObject<T>(str);
         }
 
         protected async void GetAsync(string urlArguments) {
