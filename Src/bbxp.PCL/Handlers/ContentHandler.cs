@@ -9,6 +9,6 @@ namespace bbxp.PCL.Handlers {
 
         protected override string BaseControllerName() => "Content";
 
-        public async Task<ReturnSet<ContentResponseItem>> GetContent(string urlArg) => await GetAsync<ReturnSet<ContentResponseItem>>($"urlArg={urlArg}");        
+        public async Task<ReturnSet<ContentResponseItem>> GetContent(string urlArg) => await GetAsync<ReturnSet<ContentResponseItem>>($"/{urlArg}");        
     }
 }

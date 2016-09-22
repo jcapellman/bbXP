@@ -14,6 +14,10 @@ namespace bbxp.WebAPI.BusinessLayer.Managers {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var content = eFactory.Content.FirstOrDefault(a => a.URLSafename == urlSafeName && a.Active);
 
+                if (content == null) {
+                    return new ReturnSet<ContentResponseItem>($"{urlSafeName} cannot be found");
+                }
+
                 var response = new ReturnSet<ContentResponseItem>(new ContentResponseItem { Body = content.Body, Title = content.Title });
 
                 rFactory.WriteJSON(content.URLSafename, response);

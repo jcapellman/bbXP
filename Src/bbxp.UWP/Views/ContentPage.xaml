@@ -5,7 +5,12 @@
     xmlns:local="using:bbxp.UWP.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:bbxp.UWP.ViewModels"
     mc:Ignorable="d">
+
+    <Page.DataContext>
+        <viewModels:ContentViewModel />
+    </Page.DataContext>
 
     <Grid Style="{StaticResource GridPageBackground}">
         <Grid.RowDefinitions>
@@ -14,9 +19,13 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Style="{StaticResource PostTitleGrid}" Margin="10,5,10,5">
-            <TextBlock Text="{x:Bind viewModel.Content.Title}" Style="{StaticResource PageHeaderText}" />
+            <TextBlock Text="{Binding Content.Title}" Style="{StaticResource PageHeaderText}" />
         </Grid>
 
-        <TextBlock Grid.Row="1" Text="{x:Bind viewModel.Content.Body}" Style="{StaticResource PostBody}" />
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <Grid Background="Black" Margin="10,10,10,10">
+                <TextBlock Text="{Binding Content.Body}" Style="{StaticResource PostBody}" />
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Page>

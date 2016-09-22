@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 namespace bbxp.WebAPI.Controllers {    
     public class ContentController : BaseController {
         [HttpGet]
+        [Route("{urlArg}")]
         public ReturnSet<ContentResponseItem> GET(string urlArg) => new ContentManager(MANAGER_CONTAINER).GetContent(urlArg);
 
         public ContentController(IOptions<GlobalSettings> globalSettings) : base(globalSettings.Value) { }
