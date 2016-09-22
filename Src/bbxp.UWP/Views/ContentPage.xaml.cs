@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System;
+using System.Net.Http;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 using bbxp.UWP.ViewModels;
@@ -18,8 +20,8 @@ namespace bbxp.UWP.Views {
 
             var result = await viewModel.LoadData(urlArg);
 
-            if (!result) {
-
+            if (result) {
+                wvMain.NavigateToString(viewModel.Content.Body);
             }
         }
     }

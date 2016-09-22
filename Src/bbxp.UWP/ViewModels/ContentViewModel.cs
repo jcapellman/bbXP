@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 using bbxp.PCL.Handlers;
@@ -13,6 +14,8 @@ namespace bbxp.UWP.ViewModels {
             set { _contentResponseItem = value; OnPropertyChanged(); }
         }
 
+        private async Task<string> GetCSS(string url) => await new HttpClient().GetStringAsync(url);
+        
         public async Task<bool> LoadData(string urlArg) {
             var contentHandler = new ContentHandler(gSettings);
 
@@ -23,6 +26,12 @@ namespace bbxp.UWP.ViewModels {
             }
 
             Content = content.ReturnValue;
+
+            var bootStrap = await GetCSS("http://www.jarredcapellman.com/lib/bootstrap/dist/css/bootstrap.min.css");
+
+            var siteCSS = await GetCSS("http://www.jarredcapellman.com/css/site.min.css?v=28d7-GIU5eioseEXBdSMHG0se-bH1hLCc0xSNO58Rek");
+
+            Content.Body = $"<head><meta name=\"viewport\" content=\"width = device - width, initial - scale = 1.0\" /><style type='text/css'>{bootStrap}{siteCSS}</style></head><body><div class=\"container body-content\"><div id=\"PostContainer\"><div id=\"ContentContainer\">{Content.Body}</div></div></div></body>";
 
             return true;
         }

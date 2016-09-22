@@ -43,5 +43,9 @@
         <Style TargetType="Grid" x:Key="PostTitleGrid">
             <Setter Property="Background" Value="#202020" />
         </Style>
+
+        <Style TargetType="WebView" x:Key="ContentView">
+            <Setter Property="Margin" Value="10,10,10,10" />
+        </Style>
     </Application.Resources>
 </Application>
