@@ -51,6 +51,8 @@ namespace bbxp.PCL.Handlers {
             return url[0] + WebUtility.UrlEncode(url.Substring(1));
         }
 
+        protected async Task<string> GetBaseAsync<T>(string urlArguments) => await GetHttpClient().GetStringAsync($"{_gSettings.WebAddress}{BaseControllerName()}");
+
         protected async Task<dynamic> GetAsync<T>(string urlArguments, bool useFallbackWebAPIAddress = false) {
             try {
                 var url = generateURL(cleanURL(urlArguments), useFallbackWebAPIAddress);

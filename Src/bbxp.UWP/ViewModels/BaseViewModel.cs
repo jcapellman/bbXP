@@ -7,7 +7,8 @@ namespace bbxp.UWP.ViewModels {
     public class BaseViewModel : INotifyPropertyChanged {
         protected GlobalSettings gSettings = new GlobalSettings {
             WebAPIAddress = "http://localhost:1337/api/",
-            CachingWebAPIAddress = "http://localhost:1338/node/"
+            CachingWebAPIAddress = "http://localhost:1338/node/",
+            WebAddress = "http://localhost:1025/"
         };
 
         public event PropertyChangedEventHandler PropertyChanged;

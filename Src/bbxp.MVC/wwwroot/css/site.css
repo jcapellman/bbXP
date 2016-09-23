@@ -41,6 +41,11 @@ body {
     padding-bottom: 20px;
 }
 
+.bodyMobile {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
 .body-content {
     padding-left: 15px;
     padding-right: 15px;

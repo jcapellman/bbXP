@@ -11,5 +11,7 @@
         public string CachingWebAPIAddress { get; set; }
 
         public string RedisDatabaseConnection { get; set; }
+
+        public string WebAddress { get; set; }
     }
 }
