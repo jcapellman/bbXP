@@ -7,7 +7,7 @@ using bbxp.PCL.Transports.Content;
 namespace bbxp.UWP.ViewModels {
     public class ContentViewModel : BaseViewModel {
         private ContentResponseItem _contentResponseItem;
-
+        
         public ContentResponseItem Content {
             get { return _contentResponseItem; }
             set { _contentResponseItem = value; OnPropertyChanged(); }

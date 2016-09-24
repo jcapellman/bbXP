@@ -50,6 +50,7 @@
     <Compile Include="Handlers\PostHandler.cs" />
     <Compile Include="Handlers\PostTagHandler.cs" />
     <Compile Include="Handlers\SearchHandler.cs" />
+    <Compile Include="PlatformAbstractions\ILocalStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\GlobalSettings.cs" />
     <Compile Include="Transports\AdminPost\AdminPostRequestItem.cs" />
