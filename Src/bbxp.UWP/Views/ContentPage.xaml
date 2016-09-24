@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="using:bbxp.UWP.ViewModels"
-    xmlns:helpers="using:bbxp.UWP.Helpers"
+    xmlns:userControls="using:bbxp.UWP.UserControls"
     mc:Ignorable="d">
 
     <Page.DataContext>
@@ -23,12 +23,6 @@
             <TextBlock Text="{Binding Content.Title}" Style="{StaticResource PageHeaderText}" />
         </Grid>
 
-        <WebView Grid.Row="1" x:Name="wvMain" Style="{StaticResource ContentView}" />
-        <!--
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-            <Grid Background="Black" Margin="10,10,10,10">
-                
-            </Grid>
-        </ScrollViewer> -->
+        <userControls:HTMLRenderView Grid.Row="1" ContentBody="{Binding Content.Body}" URL="{Binding GSettings.WebAddress}" />
     </Grid>
 </Page>

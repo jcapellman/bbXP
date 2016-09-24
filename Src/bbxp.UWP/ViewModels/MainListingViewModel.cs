@@ -15,7 +15,7 @@ namespace bbxp.UWP.ViewModels {
         }
 
         public async Task<bool> LoadData() {
-            var postHandler = new PostHandler(gSettings);
+            var postHandler = new PostHandler(GSettings);
 
             var posts = await postHandler.GetMainListing();
 

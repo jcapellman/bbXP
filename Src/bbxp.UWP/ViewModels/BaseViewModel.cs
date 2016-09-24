@@ -5,7 +5,7 @@ using bbxp.PCL.Settings;
 
 namespace bbxp.UWP.ViewModels {
     public class BaseViewModel : INotifyPropertyChanged {
-        protected GlobalSettings gSettings = new GlobalSettings {
+        public GlobalSettings GSettings = new GlobalSettings {
             WebAPIAddress = "http://localhost:1337/api/",
             CachingWebAPIAddress = "http://localhost:1338/node/",
             WebAddress = "http://localhost:1025/"

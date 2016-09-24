@@ -1,6 +1,4 @@
-﻿using System;
-using System.Net.Http;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 using bbxp.UWP.ViewModels;
@@ -17,12 +15,8 @@ namespace bbxp.UWP.Views {
 
         protected override async void OnNavigatedTo(NavigationEventArgs e) {
             var urlArg = e.Parameter.ToString();
-
+            
             var result = await viewModel.LoadData(urlArg);
-
-            if (result) {
-                wvMain.NavigateToString(viewModel.Content.Body);
-            }
         }
     }
 }

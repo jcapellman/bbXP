@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 
 using bbxp.PCL.Handlers;
-using bbxp.PCL.Helpers;
 using bbxp.PCL.Transports.Content;
 
 namespace bbxp.UWP.ViewModels {
@@ -15,7 +14,7 @@ namespace bbxp.UWP.ViewModels {
         }
         
         public async Task<bool> LoadData(string urlArg) {
-            var contentHandler = new ContentHandler(gSettings);
+            var contentHandler = new ContentHandler(GSettings);
 
             var content = await contentHandler.GetContent(urlArg);
 
@@ -24,11 +23,7 @@ namespace bbxp.UWP.ViewModels {
             }
 
             Content = content.ReturnValue;
-
-            var cssHelper = new CSSContentHelper();
             
-            Content.Body = await cssHelper.GetFullContent(gSettings, Content.Body);
-
             return true;
         }
     }
