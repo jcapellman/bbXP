@@ -1,9 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Newtonsoft.Json;
 
 namespace bbxp.PCL.Transports.Posts {        
-    public class PostResponseItem {        
+    public class PostResponseItem {
+        public PostResponseItem() { }
+
+        public PostResponseItem(PostResponseItem post) {
+            Title = post.Title;
+            RelativeURL = post.RelativeURL;
+            Body = post.Body;
+            Tags = post.Tags;
+            PostDate = post.PostDate;
+        }
+
+        public string ToUpper(string str) => str.ToUpper();
+
         [JsonProperty("Title")]
         public string Title { get; set; }
         

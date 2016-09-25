@@ -44,6 +44,7 @@ body {
 .bodyMobile {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
+    background-color: #0e0e0e;
 }
 
 .body-content {
@@ -138,6 +139,11 @@ footer p {
     margin-bottom: 10px;
 }
 
+#PostMobileContainer {
+    margin-bottom: 0;
+    background-color: #3e3e3e;
+}
+
 #PostContainer #Header {
     height: 40px;
     background-color: #1e1e1e;
@@ -171,6 +177,13 @@ footer p {
     margin-top: 0 !important;
     margin-bottom: 0 !important;    
     padding: 5px 10px 10px 10px;
+}
+
+#PostMobileContainer #ContentMobileContainer {
+    background-color: #0e0e0e;    
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;    
+    padding: 5px 10px 0px 10px;
 }
 
 #PostContainer #TagsContainer {

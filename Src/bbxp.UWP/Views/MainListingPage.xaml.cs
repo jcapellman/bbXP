@@ -1,5 +1,6 @@
-﻿using System.Linq;
-
+﻿using System;
+using System.Linq;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -23,15 +24,17 @@ namespace bbxp.UWP.Views {
              //   ShowMessage("Could not load posts");
             }
         }
+        
+        private async void lvPostListing_RefreshCommand(object sender, EventArgs e) {
+            await viewModel.LoadData();
+        }
 
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            var selectedItem = e.AddedItems.FirstOrDefault();
-
-            if (selectedItem == null) {
+        private void lvPostListing_SelectionChanged(object sender, RoutedEventArgs e) {
+            if (viewModel.SelectedPost == null) {
                 return;
             }
 
-            viewModel.SelectedPost = (PostResponseItem)selectedItem;
+            Frame.Navigate(typeof (PostContentPage), viewModel.GetOriginalPost());
         }
     }
 }

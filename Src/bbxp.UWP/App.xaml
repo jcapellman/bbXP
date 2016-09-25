@@ -50,16 +50,21 @@
         </Style>
 
         <Style TargetType="userControls:HTMLRenderView" x:Key="HTMLRenderViewMainListing">
-          <Setter Property="Height" Value="200" />
+            <Setter Property="Height" Value="120" />
+        </Style>
+
+        <Style TargetType="Grid" x:Key="PostContainer">
+            <Setter Property="Margin" Value="0,10,0,10" />
+            <Setter Property="Background" Value="#0e0e0e" />
         </Style>
 
         <Style TargetType="TextBlock" x:Key="SiteName">
             <Setter Property="Foreground" Value="#00CC00" />
-            <Setter Property="FontSize" Value="30" />
+            <Setter Property="FontSize" Value="20" />
             <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="TextWrapping" Value="WrapWholeWords" />
-            <Setter Property="Margin" Value="10,5,5,5" />
+            <Setter Property="Margin" Value="10,0,0,0" />
         </Style>
     </Application.Resources>
 </Application>

@@ -100,6 +100,7 @@
       <DependentUpon>HTMLRenderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ContentViewModel.cs" />
+    <Compile Include="ViewModels\PostContentViewModel.cs" />
     <Compile Include="Views\ContentPage.xaml.cs">
       <DependentUpon>ContentPage.xaml</DependentUpon>
     </Compile>
@@ -113,6 +114,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\MainListingViewModel.cs" />
+    <Compile Include="Views\PostContentPage.xaml.cs">
+      <DependentUpon>PostContentPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -150,6 +154,10 @@
     <Page Include="Views\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PostContentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

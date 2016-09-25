@@ -15,6 +15,10 @@ namespace bbxp.PCL.Common {
             ReturnValue = obj;
         }
 
+        public ReturnSet(string exception = null) {
+            ExceptionMessage = exception;
+        }
+
         public ReturnSet(Exception ex) {
             ExceptionMessage = ex.ToString();
         }
