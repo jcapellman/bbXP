@@ -22,8 +22,12 @@ namespace bbxp.UWP.ViewModels {
                 throw new Exception(content.ExceptionMessage);
             }
 
-            Content = content.ReturnValue;
-            
+            var finalContent = content.ReturnValue;
+
+            finalContent.Body = await GenerateFinalRender(finalContent.Body);
+
+            Content = finalContent;
+
             return true;
         }
     }

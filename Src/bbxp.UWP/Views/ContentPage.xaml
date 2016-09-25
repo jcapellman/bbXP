@@ -23,6 +23,6 @@
             <TextBlock Text="{Binding Content.Title}" Style="{StaticResource PageHeaderText}" />
         </Grid>
 
-        <userControls:HTMLRenderView Grid.Row="1" ContentBody="{Binding Content.Body}" URL="{Binding GSettings.WebAddress}" />
+        <userControls:HTMLRenderView Grid.Row="1" ContentBody="{Binding Content.Body}" />
     </Grid>
 </Page>

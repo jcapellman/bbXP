@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="using:bbxp.UWP.ViewModels"
     xmlns:posts="using:bbxp.PCL.Transports.Posts"
+    xmlns:userControls="using:bbxp.UWP.UserControls"
     mc:Ignorable="d">
 
     <Grid Style="{StaticResource GridPageBackground}">
@@ -44,7 +45,7 @@
                             <TextBlock Grid.Column="1" Text="{x:Bind PostDate}" Style="{StaticResource PostDate}" />
                         </Grid>
 
-                        <TextBlock Grid.Row="1" Text="{x:Bind Body}" Style="{StaticResource PostBody}" />
+                        <userControls:HTMLRenderView Grid.Row="1" Height="300" ContentBody="{Binding Body}" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

@@ -22,7 +22,11 @@ namespace bbxp.UWP.ViewModels {
             if (posts.HasError) {
                 throw new Exception(posts.ExceptionMessage);
             }
-            
+
+            foreach (var item in posts.ReturnValue) {
+                item.Body = await GenerateFinalRender(item.Body);
+            }
+
             Posts = new ObservableCollection<PostResponseItem>(posts.ReturnValue);
 
             return true;

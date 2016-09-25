@@ -21,7 +21,19 @@ namespace bbxp.UWP.ViewModels {
 
         public BaseViewModel() { _localStorage = new LocalStorage(); }
 
-        public async Task<ReturnSet<string>> GetCSSContent() {
+        protected async Task<string> GenerateFinalRender(string content)
+        {
+            var cssContent = await getCSSContent();
+
+            if (cssContent.HasError) {
+                throw new Exception(cssContent.ExceptionMessage);
+            }
+
+            return
+                $"<head><meta name=\"viewport\" content=\"width = device - width, initial - scale = 1.0\" /><style type='text/css'>{cssContent.ReturnValue}</style></head><body class=\"bodyMobile\"><div id=\"PostContainer\"><div id=\"ContentContainer\">{content}</div></div></body>";
+        }
+
+        private async Task<ReturnSet<string>> getCSSContent() {
             var localFile = await _localStorage.ReadFile<string>("CSSContent");
 
             if (!string.IsNullOrEmpty(localFile)) {
