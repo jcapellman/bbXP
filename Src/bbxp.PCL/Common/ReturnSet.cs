@@ -18,11 +18,7 @@ namespace bbxp.PCL.Common {
         public ReturnSet(Exception ex) {
             ExceptionMessage = ex.ToString();
         }
-
-        public ReturnSet(string exception) {
-            ExceptionMessage = exception;
-        }
-
+        
         public ReturnSet() { }
     }
 }

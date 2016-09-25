@@ -71,7 +71,7 @@ namespace bbxp.PCL.Handlers {
 
                 dynamic response = Activator.CreateInstance(typeof (T));
 
-                response.Exception = ex.ToString();
+                response.ExceptionMessage = ex.ToString();
 
                 return response;
             }

@@ -1,7 +1,10 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System.Linq;
+
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 using bbxp.UWP.ViewModels;
+using bbxp.PCL.Transports.Posts;
 
 namespace bbxp.UWP.Views {
     public sealed partial class MainListingPage : Page {
@@ -19,6 +22,16 @@ namespace bbxp.UWP.Views {
             if (!result) {
              //   ShowMessage("Could not load posts");
             }
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            var selectedItem = e.AddedItems.FirstOrDefault();
+
+            if (selectedItem == null) {
+                return;
+            }
+
+            viewModel.SelectedPost = (PostResponseItem)selectedItem;
         }
     }
 }

@@ -14,6 +14,20 @@ namespace bbxp.UWP.ViewModels {
             set { _posts = value; OnPropertyChanged(); }
         }
 
+        private bool _SelectedPostPopupOpen;
+
+        public bool SelectedPostPopupOpen {
+            get { return _SelectedPostPopupOpen; }
+            set { _SelectedPostPopupOpen = value;  OnPropertyChanged(); }
+        }
+
+        private PostResponseItem _selectedPost;
+
+        public PostResponseItem SelectedPost {
+            get { return _selectedPost; }
+            set { _selectedPost = value;  OnPropertyChanged();  if (value != null) { SelectedPostPopupOpen = true; } }
+        }
+
         public async Task<bool> LoadData() {
             var postHandler = new PostHandler(GSettings);
 

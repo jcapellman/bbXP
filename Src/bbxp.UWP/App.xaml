@@ -2,6 +2,7 @@
     x:Class="bbxp.UWP.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:userControls="using:bbxp.UWP.UserControls"
     xmlns:local="using:bbxp.UWP"
     RequestedTheme="Dark">
     <Application.Resources>
@@ -46,6 +47,19 @@
 
         <Style TargetType="WebView" x:Key="ContentView">
             <Setter Property="Margin" Value="10,10,10,10" />
+        </Style>
+
+        <Style TargetType="userControls:HTMLRenderView" x:Key="HTMLRenderViewMainListing">
+          <Setter Property="Height" Value="200" />
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="SiteName">
+            <Setter Property="Foreground" Value="#00CC00" />
+            <Setter Property="FontSize" Value="30" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="TextWrapping" Value="WrapWholeWords" />
+            <Setter Property="Margin" Value="10,5,5,5" />
         </Style>
     </Application.Resources>
 </Application>

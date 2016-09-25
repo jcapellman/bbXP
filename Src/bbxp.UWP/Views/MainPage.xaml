@@ -20,6 +20,7 @@
         </DataTemplate>
     </Page.Resources>
     <Grid Background="#000000">
+
         <controls:HamburgerMenu Foreground="White" x:Name="hmMain"
             ItemClick="hmMain_ItemClick"
             ItemTemplate="{StaticResource DefaultTemplate}"
@@ -28,7 +29,18 @@
 	        CompactPaneLength="48"
 	        HamburgerHeight="48"
 	        IsPaneOpen="False">
-            <Frame Grid.Row="1" Margin="0,0,0,0" Background="#2e2e2e" x:Name="fMain" />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Padding="0,10,0,10">
+                    <TextBlock Text="Jarred Capellman" Style="{StaticResource SiteName}" />
+                </Grid>
+
+                <Frame Grid.Row="1" Margin="0,0,0,0" Background="#2e2e2e" x:Name="fMain" />
+            </Grid>
         </controls:HamburgerMenu>
     </Grid>
 </Page>
