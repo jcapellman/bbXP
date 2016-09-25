@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using bbxp.PCL.Common;
 using bbxp.PCL.Settings;
 using bbxp.PCL.Transports.Posts;
@@ -10,6 +11,6 @@ namespace bbxp.PCL.Handlers {
 
         protected override string BaseControllerName() => "Search";
 
-        public async Task<ReturnSet<List<PostResponseItem>>> SearchPosts(string query) => await GetAsync<ReturnSet<List<PostResponseItem>>>($"query={query}");
+        public async Task<ReturnSet<List<PostResponseItem>>> SearchPosts(string query) => await GetAsync<ReturnSet<List<PostResponseItem>>>($"/{query}");
     }
 }

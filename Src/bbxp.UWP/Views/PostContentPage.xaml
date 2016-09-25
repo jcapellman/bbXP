@@ -27,7 +27,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" Text="{x:Bind ToUpper(Post.Title)}" Style="{StaticResource PostTitle}" />
+                <TextBlock Grid.Column="0" Text="{Binding Post.Title}" Style="{StaticResource PostTitle}" />
                 
                 <TextBlock Grid.Column="1" Text="{Binding Post.PostDate}" Style="{StaticResource PostDate}" />
             </Grid>

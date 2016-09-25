@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 namespace bbxp.WebAPI.Controllers {    
     public class SearchController : BaseController {
         [HttpGet]
+        [Route("{query}")]
         public ReturnSet<List<PostResponseItem>> GET(string query)
             => new PostManager(MANAGER_CONTAINER).SearchPosts(query);
 
