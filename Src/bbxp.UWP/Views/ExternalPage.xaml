@@ -7,5 +7,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <WebView x:Name="wvMain" />
+    <Grid Style="{StaticResource GridPageBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Style="{StaticResource PostTitleGrid}" Margin="10,5,10,5">
+            <TextBlock x:Name="txtHeader" Style="{StaticResource PageHeaderText}" />
+        </Grid>
+
+        <WebView Grid.Row="1" x:Name="wvMain" Style="{StaticResource ContentView}" />
+    </Grid>
 </Page>

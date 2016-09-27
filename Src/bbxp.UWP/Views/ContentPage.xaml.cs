@@ -14,9 +14,9 @@ namespace bbxp.UWP.Views {
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e) {
-            var urlArg = e.Parameter.ToString();
+            var urlArg = (MenuItem)e.Parameter;
             
-            var result = await viewModel.LoadData(urlArg);
+            var result = await viewModel.LoadData(urlArg.Parameter);
         }
     }
 }

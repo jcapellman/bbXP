@@ -44,7 +44,7 @@ namespace bbxp.UWP.Views {
                 return;
             }
 
-            fMain.Navigate(clickedItem.PageType, clickedItem.Parameter);
+            fMain.Navigate(clickedItem.PageType, clickedItem);
         }
     }
 }

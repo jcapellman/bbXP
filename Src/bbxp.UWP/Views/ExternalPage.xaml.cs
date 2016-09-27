@@ -10,7 +10,11 @@ namespace bbxp.UWP.Views {
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e) {
-            wvMain.Navigate(new Uri(e.Parameter.ToString(), UriKind.RelativeOrAbsolute));
+            var menuItem = (MenuItem)e.Parameter;
+
+            txtHeader.Text = menuItem.Name.ToUpper();
+
+            wvMain.Navigate(new Uri(menuItem.Parameter, UriKind.RelativeOrAbsolute));
         }
     }
 }
