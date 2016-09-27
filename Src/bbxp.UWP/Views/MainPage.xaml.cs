@@ -16,7 +16,11 @@ namespace bbxp.UWP.Views {
         public static List<MenuItem> GetMainItems() {
             var items = new List<MenuItem> {
                     new MenuItem() {Icon = Symbol.Home, Name = "Home", PageType = typeof (Views.MainListingPage)},
+                    new MenuItem {Icon = Symbol.Folder, Name = "Archives", PageType = typeof(Views.MainPage)},
                     new MenuItem() {Icon = Symbol.Find, Name = "Search", PageType = typeof(Views.SearchPage)},
+                    new MenuItem {Icon = Symbol.Globe, Name = "GitHub", PageType = typeof(Views.ExternalPage), Parameter = "http://www.github.com/jcapellman" },
+                    new MenuItem {Icon = Symbol.Globe, Name = "Twitter", PageType = typeof(Views.ExternalPage), Parameter = "http://twitter.com/jcapellman" },
+                    new MenuItem {Icon = Symbol.Globe, Name = "LinkedIn", PageType = typeof(Views.ExternalPage), Parameter = "http://linkedin.com/in/jarredcapellman"},
                     new MenuItem() {Icon = Symbol.People, Name = "About Me", PageType = typeof (Views.ContentPage), Parameter = "About-Me"},
                 };
 

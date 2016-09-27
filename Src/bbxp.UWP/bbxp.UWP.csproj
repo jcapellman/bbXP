@@ -106,6 +106,9 @@
       <DependentUpon>ContentPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BasePage.cs" />
+    <Compile Include="Views\ExternalPage.xaml.cs">
+      <DependentUpon>ExternalPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainListingPage.xaml.cs">
       <DependentUpon>MainListingPage.xaml</DependentUpon>
     </Compile>
@@ -148,6 +151,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ContentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExternalPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
