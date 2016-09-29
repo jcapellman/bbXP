@@ -99,9 +99,13 @@
     <Compile Include="UserControls\HTMLRenderView.xaml.cs">
       <DependentUpon>HTMLRenderView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ArchivesViewModel.cs" />
     <Compile Include="ViewModels\ContentViewModel.cs" />
     <Compile Include="ViewModels\PostContentViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
+    <Compile Include="Views\ArchivesPage.xaml.cs">
+      <DependentUpon>ArchivesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ContentPage.xaml.cs">
       <DependentUpon>ContentPage.xaml</DependentUpon>
     </Compile>
@@ -147,6 +151,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="UserControls\HTMLRenderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ArchivesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

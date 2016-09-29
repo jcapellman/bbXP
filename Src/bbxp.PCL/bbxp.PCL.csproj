@@ -59,6 +59,7 @@
     <Compile Include="Transports\PageStats\PageRequestStatsResponseItem.cs" />
     <Compile Include="Transports\PageStats\PageStatsResponseItem.cs" />
     <Compile Include="Transports\PostArchive\PostArchiveListingResponseItem.cs" />
+    <Compile Include="Transports\PostArchive\PostArchiveListingWrapper.cs" />
     <Compile Include="Transports\Posts\PostResponseItem.cs" />
     <Compile Include="Transports\Posts\TagResponseItem.cs" />
   </ItemGroup>
