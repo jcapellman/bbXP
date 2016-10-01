@@ -1,6 +1,8 @@
 ﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
+using bbxp.PCL.Transports.Posts;
 using bbxp.UWP.ViewModels;
 
 namespace bbxp.UWP.Views {
@@ -18,11 +20,9 @@ namespace bbxp.UWP.Views {
         }
 
         private void lvPostListing_SelectionChanged(object sender, RoutedEventArgs e) {
-            if (viewModel.SelectedArchivePost == null) {
-                return;
-            }
-
-            Frame.Navigate(typeof(PostContentPage), viewModel.GetOriginalPost());
+            var post = (((ListView) sender).SelectedItem as PostResponseItem);
+            
+            Frame.Navigate(typeof(PostContentPage), post);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+
 using bbxp.PCL.Handlers;
 using bbxp.PCL.Transports.PostArchive;
 using bbxp.PCL.Transports.Posts;
@@ -20,7 +21,9 @@ namespace bbxp.UWP.ViewModels {
         public PostArchiveListingWrapper SelectedArchivePost {
             get { return _SelectedArchivePost; }
             set {
-                _SelectedArchivePost = value; OnPropertyChanged();
+                _SelectedArchivePost = _SelectedArchivePost == value ? null : value;
+
+                OnPropertyChanged();
                 LoadPosts();
             }
         }
@@ -73,13 +76,13 @@ namespace bbxp.UWP.ViewModels {
             var posts = new ObservableCollection<PostArchiveListingWrapper>();
 
             foreach (var item in archivePosts.ReturnValue) {
-                var wrapperItem = new PostArchiveListingWrapper();
-
-                wrapperItem.RelativeURL = item.RelativeURL;
-                wrapperItem.Count = item.Count;
-                wrapperItem.DateString = item.DateString;
-                wrapperItem.Posts = new List<PostResponseItem>();
-
+                var wrapperItem = new PostArchiveListingWrapper {
+                    RelativeURL = item.RelativeURL,
+                    Count = item.Count,
+                    DateString = item.DateString,
+                    Posts = new List<PostResponseItem>()
+                };
+                
                 posts.Add(wrapperItem);
             }
 

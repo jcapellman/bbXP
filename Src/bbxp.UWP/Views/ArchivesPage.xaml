@@ -46,7 +46,7 @@
                             <TextBlock Grid.Column="1" Text="{Binding Count}" HorizontalAlignment="Right" />
                         </Grid>
 
-                        <ListView Grid.Row="1" ItemsSource="{Binding Posts}" SelectedItem="{Binding SelectedPost, Mode=TwoWay}" SelectionMode="Single" SelectionChanged="lvPostListing_SelectionChanged">
+                        <ListView Grid.Row="1" ItemsSource="{Binding Posts}" SelectedItem="{Binding SelectedPost, Mode=OneWay}" SelectionMode="Single" SelectionChanged="lvPostListing_SelectionChanged">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
