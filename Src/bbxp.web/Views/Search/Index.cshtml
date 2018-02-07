@@ -1,0 +1,33 @@
+﻿@{ 
+    ViewData["Title"] = "Search";
+}
+
+<h2 class="PageTitle">Search</h2>
+
+<div id="ArchivesContainer">    
+    <input type="text" id="search" placeholder="enter your search term here" onkeydown="loadPosts()" />
+
+    <div id="searchResults"></div>
+</div>
+
+<script type="text/javascript">       
+    function loadPosts() {
+        var searchQuery = document.getElementById('search').value;
+
+        if (searchQuery.length < 3) {
+            return;
+        }
+
+        showLoading();
+
+        $.ajax({
+            url: '/search/' + searchQuery,
+            contentType: 'application/html; charset=utf-8',
+            type: 'GET',
+            dataType: 'html'
+        }).success(function (result) {
+            $('#searchResults').html(result);
+            hideLoading();
+        });
+    }  
+</script>

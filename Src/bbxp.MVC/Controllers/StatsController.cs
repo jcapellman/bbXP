@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using bbxp.PCL.Handlers;
-using bbxp.PCL.Settings;
+using bbxp.lib.Handlers;
+using bbxp.lib.Settings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 

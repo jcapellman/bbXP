@@ -1,0 +1,19 @@
+﻿@using bbxp.lib.Transports.PageStats
+@model bbxp.lib.Transports.PageStats.PageStatsResponseItem
+
+@{
+    ViewData["Title"] = "Stats";
+}
+
+<h2 class="PageTitle">stats</h2>
+
+<div id="StatsContainer">
+    <span><strong>@Model.NumberRequests</strong> requests as of @Model.CurrentAsOf</span>
+
+    <h3>Top 25 Requests</h3>
+    @foreach (var request in Model.TopRequests) {
+        <div class="RequestList">
+            <a href="@request.Request">@request.Request</a> <span class="Count">(@request.Count requests)</span>
+        </div>
+    }
+</div>

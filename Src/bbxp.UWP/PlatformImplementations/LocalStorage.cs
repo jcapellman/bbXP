@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 using Windows.Storage;
 
-using bbxp.PCL.Common;
-using bbxp.PCL.PlatformAbstractions;
+using bbxp.lib.Common;
+using bbxp.lib.PlatformAbstractions;
 
 using Microsoft.Toolkit.Uwp;
 
