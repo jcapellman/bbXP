@@ -2,7 +2,7 @@
 using bbxp.PCL.Containers;
 using bbxp.WebAPI.DataLayer.Entities;
 
-namespace bbxp.WebAPI.BusinessLayer.Managers {
+namespace bbxp.web.Managers {
     public class AdminManager : BaseManager {
         public AdminManager(ManagerContainer container) : base(container) { }
 

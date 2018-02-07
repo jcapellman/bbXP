@@ -6,7 +6,7 @@ using bbxp.PCL.Transports.Content;
 
 using bbxp.WebAPI.DataLayer.Entities;
 
-namespace bbxp.WebAPI.BusinessLayer.Managers {
+namespace bbxp.web.Managers {
     public class ContentManager : BaseManager {
         public ContentManager(ManagerContainer container) : base(container) { }
 

@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
+
 using bbxp.lib.Handlers;
 using bbxp.lib.Settings;
-using Microsoft.AspNetCore.Mvc;
 
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace bbxp.MVC.Controllers {
+namespace bbxp.web.Controllers {
     public class SearchController : BaseController {
         public SearchController(IOptions<GlobalSettings> globalSettings) : base(globalSettings.Value) { }
 

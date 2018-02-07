@@ -4,7 +4,7 @@ using bbxp.PCL.Containers;
 using bbxp.PCL.Transports.PageStats;
 using bbxp.WebAPI.DataLayer.Entities;
 
-namespace bbxp.WebAPI.BusinessLayer.Managers {
+namespace bbxp.web.Managers {
     public class PageStatsManager : BaseManager {
         public PageStatsManager(ManagerContainer container) : base(container) { }
 

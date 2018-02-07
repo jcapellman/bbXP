@@ -8,7 +8,7 @@ using bbxp.PCL.Transports.PostArchive;
 
 using bbxp.WebAPI.DataLayer.Entities;
 
-namespace bbxp.WebAPI.BusinessLayer.Managers {
+namespace bbxp.web.Managers {
     public class PostArchiveManager : BaseManager {
         public PostArchiveManager(ManagerContainer container) : base(container) { }
 

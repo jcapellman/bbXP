@@ -1,7 +1,7 @@
 ﻿using bbxp.PCL.Containers;
 using bbxp.WebAPI.DataLayer;
 
-namespace bbxp.WebAPI.BusinessLayer.Managers {
+namespace bbxp.web.Managers {
     public class BaseManager {
         protected ManagerContainer mContainer;
 

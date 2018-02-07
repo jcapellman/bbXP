@@ -7,7 +7,7 @@ using bbxp.lib.Settings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace bbxp.MVC.Controllers {
+namespace bbxp.web.Controllers {
     public class ArchivesController : BaseController {
         public ArchivesController(IOptions<GlobalSettings> globalSettings) : base(globalSettings.Value) { }
 

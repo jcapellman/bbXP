@@ -9,7 +9,7 @@ using bbxp.PCL.Transports.AdminPost;
 using bbxp.WebAPI.DataLayer.Entities;
 using bbxp.WebAPI.DataLayer.Entities.Objects.Table;
 
-namespace bbxp.WebAPI.BusinessLayer.Managers {
+namespace bbxp.web.Managers {
     public class AdminPostManager : BaseManager {
         public AdminPostManager(ManagerContainer container) : base(container) { }
 

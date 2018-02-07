@@ -8,7 +8,7 @@ using bbxp.PCL.Transports.Posts;
 using bbxp.WebAPI.DataLayer.Entities;
 using bbxp.WebAPI.DataLayer.Entities.Objects.Table;
 
-namespace bbxp.WebAPI.BusinessLayer.Managers {
+namespace bbxp.web.Managers {
     public class PostManager : BaseManager {
         public PostManager(ManagerContainer container) : base(container) { }
         

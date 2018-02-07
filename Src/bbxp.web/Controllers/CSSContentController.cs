@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace bbxp.MVC.Controllers {
+namespace bbxp.web.Controllers {
     public class CSSContentController : Controller {
         public string Index() {
             var bootStrap = System.IO.File.ReadAllText("wwwroot/lib/bootstrap/dist/css/bootstrap.min.css");

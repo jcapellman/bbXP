@@ -1,8 +1,9 @@
 ﻿using bbxp.lib.Containers;
 using bbxp.lib.Settings;
+
 using Microsoft.AspNetCore.Mvc;
 
-namespace bbxp.MVC.Controllers {
+namespace bbxp.web.Controllers {
     public class BaseController : Controller {
         protected GlobalSettings _globalSettings;
 
