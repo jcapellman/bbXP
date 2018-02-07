@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-using bbxp.PCL.Common;
-using bbxp.PCL.Settings;
-using bbxp.PCL.Transports.AdminPost;
+using bbxp.lib.Common;
+using bbxp.lib.Settings;
+using bbxp.lib.Transports.AdminPost;
 
 using bbxp.WebAPI.BusinessLayer.Managers;
 

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 
 using bbxp.lib.Handlers;
 using bbxp.lib.Settings;
+using bbxp.web.Managers;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -25,7 +26,7 @@ namespace bbxp.web.Controllers {
         public async Task<PartialViewResult> ArchivePosts(int year, string month) {
             var monthInt = Convert.ToDateTime(month + " 01, 1900").Month;
 
-            var posts = await new PostArchiveHandler(MANAGER_CONTAINER.GSetings).GetPostsFromMonth(year, monthInt);
+            var posts = new PostManager(MANAGER_CONTAINER).GetMonthPosts(year, monthInt);
 
             if (posts.HasError) {
                 throw new Exception(posts.ExceptionMessage);

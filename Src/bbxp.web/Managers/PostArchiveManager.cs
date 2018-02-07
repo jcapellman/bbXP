@@ -1,12 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using bbxp.PCL.Common;
-using bbxp.PCL.Containers;
-using bbxp.PCL.Enums;
-using bbxp.PCL.Transports.PostArchive;
-
-using bbxp.WebAPI.DataLayer.Entities;
+using bbxp.lib.Common;
+using bbxp.lib.Containers;
+using bbxp.lib.Transports.PostArchive;
 
 namespace bbxp.web.Managers {
     public class PostArchiveManager : BaseManager {

@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using bbxp.PCL.Common;
-using bbxp.PCL.Containers;
-using bbxp.PCL.Transports.PageStats;
-using bbxp.WebAPI.DataLayer.Entities;
+
+using bbxp.lib.Common;
+using bbxp.lib.Containers;
+using bbxp.lib.Transports.PageStats;
 
 namespace bbxp.web.Managers {
     public class PageStatsManager : BaseManager {

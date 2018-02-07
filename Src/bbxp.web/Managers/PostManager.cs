@@ -1,12 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using bbxp.PCL.Common;
-using bbxp.PCL.Containers;
-using bbxp.PCL.Enums;
-using bbxp.PCL.Transports.Posts;
-using bbxp.WebAPI.DataLayer.Entities;
-using bbxp.WebAPI.DataLayer.Entities.Objects.Table;
+
+using bbxp.lib.Containers;
+using bbxp.lib.Transports.Posts;
 
 namespace bbxp.web.Managers {
     public class PostManager : BaseManager {
