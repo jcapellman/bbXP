@@ -4,6 +4,7 @@ using System.Linq;
 using bbxp.lib.Common;
 using bbxp.lib.Containers;
 using bbxp.lib.Transports.PostArchive;
+using bbxp.web.DAL;
 
 namespace bbxp.web.Managers {
     public class PostArchiveManager : BaseManager {
@@ -18,9 +19,7 @@ namespace bbxp.web.Managers {
                     RelativeURL = a.RelativeURL,
                     DateString = a.DateString
                 }).ToList());
-
-                rFactory.WriteJSON(MainCacheKeys.PostArchive, response);
-
+                
                 return response;
             }
         }

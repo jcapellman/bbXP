@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 
-using bbxp.web.Handlers;
-using bbxp.web.Settings;
+using bbxp.lib.Settings;
+using bbxp.web.Managers;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -12,6 +12,6 @@ namespace bbxp.web.Controllers {
 
         [Route("/content/{urlSafeName}")]
         public async Task<IActionResult> Index(string urlSafeName)
-            => View(await new ContentHandler(MANAGER_CONTAINER.GSetings).GetContent(urlSafeName));
+            => View(await new ContentManager(MANAGER_CONTAINER).GetContentAsync(urlSafeName));
     }
 }

@@ -1,14 +1,17 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 
 using bbxp.lib.Common;
 using bbxp.lib.Containers;
 using bbxp.lib.Transports.PageStats;
 
+using bbxp.web.DAL;
+
 namespace bbxp.web.Managers {
     public class PageStatsManager : BaseManager {
         public PageStatsManager(ManagerContainer container) : base(container) { }
 
-        public ReturnSet<PageStatsResponseItem> GetStatsOverview() {
+        public async Task<ReturnSet<PageStatsResponseItem>> GetStatsOverviewAsync() {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var topRequests = eFactory.DGT_MostFrequentedPages.ToList();
 
@@ -23,7 +26,7 @@ namespace bbxp.web.Managers {
                     CurrentAsOf = requestsHeader.CurrentAsOf
                 });
 
-                rFactory.WriteJSON("PageStats", request);
+                await rFactory.WriteJSONAsync("PageStats", request);
 
                 return request;
             }

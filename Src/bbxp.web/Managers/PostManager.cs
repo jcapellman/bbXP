@@ -1,15 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
+using bbxp.lib.Common;
 using bbxp.lib.Containers;
+using bbxp.lib.Enums;
 using bbxp.lib.Transports.Posts;
+using bbxp.web.DAL;
+using bbxp.web.DAL.Objects;
 
 namespace bbxp.web.Managers {
     public class PostManager : BaseManager {
         public PostManager(ManagerContainer container) : base(container) { }
         
-        private string applySyntaxHighlighting(string content) {
+        private string ApplySyntaxHighlighting(string content) {
             var keywords = new List<string> {
                 "abstract", "as", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const",
                 "continue", "decimal", "default", "delegate", "do", "double", "dynamic", "else", "enum", "event", "explicit",
@@ -37,7 +42,7 @@ namespace bbxp.web.Managers {
             return content;
         }
 
-        private PostResponseItem generatePostModel(DGT_Posts post) {
+        private PostResponseItem GeneratePostModel(DGT_Posts post) {
             var modelItem = new PostResponseItem {
                 Body = post.Body,
                 PostDate = post.PostDate,
@@ -47,7 +52,7 @@ namespace bbxp.web.Managers {
             };
 
             if (modelItem.Body.Contains("[csharp]")) {
-                modelItem.Body = applySyntaxHighlighting(modelItem.Body);
+                modelItem.Body = ApplySyntaxHighlighting(modelItem.Body);
             }
 
             if (string.IsNullOrEmpty(post.TagList)) {
@@ -70,7 +75,7 @@ namespace bbxp.web.Managers {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var posts = eFactory.DGT_Posts.Where(a => a.SafeTagList.Contains(urlSafeTag)).OrderByDescending(a => a.PostDate).ToList();
 
-                var result = new ReturnSet<List<PostResponseItem>>(posts.Select(generatePostModel).ToList());
+                var result = new ReturnSet<List<PostResponseItem>>(posts.Select(GeneratePostModel).ToList());
                 
                 return result;
             }
@@ -80,53 +85,53 @@ namespace bbxp.web.Managers {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var post = eFactory.DGT_Posts.FirstOrDefault(a => a.ID == postID);
 
-                return new ReturnSet<PostResponseItem>(generatePostModel(post));
+                return new ReturnSet<PostResponseItem>(GeneratePostModel(post));
             }
         }
 
-        public ReturnSet<PostResponseItem> GetSinglePost(string relativeURL) {
+        public async Task<ReturnSet<PostResponseItem>> GetSinglePostAsync(string relativeURL) {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var post = eFactory.DGT_Posts.FirstOrDefault(a => a.RelativeURL == relativeURL);
 
-                var result = new ReturnSet<PostResponseItem>(generatePostModel(post));
+                var result = new ReturnSet<PostResponseItem>(GeneratePostModel(post));
 
-                rFactory.WriteJSON(relativeURL, result);
+                await rFactory.WriteJSONAsync(relativeURL, result);
 
                 return result;
             }
         }
 
-        public ReturnSet<List<PostResponseItem>> SearchPosts(string query) {
+        public async Task<ReturnSet<List<PostResponseItem>>> SearchPostsAsync(string query) {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var posts = eFactory.DGT_Posts.Where(a => a.Title.Contains(query)).OrderByDescending(b => b.PostDate).ToList();
 
-                var result = new ReturnSet<List<PostResponseItem>>(posts.Select(generatePostModel).ToList());
+                var result = new ReturnSet<List<PostResponseItem>>(posts.Select(GeneratePostModel).ToList());
 
-                rFactory.WriteJSON($"bbxpSQ_{query}", result);
+                await rFactory.WriteJSONAsync($"bbxpSQ_{query}", result);
 
                 return result;
             }
         }
 
-        public ReturnSet<List<PostResponseItem>> GetHomeListing() {
+        public async Task<ReturnSet<List<PostResponseItem>>> GetHomeListingAsync() {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var posts = eFactory.DGT_Posts.OrderByDescending(a => a.PostDate).Take(mContainer.GSetings.NumPostsToList).ToList();
 
-                var result = new ReturnSet<List<PostResponseItem>>(posts.Select(generatePostModel).ToList());
+                var result = new ReturnSet<List<PostResponseItem>>(posts.Select(GeneratePostModel).ToList());
 
-                rFactory.WriteJSON(MainCacheKeys.PostListing, result);
+                await rFactory.WriteJSONAsync(MainCacheKeys.PostListing, result);
 
                 return result;
             }
         }
 
-        public ReturnSet<List<PostResponseItem>> GetMonthPosts(int year, int month) {
+        public async Task<ReturnSet<List<PostResponseItem>>> GetMonthPostsAsync(int year, int month) {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var posts = eFactory.DGT_Posts.Where(a => a.PostDate.Year == year && a.PostDate.Month == month).OrderByDescending(b => b.PostDate).ToList();
 
-                var response = new ReturnSet<List<PostResponseItem>>(posts.Select(generatePostModel).ToList());
+                var response = new ReturnSet<List<PostResponseItem>>(posts.Select(GeneratePostModel).ToList());
 
-                rFactory.WriteJSON($"{year}-{month}", response);
+                await rFactory.WriteJSONAsync($"{year}-{month}", response);
 
                 return response;                
             }

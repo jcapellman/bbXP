@@ -1,6 +1,7 @@
 ﻿using System.Linq;
-using bbxp.PCL.Containers;
-using bbxp.WebAPI.DataLayer.Entities;
+
+using bbxp.lib.Containers;
+using bbxp.web.DAL;
 
 namespace bbxp.web.Managers {
     public class AdminManager : BaseManager {
@@ -8,13 +9,7 @@ namespace bbxp.web.Managers {
 
         public bool AttemptLogin(string username, string password) {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
-                var user = eFactory.Users.FirstOrDefault(a => a.Username == username && a.Password == password && a.Active);
-
-                if (user == null) {
-                    return false;
-                }
-
-                return true;
+                return eFactory.Users.Any(a => a.Username == username && a.Password == password && a.Active);
             }
         }
     }

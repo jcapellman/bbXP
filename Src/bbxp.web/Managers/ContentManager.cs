@@ -1,16 +1,16 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 
-using bbxp.PCL.Common;
-using bbxp.PCL.Containers;
-using bbxp.PCL.Transports.Content;
-
-using bbxp.WebAPI.DataLayer.Entities;
+using bbxp.lib.Common;
+using bbxp.lib.Containers;
+using bbxp.lib.Transports.Content;
+using bbxp.web.DAL;
 
 namespace bbxp.web.Managers {
     public class ContentManager : BaseManager {
         public ContentManager(ManagerContainer container) : base(container) { }
 
-        public ReturnSet<ContentResponseItem> GetContent(string urlSafeName) {
+        public async Task<ReturnSet<ContentResponseItem>> GetContentAsync(string urlSafeName) {
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var content = eFactory.Content.FirstOrDefault(a => a.URLSafename == urlSafeName && a.Active);
 
@@ -20,7 +20,7 @@ namespace bbxp.web.Managers {
 
                 var response = new ReturnSet<ContentResponseItem>(new ContentResponseItem { Body = content.Body, Title = content.Title });
 
-                rFactory.WriteJSON(content.URLSafename, response);
+                await rFactory.WriteJSONAsync(content.URLSafename, response);
 
                 return response;
             }

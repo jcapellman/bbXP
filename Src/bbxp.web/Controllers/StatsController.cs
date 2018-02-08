@@ -10,6 +10,6 @@ namespace bbxp.web.Controllers {
     public class StatsController : BaseController {
         public StatsController(IOptions<GlobalSettings> globalSettings) : base(globalSettings.Value) { }
 
-        public ActionResult Index() => View(new PageStatsManager(MANAGER_CONTAINER).GetStatsOverview());
+        public async Task<ActionResult> Index() => View(await new PageStatsManager(MANAGER_CONTAINER).GetStatsOverviewAsync());
     }
 }
