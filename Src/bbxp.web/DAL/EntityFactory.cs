@@ -31,7 +31,7 @@ namespace bbxp.web.DAL
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_connectionString);
+            optionsBuilder.UseNpgsql(_connectionString);
         }
     }
 }
