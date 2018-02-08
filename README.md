@@ -5,5 +5,8 @@ This project technically started with the first web page I did back in 1996 on G
 
 ## News
 
+### February 7, 2018 ###
+Started the revamp to a unified asp.net core 2.0 mvc/webapi projects along with a .net standard 2.0 library (for use later in new mobile apps).
+
 ### September 16, 2016
 In doing Node.js, MongoDB and Redis deep dives over the last 2 weeks I have decided to add Node.js/Redis for my caching implementation on bbxp (which I hadn't reinstituted since migrating to Core).  I hope to complete this implementation over the weekend.
