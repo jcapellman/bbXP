@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-using bbxp.lib.Handlers;
 using bbxp.lib.Settings;
+
+using bbxp.web.Managers;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -14,6 +15,6 @@ namespace bbxp.web.Controllers {
 
         [Route("search/{query}")]
         public async Task<PartialViewResult> Search(string query)
-            => PartialView("_SearchResults", await new SearchHandler(MANAGER_CONTAINER.GSetings).SearchPosts(query));
+            => PartialView("_SearchResults", await new PostManager(MANAGER_CONTAINER).SearchPostsAsync(query));
     }
 }

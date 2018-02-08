@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-using bbxp.lib.Handlers;
 using bbxp.lib.Settings;
 using bbxp.web.Managers;
 
@@ -12,8 +11,8 @@ namespace bbxp.web.Controllers {
     public class ArchivesController : BaseController {
         public ArchivesController(IOptions<GlobalSettings> globalSettings) : base(globalSettings.Value) { }
 
-        public async Task<IActionResult> Index() {
-            var archiveList = await new PostArchiveHandler(MANAGER_CONTAINER.GSetings).GetArchiveList();
+        public IActionResult Index() {
+            var archiveList = new PostArchiveManager(MANAGER_CONTAINER).GetArchives();
 
             if (archiveList.HasError) {
                 throw new Exception(archiveList.ExceptionMessage);
