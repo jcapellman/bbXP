@@ -24,6 +24,10 @@ namespace bbxp.web.DAL
 
         private readonly string _connectionString;
 
+        public EntityFactory() {
+            _connectionString = "Data Source=bbxp";
+        }
+
         public EntityFactory(string connectionString)
         {
             _connectionString = connectionString;
