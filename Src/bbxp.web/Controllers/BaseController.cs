@@ -12,5 +12,7 @@ namespace bbxp.web.Controllers {
         public BaseController(GlobalSettings globalSettings) {
             _globalSettings = globalSettings;
         }
+
+        public ActionResult RedirectToError(string exceptionMessage) => RedirectToAction("Error", exceptionMessage);
     }
 }

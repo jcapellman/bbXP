@@ -15,7 +15,7 @@ namespace bbxp.web.Controllers {
             var archiveList = new PostArchiveManager(MANAGER_CONTAINER).GetArchives();
 
             if (archiveList.HasError) {
-                throw new Exception(archiveList.ExceptionMessage);
+                return RedirectToError(archiveList.ExceptionMessage);
             }
 
             return View(archiveList.ReturnValue);

@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-using bbxp.lib.Settings;
+﻿using bbxp.lib.Settings;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;

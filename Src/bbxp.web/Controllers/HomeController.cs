@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 using bbxp.lib.Settings;
 
@@ -16,7 +15,7 @@ namespace bbxp.web.Controllers {
             var result = await new PostManager(MANAGER_CONTAINER).GetHomeListingAsync();
 
             if (result.HasError) {
-                throw new Exception(result.ExceptionMessage);
+                return RedirectToError(result.ExceptionMessage);
             }
 
             return View(result.ReturnValue);
@@ -30,8 +29,9 @@ namespace bbxp.web.Controllers {
         public async Task<IActionResult> SinglePost(int year, int month, int day, string postURL) {
             var post = await new PostManager(MANAGER_CONTAINER).GetSinglePostAsync($"{year}/{month}/{day}/{postURL}");
 
-            if (post.HasError) {
-                throw new Exception(post.ExceptionMessage);
+            if (post.HasError)
+            {
+                return RedirectToError(result.ExceptionMessage);
             }
 
             ViewData["Title"] = post.ReturnValue.Title;
