@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
 
 using bbxp.lib.Common;
 using bbxp.lib.Containers;
@@ -11,11 +11,24 @@ namespace bbxp.web.Managers {
     public class PageStatsManager : BaseManager {
         public PageStatsManager(ManagerContainer container) : base(container) { }
 
-        public async Task<ReturnSet<PageStatsResponseItem>> GetStatsOverviewAsync() {
+        public ReturnSet<PageStatsResponseItem> GetStatsOverview()
+        {
+            var (isFound, cachedResult) = GetCachedItem<PageStatsResponseItem>("PageStats");
+
+            if (isFound)
+            {
+                return new ReturnSet<PageStatsResponseItem>(cachedResult);
+            }
+
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var topRequests = eFactory.DGT_MostFrequentedPages.ToList();
 
                 var requestsHeader = eFactory.DGT_MostFrequentedPagesHeader.FirstOrDefault();
+
+                if (requestsHeader == null)
+                {
+                    return new ReturnSet<PageStatsResponseItem>(new Exception("No header found"));
+                }
 
                 var request = new ReturnSet<PageStatsResponseItem>(new PageStatsResponseItem {
                     TopRequests = topRequests.Select(a => new PageRequestStatsResponseItem {
@@ -26,7 +39,7 @@ namespace bbxp.web.Managers {
                     CurrentAsOf = requestsHeader.CurrentAsOf
                 });
 
-                await rFactory.WriteJSONAsync("PageStats", request);
+                AddCachedItem("PageStats", request);
 
                 return request;
             }
