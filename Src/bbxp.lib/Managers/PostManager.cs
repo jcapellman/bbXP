@@ -113,11 +113,11 @@ namespace bbxp.lib.Managers {
 
             var posts = DbContext.DGT_Posts.Where(a => a.Title.Contains(query)).OrderByDescending(b => b.PostDate).ToList();
 
-            var result = new ReturnSet<List<PostResponseItem>>(posts.Select(GeneratePostModel).ToList());
+            var result = posts.Select(GeneratePostModel).ToList();
 
             AddCachedItem($"bbxpSQ_{query}", result);
 
-            return result;            
+            return new ReturnSet<List<PostResponseItem>>(result);            
         }
 
         public ReturnSet<List<PostResponseItem>> GetHomeListing() {
@@ -130,11 +130,11 @@ namespace bbxp.lib.Managers {
 
             var posts = DbContext.DGT_Posts.OrderByDescending(a => a.PostDate).Take(mContainer.GSetings.NumPostsToList).ToList();
 
-            var result = new ReturnSet<List<PostResponseItem>>(posts.Select(GeneratePostModel).ToList());
+            var result = posts.Select(GeneratePostModel).ToList();
 
             AddCachedItem(MainCacheKeys.PostListing, result);
                 
-            return result;            
+            return new ReturnSet<List<PostResponseItem>>(result);            
         }
 
         public ReturnSet<List<PostResponseItem>> GetMonthPosts(int year, int month) {
