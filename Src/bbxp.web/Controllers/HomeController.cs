@@ -31,7 +31,7 @@ namespace bbxp.web.Controllers {
 
             if (post.HasError)
             {
-                return RedirectToError(result.ExceptionMessage);
+                return RedirectToError(post.ExceptionMessage);
             }
 
             ViewData["Title"] = post.ReturnValue.Title;
