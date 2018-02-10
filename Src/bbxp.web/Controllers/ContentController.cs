@@ -1,6 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using bbxp.lib.Settings;
 
-using bbxp.lib.Settings;
 using bbxp.web.Managers;
 
 using Microsoft.AspNetCore.Mvc;
@@ -11,16 +10,11 @@ namespace bbxp.web.Controllers {
         public ContentController(IOptions<GlobalSettings> globalSettings) : base(globalSettings.Value) { }
 
         [Route("/content/{urlSafeName}")]
-        public async Task<IActionResult> Index(string urlSafeName)
+        public IActionResult Index(string urlSafeName)
         {
-            var result = await new ContentManager(MANAGER_CONTAINER).GetContentAsync(urlSafeName);
+            var result = new ContentManager(MANAGER_CONTAINER).GetContent(urlSafeName);
 
-            if (result.HasError)
-            {
-                return RedirectToError(result.ExceptionMessage);
-            }
-
-            return View(result);
+            return result.HasError ? RedirectToError(result.ExceptionMessage) : View(result.ReturnValue);
         }
     }
 }
