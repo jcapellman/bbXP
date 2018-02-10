@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-using bbxp.lib.Settings;
+﻿using bbxp.lib.Settings;
 
 using bbxp.web.Managers;
 
@@ -14,7 +12,11 @@ namespace bbxp.web.Controllers {
         public IActionResult Index() => View();
 
         [Route("search/{query}")]
-        public async Task<PartialViewResult> Search(string query)
-            => PartialView("_SearchResults", await new PostManager(MANAGER_CONTAINER).SearchPostsAsync(query));
+        public PartialViewResult Search(string query)
+        {
+            var result = new PostManager(MANAGER_CONTAINER).SearchPosts(query);
+
+            return result.HasError ? PartialView("Error", result.ExceptionMessage) : PartialView("_SearchResults", result.ReturnValue);
+        }            
     }
 }

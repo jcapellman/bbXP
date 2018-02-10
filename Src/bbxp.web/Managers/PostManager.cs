@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 using bbxp.lib.Common;
 using bbxp.lib.Containers;
 using bbxp.lib.Enums;
 using bbxp.lib.Transports.Posts;
+
 using bbxp.web.DAL;
 using bbxp.web.DAL.Objects;
 
@@ -14,7 +15,7 @@ namespace bbxp.web.Managers {
     public class PostManager : BaseManager {
         public PostManager(ManagerContainer container) : base(container) { }
         
-        private string ApplySyntaxHighlighting(string content) {
+        private static string ApplySyntaxHighlighting(string content) {
             var keywords = new List<string> {
                 "abstract", "as", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const",
                 "continue", "decimal", "default", "delegate", "do", "double", "dynamic", "else", "enum", "event", "explicit",
@@ -24,11 +25,7 @@ namespace bbxp.web.Managers {
                 "short", "sizeof", "stackalloc", "static", "string", "struct", "switch", "this", "throw", "true", "try",
                 "typeof", "uint", "ulong", "unchecked", "unsafe", "ushort", "using", "virtual", "void", "while" };
 
-            var replace = new Dictionary<string, string>();
-
-            foreach (var keyword in keywords) {
-                replace.Add($"{keyword} ", $"<span class\"Keyword\">{keyword}&nbsp;</span>");
-            }
+            var replace = keywords.ToDictionary(keyword => $"{keyword} ", keyword => $"<span class\"Keyword\">{keyword}&nbsp;</span>");
 
             var regex = new Regex(string.Join("|", replace.Keys.Select(Regex.Escape)));
             content = regex.Replace(content, m => replace[m.Value]);
@@ -89,50 +86,84 @@ namespace bbxp.web.Managers {
             }
         }
 
-        public async Task<ReturnSet<PostResponseItem>> GetSinglePostAsync(string relativeURL) {
+        public ReturnSet<PostResponseItem> GetSinglePost(string relativeURL)
+        {
+            var (isFound, cachedResult) = GetCachedItem<PostResponseItem>(relativeURL);
+
+            if (isFound)
+            {
+                return new ReturnSet<PostResponseItem>(cachedResult);
+            }
+
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var post = eFactory.DGT_Posts.FirstOrDefault(a => a.RelativeURL == relativeURL);
 
-                var result = new ReturnSet<PostResponseItem>(GeneratePostModel(post));
+                if (post == null)
+                {
+                    return new ReturnSet<PostResponseItem>(new Exception($"Could not find post {relativeURL}"));
+                }
 
-                await rFactory.WriteJSONAsync(relativeURL, result);
+                var fullPost = GeneratePostModel(post);
 
-                return result;
+                AddCachedItem(relativeURL, fullPost);
+
+                return new ReturnSet<PostResponseItem>(fullPost);
             }
         }
 
-        public async Task<ReturnSet<List<PostResponseItem>>> SearchPostsAsync(string query) {
+        public ReturnSet<List<PostResponseItem>> SearchPosts(string query) {
+            var (isFound, cachedResult) = GetCachedItem<List<PostResponseItem>>($"bbxpSQ_{query}");
+
+            if (isFound)
+            {
+                return new ReturnSet<List<PostResponseItem>>(cachedResult);
+            }
+
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var posts = eFactory.DGT_Posts.Where(a => a.Title.Contains(query)).OrderByDescending(b => b.PostDate).ToList();
 
                 var result = new ReturnSet<List<PostResponseItem>>(posts.Select(GeneratePostModel).ToList());
 
-                await rFactory.WriteJSONAsync($"bbxpSQ_{query}", result);
+                AddCachedItem($"bbxpSQ_{query}", result);
 
                 return result;
             }
         }
 
-        public async Task<ReturnSet<List<PostResponseItem>>> GetHomeListingAsync() {
+        public ReturnSet<List<PostResponseItem>> GetHomeListing() {
+            var (isFound, cachedResult) = GetCachedItem<List<PostResponseItem>>(MainCacheKeys.PostListing);
+
+            if (isFound)
+            {
+                return new ReturnSet<List<PostResponseItem>>(cachedResult);
+            }
+
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var posts = eFactory.DGT_Posts.OrderByDescending(a => a.PostDate).Take(mContainer.GSetings.NumPostsToList).ToList();
 
                 var result = new ReturnSet<List<PostResponseItem>>(posts.Select(GeneratePostModel).ToList());
 
-                await rFactory.WriteJSONAsync(MainCacheKeys.PostListing, result);
-
+                AddCachedItem(MainCacheKeys.PostListing, result);
+                
                 return result;
             }
         }
 
-        public async Task<ReturnSet<List<PostResponseItem>>> GetMonthPostsAsync(int year, int month) {
+        public ReturnSet<List<PostResponseItem>> GetMonthPosts(int year, int month) {
+            var (isFound, cachedResult) = GetCachedItem<List<PostResponseItem>>($"{year}-{month}");
+
+            if (isFound)
+            {
+                return new ReturnSet<List<PostResponseItem>>(cachedResult);
+            }
+
             using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
                 var posts = eFactory.DGT_Posts.Where(a => a.PostDate.Year == year && a.PostDate.Month == month).OrderByDescending(b => b.PostDate).ToList();
 
                 var response = new ReturnSet<List<PostResponseItem>>(posts.Select(GeneratePostModel).ToList());
 
-                await rFactory.WriteJSONAsync($"{year}-{month}", response);
-
+                AddCachedItem($"{year}-{month}", response);
+                
                 return response;                
             }
         }

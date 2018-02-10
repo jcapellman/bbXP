@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-using bbxp.lib.Settings;
+﻿using bbxp.lib.Settings;
 
 using bbxp.web.Managers;
 
@@ -11,23 +9,23 @@ namespace bbxp.web.Controllers {
     public class HomeController : BaseController {
         public HomeController(IOptions<GlobalSettings> globalSettings) : base(globalSettings.Value) { }
 
-        public async Task<IActionResult> Index() {
-            var result = await new PostManager(MANAGER_CONTAINER).GetHomeListingAsync();
+        public IActionResult Index() {
+            var result = new PostManager(MANAGER_CONTAINER).GetHomeListing();
 
-            if (result.HasError) {
-                return RedirectToError(result.ExceptionMessage);
-            }
-
-            return View(result.ReturnValue);
+            return result.HasError ? RedirectToError(result.ExceptionMessage) : View(result.ReturnValue);
         }
 
         [Route("tag/{urlSafeTagName}")]
         public IActionResult TagResult(string urlSafeTagName)
-            => View("Index", new PostManager(MANAGER_CONTAINER).GetPostsFromTag(urlSafeTagName));
-        
+        {
+            var result = new PostManager(MANAGER_CONTAINER).GetPostsFromTag(urlSafeTagName);
+
+            return result.HasError ? RedirectToError(result.ExceptionMessage) : View("Index", result.ReturnValue);
+        }
+
         [Route("{year}/{month}/{day}/{postURL}")]
-        public async Task<IActionResult> SinglePost(int year, int month, int day, string postURL) {
-            var post = await new PostManager(MANAGER_CONTAINER).GetSinglePostAsync($"{year}/{month}/{day}/{postURL}");
+        public IActionResult SinglePost(int year, int month, int day, string postUrl) {
+            var post = new PostManager(MANAGER_CONTAINER).GetSinglePost($"{year}/{month}/{day}/{postUrl}");
 
             if (post.HasError)
             {
