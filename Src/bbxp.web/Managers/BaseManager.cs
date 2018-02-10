@@ -1,16 +1,29 @@
-﻿using bbxp.lib.Containers;
-using bbxp.web.DAL;
+﻿using System;
+
+using bbxp.lib.Containers;
+
+using Microsoft.Extensions.Caching.Memory;
 
 namespace bbxp.web.Managers {
     public class BaseManager {
-        protected ManagerContainer mContainer;
+        protected readonly ManagerContainer mContainer;
 
-        protected RedisFactory rFactory;
+        protected IMemoryCache Cache => mContainer.Cache;
 
-        public BaseManager(ManagerContainer container) {
+        protected (bool IsFound, T CachedResult) GetCachedItem<T>(string key)
+        {
+            return !Cache.TryGetValue(key, out T cacheEntry) ? (false, default) : (true, Cache.Get<T>(key));
+        }
+
+        protected void AddCachedItem<T>(string key, T obj)
+        {
+            var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.MaxValue);
+
+            Cache.Set(key, obj, cacheEntryOptions);
+        }
+
+        protected BaseManager(ManagerContainer container) {
             mContainer = container;
-
-            rFactory = new RedisFactory(container.GSetings.RedisDatabaseConnection);
         }
     }
 }
