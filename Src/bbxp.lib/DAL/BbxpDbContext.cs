@@ -1,10 +1,10 @@
-﻿using bbxp.web.DAL.Objects;
+﻿using bbxp.lib.DAL.Objects;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace bbxp.web.DAL
+namespace bbxp.lib.DAL
 {
-    public class EntityFactory : DbContext
+    public class BbxpDbContext : DbContext
     {
         public DbSet<Posts> Posts { get; set; }
 
@@ -22,20 +22,8 @@ namespace bbxp.web.DAL
 
         public DbSet<DGT_MostFrequentedPagesHeader> DGT_MostFrequentedPagesHeader { get; set; }
 
-        private readonly string _connectionString;
-
-        public EntityFactory() {
-            _connectionString = "Data Source=bbxp";
-        }
-
-        public EntityFactory(string connectionString)
+        public BbxpDbContext(DbContextOptions options) : base(options)
         {
-            _connectionString = connectionString;
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseNpgsql(_connectionString);
         }
     }
 }

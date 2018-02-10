@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace bbxp.web.DAL.Objects
+namespace bbxp.lib.DAL.Objects
 {
-    public class Posts
+    public class Content
     {
         public int ID { get; set; }
 
@@ -16,8 +16,8 @@ namespace bbxp.web.DAL.Objects
 
         public string Body { get; set; }
 
-        public int PostedByUserID { get; set; }
-
         public string URLSafename { get; set; }
+
+        public int PostedByUserID { get; set; }
     }
 }

@@ -5,13 +5,11 @@ using System.Text.RegularExpressions;
 
 using bbxp.lib.Common;
 using bbxp.lib.Containers;
+using bbxp.lib.DAL.Objects;
 using bbxp.lib.Enums;
 using bbxp.lib.Transports.Posts;
 
-using bbxp.web.DAL;
-using bbxp.web.DAL.Objects;
-
-namespace bbxp.web.Managers {
+namespace bbxp.lib.Managers {
     public class PostManager : BaseManager {
         public PostManager(ManagerContainer container) : base(container) { }
         
@@ -69,21 +67,17 @@ namespace bbxp.web.Managers {
         }
 
         public ReturnSet<List<PostResponseItem>> GetPostsFromTag(string urlSafeTag) {
-            using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
-                var posts = eFactory.DGT_Posts.Where(a => a.SafeTagList.Contains(urlSafeTag)).OrderByDescending(a => a.PostDate).ToList();
+            var posts = DbContext.DGT_Posts.Where(a => a.SafeTagList.Contains(urlSafeTag)).OrderByDescending(a => a.PostDate).ToList();
 
-                var result = new ReturnSet<List<PostResponseItem>>(posts.Select(GeneratePostModel).ToList());
+            var result = new ReturnSet<List<PostResponseItem>>(posts.Select(GeneratePostModel).ToList());
                 
-                return result;
-            }
+            return result;            
         }
 
-        public ReturnSet<PostResponseItem> GetSinglePost(int postID) {
-            using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
-                var post = eFactory.DGT_Posts.FirstOrDefault(a => a.ID == postID);
+        public ReturnSet<PostResponseItem> GetSinglePost(int postID) {            
+            var post = DbContext.DGT_Posts.FirstOrDefault(a => a.ID == postID);
 
-                return new ReturnSet<PostResponseItem>(GeneratePostModel(post));
-            }
+            return new ReturnSet<PostResponseItem>(GeneratePostModel(post));            
         }
 
         public ReturnSet<PostResponseItem> GetSinglePost(string relativeURL)
@@ -95,20 +89,18 @@ namespace bbxp.web.Managers {
                 return new ReturnSet<PostResponseItem>(cachedResult);
             }
 
-            using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
-                var post = eFactory.DGT_Posts.FirstOrDefault(a => a.RelativeURL == relativeURL);
+            var post = DbContext.DGT_Posts.FirstOrDefault(a => a.RelativeURL == relativeURL);
 
-                if (post == null)
-                {
-                    return new ReturnSet<PostResponseItem>(new Exception($"Could not find post {relativeURL}"));
-                }
-
-                var fullPost = GeneratePostModel(post);
-
-                AddCachedItem(relativeURL, fullPost);
-
-                return new ReturnSet<PostResponseItem>(fullPost);
+            if (post == null)
+            {
+                return new ReturnSet<PostResponseItem>(new Exception($"Could not find post {relativeURL}"));
             }
+
+            var fullPost = GeneratePostModel(post);
+
+            AddCachedItem(relativeURL, fullPost);
+
+            return new ReturnSet<PostResponseItem>(fullPost);           
         }
 
         public ReturnSet<List<PostResponseItem>> SearchPosts(string query) {
@@ -119,15 +111,13 @@ namespace bbxp.web.Managers {
                 return new ReturnSet<List<PostResponseItem>>(cachedResult);
             }
 
-            using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
-                var posts = eFactory.DGT_Posts.Where(a => a.Title.Contains(query)).OrderByDescending(b => b.PostDate).ToList();
+            var posts = DbContext.DGT_Posts.Where(a => a.Title.Contains(query)).OrderByDescending(b => b.PostDate).ToList();
 
-                var result = new ReturnSet<List<PostResponseItem>>(posts.Select(GeneratePostModel).ToList());
+            var result = new ReturnSet<List<PostResponseItem>>(posts.Select(GeneratePostModel).ToList());
 
-                AddCachedItem($"bbxpSQ_{query}", result);
+            AddCachedItem($"bbxpSQ_{query}", result);
 
-                return result;
-            }
+            return result;            
         }
 
         public ReturnSet<List<PostResponseItem>> GetHomeListing() {
@@ -138,15 +128,13 @@ namespace bbxp.web.Managers {
                 return new ReturnSet<List<PostResponseItem>>(cachedResult);
             }
 
-            using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
-                var posts = eFactory.DGT_Posts.OrderByDescending(a => a.PostDate).Take(mContainer.GSetings.NumPostsToList).ToList();
+            var posts = DbContext.DGT_Posts.OrderByDescending(a => a.PostDate).Take(mContainer.GSetings.NumPostsToList).ToList();
 
-                var result = new ReturnSet<List<PostResponseItem>>(posts.Select(GeneratePostModel).ToList());
+            var result = new ReturnSet<List<PostResponseItem>>(posts.Select(GeneratePostModel).ToList());
 
-                AddCachedItem(MainCacheKeys.PostListing, result);
+            AddCachedItem(MainCacheKeys.PostListing, result);
                 
-                return result;
-            }
+            return result;            
         }
 
         public ReturnSet<List<PostResponseItem>> GetMonthPosts(int year, int month) {
@@ -157,15 +145,13 @@ namespace bbxp.web.Managers {
                 return new ReturnSet<List<PostResponseItem>>(cachedResult);
             }
 
-            using (var eFactory = new EntityFactory(mContainer.GSetings.DatabaseConnection)) {
-                var posts = eFactory.DGT_Posts.Where(a => a.PostDate.Year == year && a.PostDate.Month == month).OrderByDescending(b => b.PostDate).ToList();
+            var posts = DbContext.DGT_Posts.Where(a => a.PostDate.Year == year && a.PostDate.Month == month).OrderByDescending(b => b.PostDate).ToList();
 
-                var response = new ReturnSet<List<PostResponseItem>>(posts.Select(GeneratePostModel).ToList());
+            var response = new ReturnSet<List<PostResponseItem>>(posts.Select(GeneratePostModel).ToList());
 
-                AddCachedItem($"{year}-{month}", response);
+            AddCachedItem($"{year}-{month}", response);
                 
-                return response;                
-            }
+            return response;
         }
     }
 }

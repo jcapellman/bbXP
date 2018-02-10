@@ -1,15 +1,18 @@
 ﻿using System;
 
 using bbxp.lib.Containers;
+using bbxp.lib.DAL;
 using bbxp.lib.Enums;
 
 using Microsoft.Extensions.Caching.Memory;
 
-namespace bbxp.web.Managers {
+namespace bbxp.lib.Managers {
     public class BaseManager {
         protected readonly ManagerContainer mContainer;
 
         private IMemoryCache Cache => mContainer.Cache;
+
+        protected BbxpDbContext DbContext => mContainer.DBContext;
 
         protected (bool IsFound, T CachedResult) GetCachedItem<T>(MainCacheKeys key) =>
             GetCachedItem<T>(key.ToString());

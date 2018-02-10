@@ -1,8 +1,7 @@
 ﻿using System;
-
+using bbxp.lib.DAL;
+using bbxp.lib.Managers;
 using bbxp.lib.Settings;
-
-using bbxp.web.Managers;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -10,7 +9,7 @@ using Microsoft.Extensions.Options;
 
 namespace bbxp.web.Controllers {
     public class ArchivesController : BaseController {
-        public ArchivesController(IMemoryCache cache, IOptions<GlobalSettings> globalSettings) : base(globalSettings.Value, cache) { }
+        public ArchivesController(BbxpDbContext dbContext, IMemoryCache cache, IOptions<GlobalSettings> globalSettings) : base(globalSettings.Value, cache, dbContext) { }
 
         public IActionResult Index() {
             var archiveList = new PostArchiveManager(ManagerContainer).GetArchives();

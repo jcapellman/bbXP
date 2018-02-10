@@ -1,4 +1,4 @@
-﻿namespace bbxp.web.DAL.Objects
+﻿namespace bbxp.lib.DAL.Objects
 {
     public class DGT_MostFrequentedPages
     {
