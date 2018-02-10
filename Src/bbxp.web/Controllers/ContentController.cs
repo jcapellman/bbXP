@@ -12,6 +12,15 @@ namespace bbxp.web.Controllers {
 
         [Route("/content/{urlSafeName}")]
         public async Task<IActionResult> Index(string urlSafeName)
-            => View(await new ContentManager(MANAGER_CONTAINER).GetContentAsync(urlSafeName));
+        {
+            var result = await new ContentManager(MANAGER_CONTAINER).GetContentAsync(urlSafeName);
+
+            if (result.HasError)
+            {
+                return RedirectToError(result.ExceptionMessage);
+            }
+
+            return View(result);
+        }
     }
 }
