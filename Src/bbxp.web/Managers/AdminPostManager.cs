@@ -30,8 +30,8 @@ namespace bbxp.web.Managers {
                 eFactory.Posts.Add(post);
                 await eFactory.SaveChangesAsync();
 
-                await rFactory.WriteJSONAsync(post.URLSafename, new PostManager(mContainer).GetSinglePost(post.ID));
-
+                AddCachedItem(post.URLSafename, new PostManager(mContainer).GetSinglePost(post.ID));
+                
                 return new ReturnSet<bool>(true);
             }
         }
@@ -44,6 +44,11 @@ namespace bbxp.web.Managers {
 
                 var post = eFactory.Posts.FirstOrDefault(a => a.ID == requestItem.PostID.Value);
 
+                if (post == null)
+                {
+                    return new ReturnSet<bool>($"Post ID {requestItem.PostID.Value} does not exist in DB");
+                }
+
                 post.Modified = DateTime.Now;
                 post.Title = requestItem.Title;
                 post.Body = requestItem.Body;
@@ -51,8 +56,8 @@ namespace bbxp.web.Managers {
 
                 await eFactory.SaveChangesAsync();
                 
-                await rFactory.WriteJSONAsync(post.URLSafename, new PostManager(mContainer).GetSinglePost(post.ID));
-
+                AddCachedItem(post.URLSafename, new PostManager(mContainer).GetSinglePost(post.ID));
+                
                 return new ReturnSet<bool>(true);
             }
         }
