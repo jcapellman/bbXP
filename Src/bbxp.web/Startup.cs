@@ -23,6 +23,7 @@ namespace bbxp.web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMemoryCache();
             services.Configure<GlobalSettings>(Configuration.GetSection("GlobalSettings"));
             services.AddMvc();
         }
