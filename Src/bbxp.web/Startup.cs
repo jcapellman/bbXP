@@ -27,7 +27,7 @@ namespace bbxp.web
         {
             services.AddMemoryCache();
 
-            services.AddDbContext<BbxpDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<BbxpDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.Configure<GlobalSettings>(Configuration.GetSection("GlobalSettings"));
             services.AddMvc();
