@@ -23,11 +23,11 @@ namespace bbxp.lib.Managers {
                 return new ReturnSet<ContentResponseItem>(exception: $"{urlSafeName} cannot be found");
             }
 
-            var response = new ReturnSet<ContentResponseItem>(new ContentResponseItem { Body = content.Body, Title = content.Title });
+            var contentResponse = new ContentResponseItem {Body = content.Body, Title = content.Title};
 
-            AddCachedItem(content.URLSafename, response);
+            AddCachedItem(content.URLSafename, contentResponse);
 
-            return response;            
+            return new ReturnSet<ContentResponseItem>(contentResponse);
         }
     }
 }
