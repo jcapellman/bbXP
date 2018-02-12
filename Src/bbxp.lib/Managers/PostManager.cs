@@ -133,7 +133,7 @@ namespace bbxp.lib.Managers {
             var result = posts.Select(GeneratePostModel).ToList();
 
             AddCachedItem(MainCacheKeys.PostListing, result);
-                
+
             return new ReturnSet<List<PostResponseItem>>(result);            
         }
 
@@ -147,11 +147,11 @@ namespace bbxp.lib.Managers {
 
             var posts = DbContext.DGT_Posts.Where(a => a.PostDate.Year == year && a.PostDate.Month == month).OrderByDescending(b => b.PostDate).ToList();
 
-            var response = new ReturnSet<List<PostResponseItem>>(posts.Select(GeneratePostModel).ToList());
+            var response = posts.Select(GeneratePostModel).ToList();
 
             AddCachedItem($"{year}-{month}", response);
                 
-            return response;
+            return new ReturnSet<List<PostResponseItem>>(response);
         }
     }
 }
