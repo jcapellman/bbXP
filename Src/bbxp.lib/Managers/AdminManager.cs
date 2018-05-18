@@ -12,7 +12,9 @@ namespace bbxp.lib.Managers {
         {
             try
             {
-                var result = DbContext.Users.FirstOrDefault(a => a.Username == username && a.Password == password && a.Active);
+                var hashedPassword = HashString(password);
+
+                var result = DbContext.Users.FirstOrDefault(a => a.Username == username && a.Password == hashedPassword && a.Active);
 
                 if (result == null)
                 {

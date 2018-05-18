@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Text;
 
 using bbxp.lib.Containers;
 using bbxp.lib.DAL;
@@ -32,6 +34,18 @@ namespace bbxp.lib.Managers {
             var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.MaxValue);
 
             Cache.Set(key, obj, cacheEntryOptions);
+        }
+
+        protected static string HashString(string input)
+        {
+            using (var algorithm = SHA512.Create())
+            {
+                var hash = algorithm.ComputeHash(Encoding.ASCII.GetBytes(input));
+
+                var hashbytes = algorithm.ComputeHash(hash);
+
+                return Convert.ToBase64String(hashbytes);
+            }
         }
 
         protected BaseManager(ManagerContainer container) {
