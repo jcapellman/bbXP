@@ -1,1 +1,21 @@
-﻿
+﻿@using bbxp.web.Models
+@LoginViewModel
+
+<form asp-action="AttemptLogin" method="post">
+    <div class="form-group">
+        <input asp-for="Username" class="form-control" placeholder="username" required autofocus />
+    </div>
+
+    <div class="form-group">
+        <input asp-for="Password" class="form-control" placeholder="password" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">login</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.ErrorString))
+{
+    <div class="errorContainer">
+        @Model.ErrorString
+    </div>
+}
