@@ -1,6 +1,6 @@
 ﻿using bbxp.lib.DAL;
 using bbxp.lib.Settings;
-
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -28,6 +28,8 @@ namespace bbxp.web
             services.AddMemoryCache();
 
             services.AddDbContext<BbxpDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
             services.Configure<GlobalSettings>(Configuration.GetSection("GlobalSettings"));
             services.AddMvc();

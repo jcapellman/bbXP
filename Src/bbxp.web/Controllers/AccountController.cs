@@ -10,12 +10,15 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Options;
 
 namespace bbxp.web.Controllers
 {
     public class AccountController : BaseController
     {
-        public ActionResult Index(LoginViewModel model = null) => View(model);
+        public AccountController(BbxpDbContext dbContext, IMemoryCache cache, IOptions<GlobalSettings> globalSettings) : base(globalSettings.Value, cache, dbContext) { }
+
+        public ActionResult Login(LoginViewModel model = null) => View(model);
 
         private void LoginUser(int userID)
         {
@@ -49,10 +52,6 @@ namespace bbxp.web.Controllers
             {
                 ErrorString = "Could not login"
             });
-        }
-
-        public AccountController(GlobalSettings globalSettings, IMemoryCache cache, BbxpDbContext dbContext) : base(globalSettings, cache, dbContext)
-        {
         }
     }
 }
