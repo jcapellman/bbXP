@@ -232,3 +232,14 @@ footer p {
 
     position: absolute; color: White; top: 50%; left: 45%;
 }
+
+.logincontent {
+    text-align: center;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    margin: 5px;
+}
