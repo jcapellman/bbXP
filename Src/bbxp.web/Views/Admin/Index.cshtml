@@ -1,1 +1,14 @@
-﻿
+﻿@model List<bbxp.lib.Transports.AdminPost.AdminPostListingItem>
+
+<h2 class="text-center">Posts</h2>
+
+<div class="form-group">
+    <button asp-action="NewPost" class="btn btn-primary center-block">New Post</button>
+</div>
+
+@foreach (var post in Model)
+{
+    <div class="form-group text-center">
+        @Html.ActionLink($"{post.PostTitle} ({post.PostDate})", "EditPost", new { id = post.PostID })
+    </div>
+}
