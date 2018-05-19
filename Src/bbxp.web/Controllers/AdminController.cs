@@ -4,6 +4,7 @@ using bbxp.lib.Settings;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Options;
 
 namespace bbxp.web.Controllers
 {
@@ -16,8 +17,6 @@ namespace bbxp.web.Controllers
 
         public ActionResult NewPost() => View();
 
-        public AdminController(GlobalSettings globalSettings, IMemoryCache cache, BbxpDbContext dbContext) : base(globalSettings, cache, dbContext)
-        {
-        }
+        public AdminController(BbxpDbContext dbContext, IMemoryCache cache, IOptions<GlobalSettings> globalSettings) : base(globalSettings.Value, cache, dbContext) { }
     }
 }
