@@ -39,19 +39,22 @@ namespace bbxp.web.Controllers
             HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props).Wait();
         }
 
+        [HttpPost]
         public IActionResult AttemptLogin(LoginViewModel model)
         {
             var result = new AdminManager(ManagerContainer).AttemptLogin(model.Username, model.Password);
 
-            if (!result.HasError)
+            if (result.HasError)
             {
-                LoginUser(result.ReturnValue);
+                return View("Login", new LoginViewModel
+                {
+                    ErrorString = "Could not login"
+                });
             }
 
-            return View("Login", new LoginViewModel
-            {
-                ErrorString = "Could not login"
-            });
+            LoginUser(result.ReturnValue);
+
+            return RedirectToAction("Index", "Admin");
         }
     }
 }
