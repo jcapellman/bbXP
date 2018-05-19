@@ -1,5 +1,6 @@
 ﻿using bbxp.lib.DAL;
 using bbxp.lib.Settings;
+
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,6 +42,8 @@ namespace bbxp.web
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
+
+            app.UseAuthentication();
 
             app.UseStaticFiles();
             
