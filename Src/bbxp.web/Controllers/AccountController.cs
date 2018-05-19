@@ -48,7 +48,7 @@ namespace bbxp.web.Controllers
                 LoginUser(result.ReturnValue);
             }
 
-            return View("Index", new LoginViewModel
+            return View("Login", new LoginViewModel
             {
                 ErrorString = "Could not login"
             });
