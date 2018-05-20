@@ -14,6 +14,10 @@ namespace bbxp.lib.DAL
 
         public DbSet<DGT_Archives> DGT_Archives { get; set; }
 
+        public DbSet<Tags> Tags { get; set; }
+
+        public DbSet<Posts2Tags> Posts2Tags { get; set; }
+
         public DbSet<Requests> Requests { get; set; }
 
         public DbSet<Users> Users { get; set; }
