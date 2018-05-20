@@ -20,6 +20,13 @@ namespace bbxp.web.Controllers
 
         public ActionResult Login(LoginViewModel model = null) => View(model);
 
+        public ActionResult Logout()
+        {
+            HttpContext.SignOutAsync().Wait();
+
+            return Login();
+        }
+
         private void LoginUser(int userID)
         {
             var claims = new List<Claim>
