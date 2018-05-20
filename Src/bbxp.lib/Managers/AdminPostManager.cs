@@ -61,9 +61,9 @@ namespace bbxp.lib.Managers {
             DbContext.Posts.Add(post);
             await DbContext.SaveChangesAsync();
 
-            UpdateDGTPost(String.Empty, post);
+            var dgtPost = UpdateDGTPost(String.Empty, post);
 
-            AddCachedItem(post.URLSafename, new PostManager(mContainer).GetSinglePost(post.ID));
+            AddCachedItem(post.URLSafename, PostManager.GeneratePostModel(dgtPost));
                 
             RemoveCachedItem(MainCacheKeys.PostListing);
             RemoveCachedItem(MainCacheKeys.PostArchive);
@@ -92,9 +92,9 @@ namespace bbxp.lib.Managers {
 
             await DbContext.SaveChangesAsync();
 
-            UpdateDGTPost(originalURLSafename, post);
+            var dgtPost = UpdateDGTPost(originalURLSafename, post);
 
-            AddCachedItem(post.URLSafename, new PostManager(mContainer).GetSinglePost(post.ID));
+            AddCachedItem(post.URLSafename, PostManager.GeneratePostModel(dgtPost));
 
             RemoveCachedItem(MainCacheKeys.PostListing);
             RemoveCachedItem(MainCacheKeys.PostArchive);
@@ -138,7 +138,7 @@ namespace bbxp.lib.Managers {
             }
         }
 
-        private void UpdateDGTPost(string originalUrlSafename, Posts post)
+        private DGT_Posts UpdateDGTPost(string originalUrlSafename, Posts post)
         {
             DGT_Posts dgtPost = null;
 
@@ -157,7 +157,7 @@ namespace bbxp.lib.Managers {
 
                     DbContext.SaveChanges();
 
-                    return;
+                    return dgtPost;
                 }
             }
 
@@ -173,6 +173,8 @@ namespace bbxp.lib.Managers {
 
             DbContext.DGT_Posts.Add(dgtPost);
             DbContext.SaveChanges();
+
+            return dgtPost;
         }
     }
 }
