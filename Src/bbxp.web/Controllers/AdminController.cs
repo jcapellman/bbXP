@@ -33,6 +33,15 @@ namespace bbxp.web.Controllers
 
         public ActionResult NewPost() => View();
 
+        [HttpPost]
+        public async Task<ActionResult> CreatePost(AdminPostRequestItem model)
+        {
+            var result = await new AdminPostManager(ManagerContainer).CreatePostAsync(model);
+
+            return result.HasError ? RedirectToError(result.ExceptionMessage) : Index();
+        }
+
+        [HttpPost]
         public async Task<ActionResult> UpdatePost(AdminPostResponseItem model)
         {
             var result = await new AdminPostManager(ManagerContainer).UpdatePostAsync(new AdminPostRequestItem
