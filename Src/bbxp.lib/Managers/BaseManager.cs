@@ -29,6 +29,16 @@ namespace bbxp.lib.Managers {
             AddCachedItem(key.ToString(), obj);
         }
 
+        protected void RemoveCachedItem(MainCacheKeys key)
+        {
+            Cache.Remove(key.ToString());
+        }
+
+        protected void RemoveCachedItem(string key)
+        {
+            Cache.Remove(key);
+        }
+
         protected void AddCachedItem<T>(string key, T obj)
         {
             var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.MaxValue);
