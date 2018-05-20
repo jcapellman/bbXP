@@ -8,6 +8,7 @@ using bbxp.lib.Containers;
 using bbxp.lib.DAL.Objects;
 using bbxp.lib.Enums;
 using bbxp.lib.Transports.AdminPost;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace bbxp.lib.Managers {
@@ -46,6 +47,16 @@ namespace bbxp.lib.Managers {
             return new ReturnSet<AdminPostResponseItem>(response);
         }
 
+        private void refreshDGTPost(string originalSafename, Posts post)
+        {
+            var dgtPost = UpdateDGTPost(originalSafename, post);
+
+            AddCachedItem(post.URLSafename, PostManager.GeneratePostModel(dgtPost));
+
+            RemoveCachedItem(MainCacheKeys.PostListing);
+            RemoveCachedItem(MainCacheKeys.PostArchive);
+        }
+
         public async Task<ReturnSet<bool>> CreatePostAsync(AdminPostRequestItem requestItem) {
            
             var post = new Posts {
@@ -61,14 +72,9 @@ namespace bbxp.lib.Managers {
             DbContext.Posts.Add(post);
             await DbContext.SaveChangesAsync();
 
-            var dgtPost = UpdateDGTPost(String.Empty, post);
+            refreshDGTPost(string.Empty, post);
 
-            AddCachedItem(post.URLSafename, PostManager.GeneratePostModel(dgtPost));
-                
-            RemoveCachedItem(MainCacheKeys.PostListing);
-            RemoveCachedItem(MainCacheKeys.PostArchive);
-
-            return new ReturnSet<bool>(true);            
+            return new ReturnSet<bool>(true);
         }
 
         public async Task<ReturnSet<bool>> UpdatePostAsync(AdminPostRequestItem requestItem) {            
@@ -92,12 +98,7 @@ namespace bbxp.lib.Managers {
 
             await DbContext.SaveChangesAsync();
 
-            var dgtPost = UpdateDGTPost(originalURLSafename, post);
-
-            AddCachedItem(post.URLSafename, PostManager.GeneratePostModel(dgtPost));
-
-            RemoveCachedItem(MainCacheKeys.PostListing);
-            RemoveCachedItem(MainCacheKeys.PostArchive);
+            refreshDGTPost(originalURLSafename, post);
 
             return new ReturnSet<bool>(true);            
         }
