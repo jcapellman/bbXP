@@ -38,7 +38,7 @@ namespace bbxp.web.Controllers
         {
             var result = await new AdminPostManager(ManagerContainer).CreatePostAsync(model);
 
-            return result.HasError ? RedirectToError(result.ExceptionMessage) : Index();
+            return result.HasError ? RedirectToError(result.ExceptionMessage) : RedirectToAction("Index", "Admin");
         }
 
         [HttpPost]
@@ -52,7 +52,7 @@ namespace bbxp.web.Controllers
                 TagList = model.Tags
             });
 
-            return result.HasError ? RedirectToError(result.ExceptionMessage) : Index();
+            return result.HasError ? RedirectToError(result.ExceptionMessage) : RedirectToAction("Index", "Admin");
         }
     }
 }
