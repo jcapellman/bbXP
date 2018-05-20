@@ -75,9 +75,34 @@ namespace bbxp.lib.Managers {
         }
 
         public ReturnSet<PostResponseItem> GetSinglePost(int postID) {            
-            var post = DbContext.DGT_Posts.FirstOrDefault(a => a.ID == postID);
+            var post = DbContext.DGT_Posts.FirstOrDefault(a => a.ID == postID) ?? CreateDGTPost(postID);
 
             return new ReturnSet<PostResponseItem>(GeneratePostModel(post));            
+        }
+
+        private DGT_Posts CreateDGTPost(int postID)
+        {
+            var post = DbContext.Posts.FirstOrDefault(a => a.ID == postID);
+
+            if (post == null)
+            {
+                return null;
+            }
+
+            var dgtPost = new DGT_Posts
+            {
+                Body = post.Body,
+                PostDate = post.Created,
+                Title = post.Title,
+                TagList = string.Empty, // todo: Add Tag support
+                SafeTagList = string.Empty,
+                RelativeURL = post.URLSafename
+            };
+
+            DbContext.DGT_Posts.Add(dgtPost);
+            DbContext.SaveChanges();
+
+            return dgtPost;
         }
 
         public ReturnSet<PostResponseItem> GetSinglePost(string relativeURL)
