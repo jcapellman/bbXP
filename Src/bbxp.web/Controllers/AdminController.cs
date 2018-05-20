@@ -33,6 +33,13 @@ namespace bbxp.web.Controllers
 
         public ActionResult NewPost() => View();
 
+        public ActionResult RegenerateCache()
+        {
+            var result = new AdminPostManager(ManagerContainer).RegenerateCache();
+
+            return result.HasError ? RedirectToError(result.ExceptionMessage) : RedirectToAction("Index", "Admin");
+        }
+
         [HttpPost]
         public async Task<ActionResult> CreatePost(AdminPostRequestItem model)
         {
