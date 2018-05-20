@@ -72,6 +72,10 @@ namespace bbxp.lib.Managers {
             DbContext.Posts.Add(post);
             await DbContext.SaveChangesAsync();
 
+            var tags = GenerateTags(requestItem.TagList);
+
+            UpdateTagsForPost(post.ID, tags);
+
             refreshDGTPost(string.Empty, post);
 
             return new ReturnSet<bool>(true);
@@ -98,9 +102,85 @@ namespace bbxp.lib.Managers {
 
             await DbContext.SaveChangesAsync();
 
+            var tags = GenerateTags(requestItem.TagList);
+
+            UpdateTagsForPost(post.ID, tags);
+
             refreshDGTPost(originalURLSafename, post);
 
             return new ReturnSet<bool>(true);            
+        }
+
+        private void UpdateTagsForPost(int postId, IEnumerable<(string tag, string urlSafeTag)> tags)
+        {
+            var globalTags = DbContext.Tags.Where(a => a.Active).ToList();
+
+            DbContext.Database.ExecuteSqlCommand(
+                $"UPDATE Posts2Tags SET Active = 0, Modified = GETDATE() WHERE PostID {postId}");
+
+            foreach (var tag in tags)
+            {
+                var relation = new Posts2Tags
+                {
+                    Active = true,
+                    Created = DateTime.Now,
+                    Modified = DateTime.Now,
+                    PostID = postId
+                };
+
+                var globalTag = globalTags.FirstOrDefault(a => a.Description == tag.tag);
+
+                if (globalTag != null)
+                {
+                    relation.TagID = globalTag.ID;
+                }
+                else
+                {
+                    globalTag = new Tags
+                    {
+                        Active = true,
+                        Modified = DateTime.Now,
+                        Created = DateTime.Now,
+                        Description = tag.tag,
+                        URLSafeDescription = tag.urlSafeTag
+                    };
+
+                    DbContext.Tags.Add(globalTag);
+                    DbContext.SaveChanges();
+
+                    relation.TagID = globalTag.ID;
+                }
+
+                DbContext.Posts2Tags.Add(relation);
+
+                DbContext.SaveChanges();
+            }
+        }
+
+        private static (string tag, string urlSafeTag) ParseTag(string tag)
+        {
+            return (tag, tag.ToLower().Replace(" ", "-").Replace(".", ""));
+        }
+
+        private List<(string tag, string urlSafeTag)> GenerateTags(string tags)
+        {
+            var tagList = new List<(string tagList, string urlSafeTag)>();
+
+            if (string.IsNullOrEmpty(tags))
+            {
+                return tagList;
+            }
+
+            if (!tags.Contains(","))
+            {
+                tagList.Add(ParseTag(tags));
+
+                return tagList;
+            }
+
+            tagList.AddRange(tags.Split(',').Select(ParseTag));
+
+            return tagList;
         }
 
         public ReturnSet<bool> RegenerateCache()
