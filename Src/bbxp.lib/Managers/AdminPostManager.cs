@@ -116,7 +116,7 @@ namespace bbxp.lib.Managers {
             var globalTags = DbContext.Tags.Where(a => a.Active).ToList();
 
             DbContext.Database.ExecuteSqlCommand(
-                $"UPDATE Posts2Tags SET Active = 0, Modified = GETDATE() WHERE PostID {postId}");
+                $"UPDATE Posts2Tags SET Active = 0, Modified = GETDATE() WHERE PostID = {postId}");
 
             foreach (var tag in tags)
             {
