@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Linq;
 using bbxp.lib.DAL;
 using bbxp.lib.Managers;
 using bbxp.lib.Settings;
-
+using bbxp.web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
@@ -29,7 +30,7 @@ namespace bbxp.web.Controllers {
 
             ViewData["Title"] = $"{month} {year}";
 
-            return PartialView("_ArchivedPosts", posts.ReturnValue);
+            return PartialView("_ArchivedPosts", posts.ReturnValue.Select(a => new PostModel { IsSinglePost = false, Post = a}).ToList());
         }
     }
 }
