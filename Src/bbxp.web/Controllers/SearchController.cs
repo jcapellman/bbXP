@@ -1,6 +1,9 @@
-﻿using bbxp.lib.DAL;
+﻿using System.Linq;
+
+using bbxp.lib.DAL;
 using bbxp.lib.Managers;
 using bbxp.lib.Settings;
+using bbxp.web.Models;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -17,7 +20,7 @@ namespace bbxp.web.Controllers {
         {
             var result = new PostManager(ManagerContainer).SearchPosts(query);
 
-            return result.HasError ? PartialView("Error", result.ExceptionMessage) : PartialView("_SearchResults", result.ReturnValue);
+            return result.HasError ? PartialView("Error", result.ExceptionMessage) : PartialView("_SearchResults", result.ReturnValue.Select(a => new PostModel {IsSinglePost = false, Post = a}).ToList());
         }            
     }
 }
