@@ -196,6 +196,13 @@ footer p {
     margin-right:10px;
 }
 
+#PostContainer #TagsContainer .CommentLink {
+    float: right;
+    width: 160px;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
 #PostContainer #TagsContainer .TagContainer {
     background-color: #4e4e4e;
     padding-left: 10px;
@@ -209,6 +216,7 @@ footer p {
 }
 
 #PostContainer #TagsContainer .notags {
+    float: left;
     padding-left: 20px;
     color: #FFF;
     text-transform: uppercase;
@@ -222,6 +230,12 @@ footer p {
 #PostContainer #TagsContainer .TagContainer a:active {
     background-color: rgb(0, 204, 0);
     text-decoration: none;
+}
+
+#PostContainer .CommentContainer {
+    background-color: #3e3e3e;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 #LoadingContainer {
