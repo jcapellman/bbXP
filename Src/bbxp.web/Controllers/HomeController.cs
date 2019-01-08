@@ -27,9 +27,9 @@ namespace bbxp.web.Controllers {
             return result.HasError ? RedirectToError(result.ExceptionMessage) : View("Index", result.ReturnValue.Select(a => new PostModel { IsSinglePost = false, Post = a}).ToList());
         }
 
-        [Route("{year}/{month}/{day}/{postURL}")]
-        public IActionResult SinglePost(int year, int month, int day, string postUrl) {
-            var post = new PostManager(ManagerContainer).GetSinglePost($"{year}/{month}/{day}/{postUrl}");
+        [Route("{postURL}")]
+        public IActionResult SinglePost(string postURL) {
+            var post = new PostManager(ManagerContainer).GetSinglePost(postURL);
 
             if (post.HasError)
             {
