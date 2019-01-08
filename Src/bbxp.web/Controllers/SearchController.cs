@@ -13,6 +13,7 @@ namespace bbxp.web.Controllers {
     public class SearchController : BaseController {
         public SearchController(BbxpDbContext dbContext, IMemoryCache cache, IOptions<GlobalSettings> globalSettings) : base(globalSettings.Value, cache, dbContext) { }
 
+        [Route("search/")]
         public IActionResult Index() => View();
 
         [Route("search/{query}")]
