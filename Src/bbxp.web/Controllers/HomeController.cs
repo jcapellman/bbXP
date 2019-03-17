@@ -33,7 +33,15 @@ namespace bbxp.web.Controllers {
 
             if (post.HasError)
             {
-                return RedirectToError(post.ExceptionMessage);
+                // Handle older routes cached in Search Engines
+                if (!postURL.Contains("/"))
+                {
+                    return RedirectToError(post.ExceptionMessage);
+                }
+
+                postURL = postURL.Split('/')[2];
+
+                return RedirectPermanent(postURL);
             }
 
             ViewData["Title"] = post.ReturnValue.Title;
