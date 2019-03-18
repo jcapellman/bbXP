@@ -27,20 +27,15 @@ namespace bbxp.web.Controllers {
             return result.HasError ? RedirectToError(result.ExceptionMessage) : View("Index", result.ReturnValue.Select(a => new PostModel { IsSinglePost = false, Post = a}).ToList());
         }
 
+        [Route("{year}/{month}/{day}/{postURL}")]
+        public IActionResult LegacyRoute(int year, int month, int day, string postURL) => SinglePost(postURL);
+
         [Route("{postURL}")]
         public IActionResult SinglePost(string postURL) {
             var post = new PostManager(ManagerContainer).GetSinglePost(postURL);
 
             if (post.HasError)
             {
-                // Handle older routes cached in Search Engines
-                if (!postURL.Contains("/"))
-                {
-                    return RedirectToError(post.ExceptionMessage);
-                }
-
-                postURL = postURL.Split('/')[2];
-
                 return RedirectPermanent(postURL);
             }
 
