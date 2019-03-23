@@ -54,7 +54,7 @@ namespace bbxp.lib.Managers {
                 return modelItem;
             }
 
-            for (var x = 0; x < post.TagList.Split(',').Count(); x++) {
+            for (var x = 0; x < post.TagList.Split(',').Length; x++) {
                 var tagItem = new TagResponseItem {
                     DisplayString = post.TagList.Split(',')[x],
                     URLString = post.TagList.Split(',')[x]
