@@ -28,9 +28,11 @@ namespace bbxp.web.Controllers {
         }
 
         [Route("{year}/{month}/{day}/{postURL}")]
+        // ReSharper disable once InconsistentNaming
         public IActionResult LegacyRoute(int year, int month, int day, string postURL) => SinglePost(postURL);
 
         [Route("{postURL}")]
+        // ReSharper disable once InconsistentNaming
         public IActionResult SinglePost(string postURL) {
             var post = new PostManager(ManagerContainer).GetSinglePost(postURL);
 
