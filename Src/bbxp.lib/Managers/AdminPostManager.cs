@@ -115,7 +115,7 @@ namespace bbxp.lib.Managers {
         {
             var globalTags = DbContext.Tags.Where(a => a.Active).ToList();
 
-            DbContext.Database.ExecuteSqlCommand(
+            DbContext.Database.ExecuteSqlInterpolated(
                 $"UPDATE Posts2Tags SET Active = 0, Modified = GETDATE() WHERE PostID = {postId}");
 
             foreach (var tag in tags)
@@ -187,7 +187,7 @@ namespace bbxp.lib.Managers {
         {
             try
             {
-                DbContext.Database.ExecuteSqlCommand("DELETE FROM DGT_Posts");
+                DbContext.Database.ExecuteSqlRaw("DELETE FROM DGT_Posts");
 
                 var posts = DbContext.Posts.Where(a => a.Active).OrderBy(a => a.ID);
 

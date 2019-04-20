@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bbxp.lib", "bbxp.lib\bbxp.l
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bbxp.web", "bbxp.web\bbxp.web.csproj", "{74D832F2-C2B6-4511-9E5B-F975BE47C471}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bbxp.unittests", "bbxp.unittests\bbxp.unittests.csproj", "{E2A32F09-FBDC-4C53-9294-5354BDAFBCD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bbxp.unittests", "bbxp.unittests\bbxp.unittests.csproj", "{E2A32F09-FBDC-4C53-9294-5354BDAFBCD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
