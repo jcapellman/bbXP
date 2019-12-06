@@ -24,10 +24,11 @@
             url: '/search/' + searchQuery,
             contentType: 'application/html; charset=utf-8',
             type: 'GET',
-            dataType: 'html'
-        }).success(function (result) {
-            $('#searchResults').html(result);
-            hideLoading();
+            dataType: 'html',
+            success: function (result) {
+                $('#searchResults').html(result);
+                hideLoading();
+            }
         });
     }  
 </script>
