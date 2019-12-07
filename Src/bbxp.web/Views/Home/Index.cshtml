@@ -5,8 +5,14 @@
     ViewData["Title"] = "Home";
 }
 
-<h2 class="PageTitle">latest posts</h2>
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="my-4">latest posts</h1>
 
-@foreach (var post in Model) {
-    @Html.Partial("_PostPartial", post)
-}
+        @foreach (var post in Model)
+        {
+            @Html.Partial("_PostPartial", post)
+        }
+        <br/>
+    </div>
+</div>
