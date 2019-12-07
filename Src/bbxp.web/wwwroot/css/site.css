@@ -257,3 +257,7 @@ footer p {
     text-align: center;
     margin: 5px;
 }
+
+pre {
+    background-color: white !important;
+}

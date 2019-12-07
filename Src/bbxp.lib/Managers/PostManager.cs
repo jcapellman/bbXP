@@ -37,9 +37,14 @@ namespace bbxp.lib.Managers {
             return content;
         }
 
+        private static string CleanBody(string body)
+        {
+            return body.Replace("img-responsive", "img-fluid").Replace("<pre><p>", "<pre><code>").Replace("</p></pre>", "</code></pre>");
+        }
+
         public static PostResponseItem GeneratePostModel(DGT_Posts post) {
             var modelItem = new PostResponseItem {
-                Body = post.Body,
+                Body = CleanBody(post.Body),
                 PostDate = post.PostDate,
                 Title = post.Title,
                 RelativeURL = post.RelativeURL,
