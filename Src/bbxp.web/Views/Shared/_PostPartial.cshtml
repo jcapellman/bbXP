@@ -1,52 +1,56 @@
 ﻿@using bbxp.lib.Transports.Posts
 @model bbxp.web.Models.PostModel
 
-<div id="PostContainer">
-    <div id="Header">
-        <h2><a href="@Model.Post.RelativeURL">@Model.Post.Title</a></h2>
-        <h4>@Model.Post.PostDate.ToString("MMM dd, yyyy")</h4>
-    </div>
-
-    <div id="ContentContainer">
+<div class="card">
+    <div class="card-body bg-dark">
+        <h2 class="card-title">@Model.Post.Title</h2>
         @Html.Raw(Model.Post.Body)
     </div>
 
-    <div id="TagsContainer">
-        <span class="TagLabel">TAGS</span>
+        <div id="TagsContainer">
+            <span class="TagLabel">TAGS</span>
 
-        @if (!Model.Post.Tags.Any()) {
-            <div class="notags">none on this post</div>
-        } else {
-            foreach (var tag in Model.Post.Tags) {
-                <div class="TagContainer">
-                    <a href="~/tag/@tag.URLString/">@tag.DisplayString</a>
+            @if (!Model.Post.Tags.Any())
+            {
+                <div class="notags">none on this post</div>
+            }
+            else
+            {
+                foreach (var tag in Model.Post.Tags)
+                {
+                    <div class="TagContainer">
+                        <a href="~/tag/@tag.URLString/">@tag.DisplayString</a>
+                    </div>
+                }
+            }
+
+            @if (!Model.IsSinglePost)
+            {
+                <div class="CommentLink">
+                    <a href="~/@Model.Post.RelativeURL#disqus_thread" title="@Model.Post.Title">View/Add Comments</a>
                 </div>
             }
-        }
-        
-        @if (!Model.IsSinglePost)
+        </div>
+
+        @if (Model.IsSinglePost)
         {
-            <div class="CommentLink">
-                <a href="~/@Model.Post.RelativeURL#disqus_thread" title="@Model.Post.Title">View/Add Comments</a>
+            <div class="CommentContainer">
+                <div id="disqus_thread"></div>
+
+                <script>
+                    (function () {
+                        var d = document, s = d.createElement('script');
+                        s.src = 'https://jcapellman.disqus.com/embed.js';
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                    })();
+                </script>
+
+                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
             </div>
         }
+
+    <div class="card-footer text-muted">
+        Posted on @Model.Post.PostDate.ToString("MMM dd, yyyy")
     </div>
-    
-    @if (Model.IsSinglePost)
-    {
-        <div class="CommentContainer">
-            <div id="disqus_thread"></div>
-
-            <script>
-                (function() {
-                    var d = document, s = d.createElement('script');
-                    s.src = 'https://jcapellman.disqus.com/embed.js';
-                    s.setAttribute('data-timestamp', +new Date());
-                    (d.head || d.body).appendChild(s);
-                })();
-            </script>
-
-            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-        </div>
-    }
 </div>

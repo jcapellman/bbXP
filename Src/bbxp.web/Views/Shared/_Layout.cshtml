@@ -7,8 +7,8 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
 
     <environment names="Development">
@@ -24,20 +24,15 @@
             <img src="~/images/loading.gif" />
         </p>
     </div>
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-controller="Home" asp-action="Index" class="navbar-brand">Jarred Capellman</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a asp-controller="Home" asp-action="Index" class="navbar-brand">Jarred Capellman</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
                     @if (Context.User.Identity.IsAuthenticated)
                     {
                         @Html.Partial("_AuthenticatedNav");
@@ -49,14 +44,15 @@
                 </ul>
             </div>
         </div>
-    </div>
-    <div class="container-fluid">
+    </nav>
+
+    <div class="container">
         @RenderBody()
-   
+
         <footer>
             <p>
-                &copy;1995-@DateTime.Now.Year Jarred Capellman. Disclaimer: The opinions expressed herein are my own personal opinions and do not represent my employer’s view in any way.<br/>
-                <a href="/stats">website stats</a><br/><br/>
+                &copy;1995-@DateTime.Now.Year Jarred Capellman. Disclaimer: The opinions expressed herein are my own personal opinions and do not represent my employer’s view in any way.<br />
+                <a href="/stats">website stats</a><br /><br />
                 <a href="http://github.com/jcapellman/bbxp" target="_blank">bbXP version 10.1.0.051918</a>
             </p>
         </footer>
