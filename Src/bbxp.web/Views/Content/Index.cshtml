@@ -5,10 +5,10 @@
     ViewData["Title"] = @Model.Title;
 }
 
-<h2 class="PageTitle">@Model.Title</h2>
+<h1 class="my-4">@Model.Title</h1>
 
-<div id="PostContainer">
-    <div id="ContentContainer">
+<div class="card" style="margin-top: 10px">
+    <div class="card-body bg-dark">
         @Html.Raw(Model.Body)
     </div>
 </div>
