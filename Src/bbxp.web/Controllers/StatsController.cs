@@ -10,6 +10,7 @@ namespace bbxp.web.Controllers {
     public class StatsController : BaseController {
         public StatsController(BbxpDbContext dbContext, IMemoryCache cache, IOptions<GlobalSettings> globalSettings) : base(globalSettings.Value, cache, dbContext) { }
 
+        [Route("stats/")]
         public ActionResult Index()
         {
             var result = new PageStatsManager(ManagerContainer).GetStatsOverview();
