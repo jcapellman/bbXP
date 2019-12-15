@@ -5,7 +5,7 @@ This project technically started with the first web page I did back in 1996 on G
 
 ## News
 ### December 7th, 2019 ###
-Updated to Bootstrap 4.4.1 and ASP.NET Core 3.1
+Updated to Bootstrap 4.4.1 and ASP.NET Core 3.1 including clean up to make the posts and content to be responsive.
 
 ### January 6, 2019 ###
 Updated all of the NuGet packages to 2.2 and .NET Core 2.2
