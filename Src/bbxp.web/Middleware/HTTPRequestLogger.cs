@@ -1,16 +1,42 @@
-﻿using bbxp.lib.Settings;
+﻿using System;
 
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
+using bbxp.lib.DAL;
+using bbxp.lib.DAL.Objects;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace bbxp.web.Middleware {
-    public class HTTPRequestLogger {
-        private readonly RequestDelegate _next;
-        protected GlobalSettings _globalSettings;
+    public class HTTPRequestLoggerAttribute : TypeFilterAttribute {
+        public HTTPRequestLoggerAttribute() : base(typeof(HTTPRequestLoggerFilter))
+        {
+        }
 
-        public HTTPRequestLogger(RequestDelegate next, IOptions<GlobalSettings> globalSettings) {
-            _next = next;
-            _globalSettings = globalSettings.Value;
+        private class HTTPRequestLoggerFilter : IActionFilter
+        {
+            private readonly BbxpDbContext _dbContext;
+
+            public HTTPRequestLoggerFilter(BbxpDbContext dbContext)
+            {
+                _dbContext = dbContext;
+            }
+
+            public void OnActionExecuting(ActionExecutingContext context)
+            {
+            }
+
+            public void OnActionExecuted(ActionExecutedContext context)
+            {
+                _dbContext.Requests.Add(new Requests
+                {
+                    Active = true,
+                    Created = DateTime.Now,
+                    Modified = DateTime.Now,
+                    RequestStr = context.HttpContext.Request.Path
+                });
+
+                _dbContext.SaveChanges();
+            }
         }
     }
 }
