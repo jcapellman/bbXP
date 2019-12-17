@@ -21,7 +21,7 @@
 
 <script type="text/javascript">
     function loadPosts(urlPath, arg) {
-        if ($(arg).css('display') == 'none') {
+        if ($(arg).css('display') === 'none') {
             $.ajax({
                 url: urlPath,
                 contentType: 'application/html; charset=utf-8',

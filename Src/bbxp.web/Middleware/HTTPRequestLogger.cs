@@ -25,7 +25,7 @@ namespace bbxp.web.Middleware {
             {
             }
 
-            public void OnActionExecuted(ActionExecutedContext context)
+            public async void OnActionExecuted(ActionExecutedContext context)
             {
                 _dbContext.Requests.Add(new Requests
                 {
@@ -35,7 +35,7 @@ namespace bbxp.web.Middleware {
                     RequestStr = context.HttpContext.Request.Path
                 });
 
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
             }
         }
     }

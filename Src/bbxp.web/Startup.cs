@@ -1,11 +1,15 @@
 ﻿using bbxp.lib.DAL;
 using bbxp.lib.Settings;
+
 using bbxp.web.Middleware;
+
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
+
 using Microsoft.EntityFrameworkCore;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,6 +23,7 @@ namespace bbxp.web
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables();
+
             Configuration = builder.Build();
         }
         
@@ -33,6 +38,7 @@ namespace bbxp.web
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
             services.Configure<GlobalSettings>(Configuration.GetSection("GlobalSettings"));
+
             services.AddMvc(a => a.EnableEndpointRouting = false).AddMvcOptions(a => a.Filters.Add(new HTTPRequestLoggerAttribute()));
         }
 
