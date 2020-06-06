@@ -4,5 +4,5 @@
 <h2>Search Results</h2>
 
 @foreach (var post in Model) {
-    @Html.Partial("_PostPartial", post)
+    <partial name="_PostPartial" model="post" />
 }
