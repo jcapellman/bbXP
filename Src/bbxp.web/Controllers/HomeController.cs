@@ -1,22 +1,23 @@
-﻿using System.Linq;
-
-using bbxp.lib.DAL;
+﻿using bbxp.lib.DAL;
 using bbxp.lib.Managers;
 using bbxp.lib.Settings;
 using bbxp.web.Models;
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
+using System.Linq;
 
-namespace bbxp.web.Controllers {
-    public class HomeController : BaseController {
+namespace bbxp.web.Controllers
+{
+    public class HomeController : BaseController
+    {
         public HomeController(BbxpDbContext dbContext, IMemoryCache cache, IOptions<GlobalSettings> globalSettings) : base(globalSettings.Value, cache, dbContext) { }
 
-        public IActionResult Index() {
+        public IActionResult Index()
+        {
             var result = new PostManager(ManagerContainer).GetHomeListing();
 
-            return result.HasError ? RedirectToError(result.ExceptionMessage) : View(result.ReturnValue.Select(a => new PostModel { IsSinglePost = false, Post = a}).ToList());
+            return result.HasError ? RedirectToError(result.ExceptionMessage) : View(result.ReturnValue.Select(a => new PostModel { IsSinglePost = false, Post = a }).ToList());
         }
 
         [Route("tag/{urlSafeTagName}")]
@@ -24,7 +25,7 @@ namespace bbxp.web.Controllers {
         {
             var result = new PostManager(ManagerContainer).GetPostsFromTag(urlSafeTagName);
 
-            return result.HasError ? RedirectToError(result.ExceptionMessage) : View("Index", result.ReturnValue.Select(a => new PostModel { IsSinglePost = false, Post = a}).ToList());
+            return result.HasError ? RedirectToError(result.ExceptionMessage) : View("Index", result.ReturnValue.Select(a => new PostModel { IsSinglePost = false, Post = a }).ToList());
         }
 
         [Route("{year}/{month}/{day}/{postURL}")]
@@ -33,7 +34,8 @@ namespace bbxp.web.Controllers {
 
         [Route("{postURL}")]
         // ReSharper disable once InconsistentNaming
-        public IActionResult SinglePost(string postURL) {
+        public IActionResult SinglePost(string postURL)
+        {
             var post = new PostManager(ManagerContainer).GetSinglePost(postURL);
 
             if (post.HasError)
@@ -43,7 +45,8 @@ namespace bbxp.web.Controllers {
 
             ViewData["Title"] = post.ReturnValue.Title;
 
-            return View("_PostPartial", new PostModel {
+            return View("_PostPartial", new PostModel
+            {
                 IsSinglePost = true,
                 Post = post.ReturnValue
             });

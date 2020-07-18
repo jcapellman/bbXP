@@ -1,12 +1,13 @@
-﻿using System;
-using System.Linq;
-
-using bbxp.lib.Common;
+﻿using bbxp.lib.Common;
 using bbxp.lib.Containers;
 using bbxp.lib.Transports.PageStats;
+using System;
+using System.Linq;
 
-namespace bbxp.lib.Managers {
-    public class PageStatsManager : BaseManager {
+namespace bbxp.lib.Managers
+{
+    public class PageStatsManager : BaseManager
+    {
         public PageStatsManager(ManagerContainer container) : base(container) { }
 
         public ReturnSet<PageStatsResponseItem> GetStatsOverview()
@@ -27,8 +28,10 @@ namespace bbxp.lib.Managers {
                 return new ReturnSet<PageStatsResponseItem>(new Exception("No header found"));
             }
 
-            var request = new ReturnSet<PageStatsResponseItem>(new PageStatsResponseItem {
-                TopRequests = topRequests.Select(a => new PageRequestStatsResponseItem {
+            var request = new ReturnSet<PageStatsResponseItem>(new PageStatsResponseItem
+            {
+                TopRequests = topRequests.Select(a => new PageRequestStatsResponseItem
+                {
                     Count = a.Count,
                     ID = a.ID
                 }).ToList(),
@@ -39,6 +42,6 @@ namespace bbxp.lib.Managers {
             AddCachedItem("PageStats", request);
 
             return request;
-        }        
+        }
     }
 }

@@ -1,5 +1,7 @@
-﻿namespace bbxp.lib.Enums {
-    public enum MainCacheKeys {
+﻿namespace bbxp.lib.Enums
+{
+    public enum MainCacheKeys
+    {
         PostListing,
         PostArchive
     }

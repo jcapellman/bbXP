@@ -1,5 +1,7 @@
-﻿namespace bbxp.lib.Transports.AdminPost {
-    public class AdminPostRequestItem {
+﻿namespace bbxp.lib.Transports.AdminPost
+{
+    public class AdminPostRequestItem
+    {
         public int? PostID { get; set; }
 
         public string Title { get; set; }

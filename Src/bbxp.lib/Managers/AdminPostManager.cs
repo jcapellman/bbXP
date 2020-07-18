@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-using bbxp.lib.Common;
+﻿using bbxp.lib.Common;
 using bbxp.lib.Containers;
 using bbxp.lib.DAL.Objects;
 using bbxp.lib.Enums;
 using bbxp.lib.Transports.AdminPost;
-
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace bbxp.lib.Managers {
-    public class AdminPostManager : BaseManager {
+namespace bbxp.lib.Managers
+{
+    public class AdminPostManager : BaseManager
+    {
         public AdminPostManager(ManagerContainer container) : base(container) { }
 
         private string GenerateURLSafeName(string title) => title.ToLower().Replace(" ", "_").Replace("-", "_");
@@ -57,9 +57,11 @@ namespace bbxp.lib.Managers {
             RemoveCachedItem(MainCacheKeys.PostArchive);
         }
 
-        public async Task<ReturnSet<bool>> CreatePostAsync(AdminPostRequestItem requestItem) {
-           
-            var post = new Posts {
+        public async Task<ReturnSet<bool>> CreatePostAsync(AdminPostRequestItem requestItem)
+        {
+
+            var post = new Posts
+            {
                 Body = requestItem.Body,
                 Active = true,
                 Created = DateTime.Now,
@@ -68,7 +70,7 @@ namespace bbxp.lib.Managers {
                 Title = requestItem.Title,
                 URLSafename = GenerateURLSafeName(requestItem.Title)
             };
-                
+
             DbContext.Posts.Add(post);
             await DbContext.SaveChangesAsync();
 
@@ -81,8 +83,10 @@ namespace bbxp.lib.Managers {
             return new ReturnSet<bool>(true);
         }
 
-        public async Task<ReturnSet<bool>> UpdatePostAsync(AdminPostRequestItem requestItem) {            
-            if (!requestItem.PostID.HasValue) {
+        public async Task<ReturnSet<bool>> UpdatePostAsync(AdminPostRequestItem requestItem)
+        {
+            if (!requestItem.PostID.HasValue)
+            {
                 return new ReturnSet<bool>("PostID not set");
             }
 
@@ -108,7 +112,7 @@ namespace bbxp.lib.Managers {
 
             refreshDGTPost(originalURLSafename, post);
 
-            return new ReturnSet<bool>(true);            
+            return new ReturnSet<bool>(true);
         }
 
         private void UpdateTagsForPost(int postId, IEnumerable<(string tag, string urlSafeTag)> tags)

@@ -3,8 +3,10 @@ using bbxp.lib.Settings;
 
 using Microsoft.Extensions.Caching.Memory;
 
-namespace bbxp.lib.Containers {
-    public class ManagerContainer {
+namespace bbxp.lib.Containers
+{
+    public class ManagerContainer
+    {
 
         public GlobalSettings GSetings { get; set; }
 

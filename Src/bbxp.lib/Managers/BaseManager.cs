@@ -1,15 +1,15 @@
-﻿using System;
+﻿using bbxp.lib.Containers;
+using bbxp.lib.DAL;
+using bbxp.lib.Enums;
+using Microsoft.Extensions.Caching.Memory;
+using System;
 using System.Security.Cryptography;
 using System.Text;
 
-using bbxp.lib.Containers;
-using bbxp.lib.DAL;
-using bbxp.lib.Enums;
-
-using Microsoft.Extensions.Caching.Memory;
-
-namespace bbxp.lib.Managers {
-    public class BaseManager {
+namespace bbxp.lib.Managers
+{
+    public class BaseManager
+    {
         protected readonly ManagerContainer mContainer;
 
         private IMemoryCache Cache => mContainer.Cache;
@@ -58,7 +58,8 @@ namespace bbxp.lib.Managers {
             }
         }
 
-        protected BaseManager(ManagerContainer container) {
+        protected BaseManager(ManagerContainer container)
+        {
             mContainer = container;
         }
     }

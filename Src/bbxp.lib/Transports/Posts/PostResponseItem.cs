@@ -1,13 +1,15 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
-using Newtonsoft.Json;
-
-namespace bbxp.lib.Transports.Posts {        
-    public class PostResponseItem {
+namespace bbxp.lib.Transports.Posts
+{
+    public class PostResponseItem
+    {
         public PostResponseItem() { }
 
-        public PostResponseItem(PostResponseItem post) {
+        public PostResponseItem(PostResponseItem post)
+        {
             Title = post.Title;
             RelativeURL = post.RelativeURL;
             Body = post.Body;
@@ -19,7 +21,7 @@ namespace bbxp.lib.Transports.Posts {
 
         [JsonProperty("Title")]
         public string Title { get; set; }
-        
+
         [JsonProperty("RelativeURL")]
         public string RelativeURL { get; set; }
 
@@ -30,6 +32,6 @@ namespace bbxp.lib.Transports.Posts {
         public List<TagResponseItem> Tags { get; set; }
 
         [JsonProperty("PostDate")]
-        public DateTime PostDate { get; set; } 
+        public DateTime PostDate { get; set; }
     }
 }

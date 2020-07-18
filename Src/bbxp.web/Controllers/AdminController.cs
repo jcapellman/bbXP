@@ -1,14 +1,12 @@
-﻿using System.Threading.Tasks;
-
-using bbxp.lib.DAL;
+﻿using bbxp.lib.DAL;
 using bbxp.lib.Managers;
 using bbxp.lib.Settings;
 using bbxp.lib.Transports.AdminPost;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
+using System.Threading.Tasks;
 
 namespace bbxp.web.Controllers
 {

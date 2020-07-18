@@ -2,8 +2,9 @@
 
 namespace bbxp.web.Models
 {
-    public class LoginViewModel { 
-    
+    public class LoginViewModel
+    {
+
         [Required]
         public string Username { get; set; }
 

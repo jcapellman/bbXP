@@ -1,16 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Security.Claims;
-
-using bbxp.lib.DAL;
+﻿using bbxp.lib.DAL;
 using bbxp.lib.Managers;
 using bbxp.lib.Settings;
 using bbxp.web.Models;
-
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace bbxp.web.Controllers
 {

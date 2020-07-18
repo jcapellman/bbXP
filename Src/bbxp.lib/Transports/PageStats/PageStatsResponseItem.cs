@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace bbxp.lib.Transports.PageStats {
-    public class PageStatsResponseItem {
+namespace bbxp.lib.Transports.PageStats
+{
+    public class PageStatsResponseItem
+    {
         public List<PageRequestStatsResponseItem> TopRequests { get; set; }
 
         public int NumberRequests { get; set; }

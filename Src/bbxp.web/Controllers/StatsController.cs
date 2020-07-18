@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 
-namespace bbxp.web.Controllers {
-    public class StatsController : BaseController {
+namespace bbxp.web.Controllers
+{
+    public class StatsController : BaseController
+    {
         public StatsController(BbxpDbContext dbContext, IMemoryCache cache, IOptions<GlobalSettings> globalSettings) : base(globalSettings.Value, cache, dbContext) { }
 
         [Route("stats/")]

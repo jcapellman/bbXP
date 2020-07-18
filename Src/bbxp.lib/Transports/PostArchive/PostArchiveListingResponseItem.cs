@@ -1,5 +1,7 @@
-﻿namespace bbxp.lib.Transports.PostArchive {
-    public class PostArchiveListingResponseItem {
+﻿namespace bbxp.lib.Transports.PostArchive
+{
+    public class PostArchiveListingResponseItem
+    {
         public string DateString { get; set; }
 
         public string RelativeURL { get; set; }

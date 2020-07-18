@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using bbxp.lib.Transports.Posts;
+using System.Collections.Generic;
 
-using bbxp.lib.Transports.Posts;
-
-namespace bbxp.lib.Transports.PostArchive {
-    public class PostArchiveListingWrapper {
+namespace bbxp.lib.Transports.PostArchive
+{
+    public class PostArchiveListingWrapper
+    {
         public string DateString { get; set; }
 
         public string RelativeURL { get; set; }

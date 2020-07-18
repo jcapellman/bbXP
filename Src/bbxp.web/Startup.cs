@@ -26,7 +26,7 @@ namespace bbxp.web
 
             Configuration = builder.Build();
         }
-        
+
         public IConfigurationRoot Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
@@ -52,7 +52,7 @@ namespace bbxp.web
             app.UseAuthentication();
 
             app.UseStaticFiles();
-            
+
             app.UseDeveloperExceptionPage();
             app.UseMvcWithDefaultRoute();
         }

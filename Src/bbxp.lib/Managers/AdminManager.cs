@@ -1,11 +1,12 @@
-﻿using System;
+﻿using bbxp.lib.Common;
+using bbxp.lib.Containers;
+using System;
 using System.Linq;
 
-using bbxp.lib.Common;
-using bbxp.lib.Containers;
-
-namespace bbxp.lib.Managers {
-    public class AdminManager : BaseManager {
+namespace bbxp.lib.Managers
+{
+    public class AdminManager : BaseManager
+    {
         public AdminManager(ManagerContainer container) : base(container) { }
 
         public ReturnSet<int> AttemptLogin(string username, string password)
@@ -27,6 +28,6 @@ namespace bbxp.lib.Managers {
             {
                 return new ReturnSet<int>(ex);
             }
-        }     
+        }
     }
 }

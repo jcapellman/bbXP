@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 
-namespace bbxp.web.Controllers {
-    public class ContentController : BaseController {
+namespace bbxp.web.Controllers
+{
+    public class ContentController : BaseController
+    {
         public ContentController(BbxpDbContext dbContext, IMemoryCache cache, IOptions<GlobalSettings> globalSettings) : base(globalSettings.Value, cache, dbContext) { }
 
         [Route("/content/{urlSafeName}")]

@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
-using Newtonsoft.Json;
-
-namespace bbxp.lib.Common {    
-    public class ReturnSet<T> {
+namespace bbxp.lib.Common
+{
+    public class ReturnSet<T>
+    {
         [JsonProperty("ReturnValue")]
         public T ReturnValue;
 
@@ -12,18 +13,21 @@ namespace bbxp.lib.Common {
 
         public bool HasError => !string.IsNullOrEmpty(ExceptionMessage);
 
-        public ReturnSet(T obj) {
+        public ReturnSet(T obj)
+        {
             ReturnValue = obj;
         }
 
-        public ReturnSet(string exception = null) {
+        public ReturnSet(string exception = null)
+        {
             ExceptionMessage = exception;
         }
 
-        public ReturnSet(Exception ex) {
+        public ReturnSet(Exception ex)
+        {
             ExceptionMessage = ex.ToString();
         }
-        
+
         public ReturnSet() { }
     }
 }

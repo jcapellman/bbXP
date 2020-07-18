@@ -1,19 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-
-using bbxp.lib.Common;
+﻿using bbxp.lib.Common;
 using bbxp.lib.Containers;
 using bbxp.lib.DAL.Objects;
 using bbxp.lib.Enums;
 using bbxp.lib.Transports.Posts;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
-namespace bbxp.lib.Managers {
-    public class PostManager : BaseManager {
+namespace bbxp.lib.Managers
+{
+    public class PostManager : BaseManager
+    {
         public PostManager(ManagerContainer container) : base(container) { }
-        
-        private static string ApplySyntaxHighlighting(string content) {
+
+        private static string ApplySyntaxHighlighting(string content)
+        {
             var keywords = new List<string> {
                 "abstract", "as", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const",
                 "continue", "decimal", "default", "delegate", "do", "double", "dynamic", "else", "enum", "event", "explicit",
@@ -42,8 +44,10 @@ namespace bbxp.lib.Managers {
             return body.Replace("img-responsive", "img-fluid").Replace("<pre><p>", "<pre><code>").Replace("</p></pre>", "</code></pre>");
         }
 
-        public static PostResponseItem GeneratePostModel(DGT_Posts post) {
-            var modelItem = new PostResponseItem {
+        public static PostResponseItem GeneratePostModel(DGT_Posts post)
+        {
+            var modelItem = new PostResponseItem
+            {
                 Body = CleanBody(post.Body),
                 PostDate = post.PostDate,
                 Title = post.Title,
@@ -51,16 +55,20 @@ namespace bbxp.lib.Managers {
                 Tags = new List<TagResponseItem>()
             };
 
-            if (modelItem.Body.Contains("[csharp]")) {
+            if (modelItem.Body.Contains("[csharp]"))
+            {
                 modelItem.Body = ApplySyntaxHighlighting(modelItem.Body);
             }
 
-            if (string.IsNullOrEmpty(post.TagList)) {
+            if (string.IsNullOrEmpty(post.TagList))
+            {
                 return modelItem;
             }
 
-            for (var x = 0; x < post.TagList.Split(',').Length; x++) {
-                var tagItem = new TagResponseItem {
+            for (var x = 0; x < post.TagList.Split(',').Length; x++)
+            {
+                var tagItem = new TagResponseItem
+                {
                     DisplayString = post.TagList.Split(',')[x],
                     URLString = post.TagList.Split(',')[x]
                 };
@@ -71,14 +79,15 @@ namespace bbxp.lib.Managers {
             return modelItem;
         }
 
-        public ReturnSet<List<PostResponseItem>> GetPostsFromTag(string urlSafeTag) {
+        public ReturnSet<List<PostResponseItem>> GetPostsFromTag(string urlSafeTag)
+        {
             var posts = DbContext.DGT_Posts.Where(a => a.SafeTagList.Contains(urlSafeTag)).OrderByDescending(a => a.PostDate).ToList();
 
             var result = new ReturnSet<List<PostResponseItem>>(posts.Select(GeneratePostModel).ToList());
-                
-            return result;            
+
+            return result;
         }
-        
+
         public ReturnSet<PostResponseItem> GetSinglePost(string relativeURL)
         {
             var (isFound, cachedResult) = GetCachedItem<PostResponseItem>(relativeURL);
@@ -99,10 +108,11 @@ namespace bbxp.lib.Managers {
 
             AddCachedItem(relativeURL, fullPost);
 
-            return new ReturnSet<PostResponseItem>(fullPost);           
+            return new ReturnSet<PostResponseItem>(fullPost);
         }
 
-        public ReturnSet<List<PostResponseItem>> SearchPosts(string query) {
+        public ReturnSet<List<PostResponseItem>> SearchPosts(string query)
+        {
             var (isFound, cachedResult) = GetCachedItem<List<PostResponseItem>>($"bbxpSQ_{query}");
 
             if (isFound)
@@ -116,10 +126,11 @@ namespace bbxp.lib.Managers {
 
             AddCachedItem($"bbxpSQ_{query}", result);
 
-            return new ReturnSet<List<PostResponseItem>>(result);            
+            return new ReturnSet<List<PostResponseItem>>(result);
         }
 
-        public ReturnSet<List<PostResponseItem>> GetHomeListing() {
+        public ReturnSet<List<PostResponseItem>> GetHomeListing()
+        {
             var (isFound, cachedResult) = GetCachedItem<List<PostResponseItem>>(MainCacheKeys.PostListing);
 
             if (isFound)
@@ -133,10 +144,11 @@ namespace bbxp.lib.Managers {
 
             AddCachedItem(MainCacheKeys.PostListing, result);
 
-            return new ReturnSet<List<PostResponseItem>>(result);            
+            return new ReturnSet<List<PostResponseItem>>(result);
         }
 
-        public ReturnSet<List<PostResponseItem>> GetMonthPosts(int year, int month) {
+        public ReturnSet<List<PostResponseItem>> GetMonthPosts(int year, int month)
+        {
             var (isFound, cachedResult) = GetCachedItem<List<PostResponseItem>>($"{year}-{month}");
 
             if (isFound)
@@ -149,7 +161,7 @@ namespace bbxp.lib.Managers {
             var response = posts.Select(GeneratePostModel).ToList();
 
             AddCachedItem($"{year}-{month}", response);
-                
+
             return new ReturnSet<List<PostResponseItem>>(response);
         }
     }
