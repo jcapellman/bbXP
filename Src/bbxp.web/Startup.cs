@@ -1,8 +1,6 @@
 ﻿using bbxp.lib.DAL;
 using bbxp.lib.Settings;
 
-using bbxp.web.Middleware;
-
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,7 +37,7 @@ namespace bbxp.web
 
             services.Configure<GlobalSettings>(Configuration.GetSection("GlobalSettings"));
 
-            services.AddMvc(a => a.EnableEndpointRouting = false).AddMvcOptions(a => a.Filters.Add(new HTTPRequestLoggerAttribute()));
+            services.AddMvc(a => a.EnableEndpointRouting = false);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
