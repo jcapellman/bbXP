@@ -27,7 +27,7 @@ namespace bbxp.web.Middleware
 
             public async void OnActionExecuted(ActionExecutedContext context)
             {
-                _dbContext.Requests.Add(new Requests
+                await _dbContext.Requests.AddAsync(new Requests
                 {
                     Active = true,
                     Created = DateTime.Now,
