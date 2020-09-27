@@ -11,7 +11,7 @@
 
         @foreach (var post in Model)
         {
-            @Html.PartialAsync("_PostPartial", post)
+            @await Html.PartialAsync("_PostPartial", post)
         }
         <br/>
     </div>
