@@ -41,7 +41,7 @@ namespace bbxp.lib.Managers
 
         private static string CleanBody(string body)
         {
-            return body.Replace("img-responsive", "img-fluid").Replace("<pre><p>", "<pre><code>").Replace("</p></pre>", "</code></pre>");
+            return body.Replace("img-responsive", "img-fluid").Replace("<pre><p>", "<pre><code>").Replace("</p></pre>", "</code></pre>").Replace("http:", "https:");
         }
 
         public static PostResponseItem GeneratePostModel(DGT_Posts post)
