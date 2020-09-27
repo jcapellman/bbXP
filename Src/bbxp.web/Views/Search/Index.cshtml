@@ -18,8 +18,6 @@
             return;
         }
 
-        showLoading();
-
         $.ajax({
             url: '/search/' + searchQuery,
             contentType: 'application/html; charset=utf-8',
@@ -27,7 +25,6 @@
             dataType: 'html',
             success: function (result) {
                 $('#searchResults').html(result);
-                hideLoading();
             }
         });
     }  
