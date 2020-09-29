@@ -18,5 +18,18 @@ namespace bbxp.lib.Interfaces
                 Title = b.Title
             }).ToList();
         }
+
+        public List<PostResponseItem> GetPost(BbxpDbContext context, string postUrl)
+        {
+            var post = context.Posts.FirstOrDefault(a => a.URLSafename == postUrl);
+
+            return new List<PostResponseItem> { new PostResponseItem {
+                Body = post.Body,
+                PostDate = post.Created,
+                RelativeURL = post.URLSafename,
+                Title = post.Title
+                } 
+            };
+        }
     }
 }

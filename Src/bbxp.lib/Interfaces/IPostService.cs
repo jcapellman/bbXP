@@ -8,5 +8,7 @@ namespace bbxp.lib.Interfaces
     public interface IPostService
     {
         List<PostResponseItem> GetHomeListing(BbxpDbContext context);
+
+        List<PostResponseItem> GetPost(BbxpDbContext context, string postUrl);
     }
 }
