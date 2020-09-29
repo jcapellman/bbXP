@@ -1,0 +1,25 @@
+﻿@page "/"
+@page "/{postURL}"
+
+@inject bbxp.lib.DAL.BbxpDbContext dbContext
+@inject bbxp.lib.Interfaces.IPostService pService
+
+@foreach (var post in posts)
+{
+    <Post PostItem=@post />
+}
+
+@code {
+    private List<bbxp.lib.Transports.Posts.PostResponseItem> posts;
+
+    [Parameter]
+    public string postURL { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (string.IsNullOrEmpty(postURL))
+        {
+            posts = pService.GetHomeListing(dbContext);
+        }
+    }
+}
