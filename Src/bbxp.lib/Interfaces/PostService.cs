@@ -31,5 +31,16 @@ namespace bbxp.lib.Interfaces
                 } 
             };
         }
+
+        public List<PostResponseItem> PerformSearch(BbxpDbContext context, string searchQuery)
+        {
+            return context.Posts.Where(a => a.Title.Contains(searchQuery) || a.Body.Contains(searchQuery)).OrderByDescending(b => b.Created).Select(c => new PostResponseItem
+            {
+                Body = c.Body,
+                PostDate = c.Created,
+                RelativeURL = c.URLSafename,
+                Title = c.Title
+            }).ToList();
+        }
     }
 }
