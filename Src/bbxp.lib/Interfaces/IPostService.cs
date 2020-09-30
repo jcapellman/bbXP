@@ -10,5 +10,7 @@ namespace bbxp.lib.Interfaces
         List<PostResponseItem> GetHomeListing(BbxpDbContext context);
 
         List<PostResponseItem> GetPost(BbxpDbContext context, string postUrl);
+
+        List<PostResponseItem> PerformSearch(BbxpDbContext context, string searchQuery);
     }
 }
