@@ -1,5 +1,5 @@
 ﻿@page "/"
-@page "/{postURL}"
+@page "/{year}/{month}/{day}/{postURL}"
 
 @inject bbxp.lib.DAL.BbxpDbContext dbContext
 @inject bbxp.lib.Interfaces.IPostService pService
@@ -14,6 +14,15 @@
 
     [Parameter]
     public string postURL { get; set; }
+
+    [Parameter]
+    public int year { get; set; }
+
+    [Parameter]
+    public int month { get; set; }
+
+    [Parameter]
+    public int day { get; set; }
 
     private bool SinglePost;
 
