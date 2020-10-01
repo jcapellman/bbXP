@@ -5,10 +5,10 @@
 @inject bbxp.lib.DAL.BbxpDbContext dbContext
 @inject bbxp.lib.Interfaces.IContentService cService
 
-<h1>@ContentItem.Title</h1>
+<div class="card mb-10" style="margin-top: 10px;">
+    <div class="card-body bg-dark">
+        <h1>@ContentItem.Title</h1>
 
-<div style="margin-top: 10px">
-    <div>
         @((MarkupString)ContentItem.Body)
     </div>
 </div>
