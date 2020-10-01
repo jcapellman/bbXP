@@ -113,26 +113,6 @@ footer p {
 
 /* End Archives */
 
-/* Stats */
-#StatsContainer {
-    background-color: #0e0e0e;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: 16px;
-}
-
-    #StatsContainer .RequestList {
-        color: rgb(0, 204, 0);
-    }
-
-    #StatsContainer .Count {
-        color: #FFF;
-    }
-
-/* End Stats */
-
 #PostContainer {
     margin-bottom: 10px;
 }
