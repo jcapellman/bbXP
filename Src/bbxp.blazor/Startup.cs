@@ -38,6 +38,7 @@ namespace bbxp.blazor
 
             services.AddSingleton<IPostService, PostService>();
             services.AddSingleton<IContentService, ContentService>();
+            services.AddSingleton<IArchiveService, ArchiveService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
