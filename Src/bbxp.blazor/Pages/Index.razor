@@ -6,7 +6,7 @@
 
 @foreach (var post in posts)
 {
-    <Post PostItem=@post SinglePost=@SinglePost />
+    <Post PostItem=@post />
 }
 
 @code {
@@ -24,18 +24,8 @@
     [Parameter]
     public int day { get; set; }
 
-    private bool SinglePost;
-
     protected override void OnInitialized()
     {
-        if (string.IsNullOrEmpty(postURL))
-        {
-            posts = pService.GetHomeListing(dbContext);
-        } else
-        {
-            posts = pService.GetPost(dbContext, postURL);
-
-            SinglePost = true;
-        }
+        posts = string.IsNullOrEmpty(postURL) ? pService.GetHomeListing(dbContext) : pService.GetPost(dbContext, postURL);
     }
 }
