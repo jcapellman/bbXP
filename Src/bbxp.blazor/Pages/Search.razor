@@ -3,20 +3,16 @@
 @inject bbxp.lib.DAL.BbxpDbContext dbContext
 @inject bbxp.lib.Interfaces.IPostService pService
 
-<h1 class="my-4">Search</h1>
+<h1>Search</h1>
 
 <div id="ArchivesContainer">
     <input type="text" id="search" placeholder="enter your search term here" @bind="searchQuery" @bind:event="oninput" />
 
-    @if (posts != null && posts.Count == 0)
+    @if (posts?.Count == 0)
     {
         <p>No results found</p>
     }
-    else if (posts == null)
-    {
-        // Do nothing
-    }
-    else
+    else if (posts?.Count > 0)
     {
         <h3>Search Results</h3>
 
@@ -39,8 +35,8 @@
         set
         {
             _searchQuery = value;
-         
-            posts = pService.PerformSearch(dbContext, _searchQuery);
+
+            posts = string.IsNullOrEmpty(_searchQuery) ? null : pService.PerformSearch(dbContext, _searchQuery);
         }
     }
 }
