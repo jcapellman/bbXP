@@ -1,0 +1,33 @@
+﻿@page "/archives"
+
+@using System.Linq;
+
+@inject bbxp.lib.DAL.BbxpDbContext dbContext
+@inject bbxp.lib.Interfaces.IArchiveService aService
+
+<div class="card mb-10" style="margin-top: 10px;">
+    <div class="card-body bg-dark">
+        <h1>Archives</h1>
+
+        @foreach (var groupDate in posts.GroupBy(a => a.Date.ToString("MMMM yyyy")).ToDictionary(g => g.Key, g => g.ToList()))
+        {
+            <h2>@groupDate.Key</h2>
+
+            @foreach (var post in groupDate.Value)
+            {
+                <a href="@post.URL">@post.Title</a><br />
+            }
+
+            <br />
+        }
+    </div>
+</div>
+
+@code {
+    private List<bbxp.lib.Transports.Archives.ArchiveListingResponseItem> posts;
+
+    protected override void OnInitialized()
+    {
+        posts = aService.GetArchiveList(dbContext);
+    }
+}
