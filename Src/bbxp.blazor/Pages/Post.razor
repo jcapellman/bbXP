@@ -7,22 +7,12 @@
     </div>
 
     <div class="card-footer text-muted bg-dark">
-        Posted on @PostItem.PostDate.ToString("MMM dd, yyyy") | <a href="~/@PostItem.RelativeURL#disqus_thread" title="@PostItem.Title">View/Add Comments</a>
+        Posted on @PostItem.PostDate.ToString("MMM dd, yyyy")
     </div>
-
-    @if (SinglePost)
-    {
-        <div class="CommentContainer">
-            <div id="disqus_thread"></div>
-        </div>
-    }
 </div>
 <br />
 
 @code {
     [Parameter]
     public PostResponseItem PostItem { get; set; }
-
-    [Parameter]
-    public bool SinglePost { get; set; }
 }
