@@ -7,7 +7,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace bbxp.web.blazor.Server.Controllers.Base
 {
-    public class BaseController : Controller
+    public class BaseController : ControllerBase
     {
         private readonly GlobalSettings _globalSettings;
         private readonly IMemoryCache _memoryCache;
