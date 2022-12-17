@@ -1,4 +1,5 @@
-﻿using bbxp.lib.Database;
+﻿using bbxp.lib.Common;
+using bbxp.lib.Database;
 using bbxp.lib.Database.Tables.Base;
 
 using Microsoft.AspNetCore.Mvc;
@@ -29,11 +30,18 @@ namespace bbxp.web.blazor.Server.Controllers.Base
             return expression.ToString() ?? string.Empty;
         }
 
+        private void AddToCache(string key, object value)
+        {
+            var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromHours(AppConstants.CACHE_HOUR_EXPIRATION));
+
+            _memoryCache.Set(key, value, cacheEntryOptions);
+        }
+
         protected async Task<IEnumerable<T>> GetManyAsync<T>(Func<T, bool>? expression = null) where T : BaseTable
         {
             var key = GetKey<T>(expression);
 
-            if (_memoryCache.TryGetValue(key, out IEnumerable<T> result) && result != null)
+            if (_memoryCache.TryGetValue(key, out IEnumerable<T>? result) && result != null)
             {
                 return result;
             }
@@ -45,7 +53,7 @@ namespace bbxp.web.blazor.Server.Controllers.Base
                 return Enumerable.Empty<T>();
             }
 
-            _memoryCache.Set(key, dbResult);
+            AddToCache(key, dbResult);
 
             return dbResult;
         }
