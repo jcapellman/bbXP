@@ -1,8 +1,0 @@
-﻿@using bbxp.lib.Transports.Posts
-@model List<bbxp.web.Models.PostModel>
-
-<h2>Search Results</h2>
-
-@foreach (var post in Model) {
-    <partial name="_PostPartial" model="post" />
-}
