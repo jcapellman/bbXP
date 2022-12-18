@@ -1,4 +1,8 @@
-using Microsoft.AspNetCore.ResponseCompression;
+using bbxp.lib.Database;
+
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace bbxp.web.blazor
 {
@@ -8,17 +12,31 @@ namespace bbxp.web.blazor
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
 
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "bbxp", Version = "v1" });
+            });
+
+            builder.Services.AddMemoryCache();
+            builder.Services.AddDbContext<bbxpDbContext>(
+                options => options.UseNpgsql(builder.Configuration.GetConnectionString("bbxpDbContext")));
+
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseWebAssemblyDebugging();
+                app.UseDeveloperExceptionPage();
+                app.UseMigrationsEndPoint();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
             else
             {
@@ -27,13 +45,18 @@ namespace bbxp.web.blazor
                 app.UseHsts();
             }
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<bbxpDbContext>();
+                db.Database.Migrate();
+            }
+
             app.UseHttpsRedirection();
 
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
             app.UseRouting();
-
 
             app.MapRazorPages();
             app.MapControllers();

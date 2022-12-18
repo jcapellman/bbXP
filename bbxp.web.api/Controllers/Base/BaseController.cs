@@ -1,10 +1,10 @@
 ﻿using bbxp.lib.Common;
 using bbxp.lib.Database;
-using bbxp.lib.Database.Tables.Base;
+using bbxp.lib.Database.Tables;
+using bbxp.lib.JSON;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
-using System.Collections.Generic;
 
 namespace bbxp.web.blazor.Server.Controllers.Base
 {
@@ -37,25 +37,40 @@ namespace bbxp.web.blazor.Server.Controllers.Base
             _memoryCache.Set(key, value, cacheEntryOptions);
         }
 
-        protected async Task<IEnumerable<T>> GetManyAsync<T>(Func<T, bool>? expression = null) where T : BaseTable
+        protected IEnumerable<Posts> GetPosts(Func<Posts, bool> expression)
         {
-            var key = GetKey<T>(expression);
+            var key = GetKey(expression);
 
-            if (_memoryCache.TryGetValue(key, out IEnumerable<T>? result) && result != null)
+            if (_memoryCache.TryGetValue(key, out IEnumerable<Posts> result) && result != null)
             {
                 return result;
             }
 
-            var dbResult = await _dbContext.FindAsync<IEnumerable<T>>(expression);
+            var dbResult = _dbContext.GetPosts(expression);
 
             if (dbResult == null)
             {
-                return Enumerable.Empty<T>();
+                return Enumerable.Empty<Posts>();
             }
 
             AddToCache(key, dbResult);
 
             return dbResult;
+        }
+
+        protected async Task<bool> AddPostAsync(PostCreationRequestItem newPost)
+        {
+            var post = new Posts
+            {
+                PostDate = DateTime.Now,
+                Body = newPost.Body,
+                Title = newPost.Title,
+                Category = newPost.Category
+            };
+
+            _dbContext.Posts.Add(post);
+
+            return await _dbContext.SaveChangesAsync() > 0;
         }
     }
 }

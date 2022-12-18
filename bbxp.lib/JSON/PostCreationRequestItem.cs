@@ -1,15 +1,11 @@
-﻿using bbxp.lib.Database.Tables.Base;
-
-namespace bbxp.lib.Database.Tables
+﻿namespace bbxp.lib.JSON
 {
-    public class Posts : BaseTable
+    public class PostCreationRequestItem
     {
         public required string Title { get; set; }
 
         public required string Body { get; set; }
 
         public required string Category { get; set; }
-
-        public required DateTime PostDate { get; set; }
     }
 }

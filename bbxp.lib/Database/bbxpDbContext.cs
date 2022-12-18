@@ -1,5 +1,5 @@
 ﻿using bbxp.lib.Database.Tables;
-
+using bbxp.lib.Database.Tables.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace bbxp.lib.Database
@@ -10,9 +10,35 @@ namespace bbxp.lib.Database
 
         public bbxpDbContext(DbContextOptions<bbxpDbContext> options) : base(options) { }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public IEnumerable<Posts> GetPosts(Func<Posts, bool> expression) => Posts.Where(expression);
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            optionsBuilder.UseNpgsql(@"host=localhost;database=postgres;user id=postgres;password=devdevdev");
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Posts>().HasKey(x => x.Id);
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var entries = ChangeTracker.Entries().Where(e => e.Entity is BaseTable && 
+                (e.State == EntityState.Added || e.State == EntityState.Modified));
+
+            foreach (var entityEntry in entries)
+            {
+                switch (entityEntry.State)
+                {
+                    case EntityState.Added:
+                        ((BaseTable)entityEntry.Entity).Created = DateTime.Now;
+                        ((BaseTable)entityEntry.Entity).Active = true;
+
+                        break;
+                }
+
+                ((BaseTable)entityEntry.Entity).Modified = DateTime.Now;
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
         }
     }
 }
