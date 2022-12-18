@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using bbxp.lib.Database;
@@ -11,9 +12,11 @@ using bbxp.lib.Database;
 namespace bbxp.lib.Migrations
 {
     [DbContext(typeof(bbxpDbContext))]
-    partial class bbxpDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221218141525_URLColumn")]
+    partial class URLColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
