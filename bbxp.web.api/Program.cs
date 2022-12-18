@@ -1,19 +1,13 @@
 using bbxp.lib.Database;
-
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 
-namespace bbxp.web.blazor
+namespace bbxp.web.api
 {
     public class Program
     {
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
-            builder.Services.AddControllersWithViews();
-            builder.Services.AddRazorPages();
 
             builder.Services.AddCors(options =>
             {
@@ -24,10 +18,9 @@ namespace bbxp.web.blazor
                             });
             });
 
-            builder.Services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "bbxp", Version = "v1" });
-            });
+            builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
 
             builder.Services.AddMemoryCache();
             builder.Services.AddDbContext<bbxpDbContext>(
@@ -35,23 +28,12 @@ namespace bbxp.web.blazor
 
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
-            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
             {
-                app.UseWebAssemblyDebugging();
-                app.UseDeveloperExceptionPage();
-                app.UseMigrationsEndPoint();
                 app.UseSwagger();
                 app.UseSwaggerUI();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
             }
 
             using (var scope = app.Services.CreateScope())
@@ -60,19 +42,13 @@ namespace bbxp.web.blazor
                 db.Database.Migrate();
             }
 
-
             app.UseCors("MyPolicy");
 
             app.UseHttpsRedirection();
 
-            app.UseBlazorFrameworkFiles();
-            app.UseStaticFiles();
+            app.UseAuthorization();
 
-            app.UseRouting();
-
-            app.MapRazorPages();
             app.MapControllers();
-            app.MapFallbackToFile("index.html");
 
             app.Run();
         }
