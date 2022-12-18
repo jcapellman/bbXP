@@ -15,6 +15,15 @@ namespace bbxp.web.blazor
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: "MyPolicy",
+                            policy =>
+                            {
+                                policy.AllowAnyOrigin().AllowAnyMethod();
+                            });
+            });
+
             builder.Services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "bbxp", Version = "v1" });
@@ -50,6 +59,9 @@ namespace bbxp.web.blazor
                 var db = scope.ServiceProvider.GetRequiredService<bbxpDbContext>();
                 db.Database.Migrate();
             }
+
+
+            app.UseCors("MyPolicy");
 
             app.UseHttpsRedirection();
 
