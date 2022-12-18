@@ -38,23 +38,21 @@ namespace bbxp.web.blazor.Server.Controllers.Base
             _memoryCache.Set(key, value, cacheEntryOptions);
         }
 
-        protected IEnumerable<Posts> GetPosts(Func<Posts, bool> expression)
+        protected async Task<List<Posts>> GetPostsAsync(int postCountLimit = AppConstants.POST_REQUEST_DEFAULT_LIMIT, string category = AppConstants.POST_REQUEST_DEFAULT_CATEGORY)
         {
-            var key = GetKey(expression);
-
-            if (_memoryCache.TryGetValue(key, out IEnumerable<Posts> result) && result != null)
+            if (_memoryCache.TryGetValue(category, out List<Posts> result) && result != null)
             {
                 return result;
             }
 
-            var dbResult = _dbContext.GetPosts(expression);
+            var dbResult = await _dbContext.Set<Posts>().Where(a => a.Active && a.Category == category).OrderByDescending(a => a.PostDate).Take(postCountLimit).ToListAsync();
 
             if (dbResult == null)
             {
-                return Enumerable.Empty<Posts>();
+                return new List<Posts>();
             }
 
-            AddToCache(key, dbResult);
+            AddToCache(category, dbResult);
 
             return dbResult;
         }

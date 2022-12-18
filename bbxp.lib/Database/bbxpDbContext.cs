@@ -10,8 +10,6 @@ namespace bbxp.lib.Database
 
         public bbxpDbContext(DbContextOptions<bbxpDbContext> options) : base(options) { }
 
-        public IEnumerable<Posts> GetPosts(Func<Posts, bool> expression) => Posts.Where(expression);
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
