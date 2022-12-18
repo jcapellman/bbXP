@@ -7,5 +7,7 @@
         public required string Body { get; set; }
 
         public required string Category { get; set; }
+
+        public DateTime? PostDate { get; set; }
     }
 }

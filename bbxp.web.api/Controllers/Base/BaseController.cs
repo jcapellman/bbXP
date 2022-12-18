@@ -73,14 +73,17 @@ namespace bbxp.web.blazor.Server.Controllers.Base
             return await _dbContext.SaveChangesAsync() > 0;
         }
 
+        private static string CreateURLSafeTitle(string title) => title.ToLower().Replace(' ', '-');
+
         protected async Task<bool> AddPostAsync(PostCreationRequestItem newPost)
         {
             var post = new Posts
             {
-                PostDate = DateTime.Now,
+                PostDate = newPost.PostDate ?? DateTime.Now,
                 Body = newPost.Body,
                 Title = newPost.Title,
-                Category = newPost.Category
+                Category = newPost.Category,
+                URL = CreateURLSafeTitle(newPost.Title)
             };
 
             _dbContext.Posts.Add(post);
