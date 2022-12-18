@@ -10,6 +10,8 @@ namespace bbxp.lib.Database.Tables
 
         public required string Category { get; set; }
 
+        public required string URL { get; set; }
+
         public required DateTime PostDate { get; set; }
     }
 }
