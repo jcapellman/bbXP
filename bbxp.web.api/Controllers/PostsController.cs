@@ -23,5 +23,8 @@ namespace bbxp.web.blazor.Server.Controllers
 
         [HttpPost]
         public async Task<bool> AddAsync(PostCreationRequestItem post) => await AddPostAsync(post);
+
+        [HttpDelete]
+        public async Task<bool> DeleteAsync(int postId) => await DeletePostAsync(postId);
     }
 }

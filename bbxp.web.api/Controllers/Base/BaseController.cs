@@ -89,5 +89,19 @@ namespace bbxp.web.blazor.Server.Controllers.Base
 
             return await _dbContext.SaveChangesAsync() > 0;
         }
+
+        protected async Task<bool> DeletePostAsync(int postId)
+        {
+            var post = await _dbContext.Posts.FirstAsync(a => a.Id == postId);
+
+            if (post == null)
+            {
+                return false;
+            }
+
+            post.Active = false;
+
+            return await _dbContext.SaveChangesAsync() > 0;
+        }
     }
 }
