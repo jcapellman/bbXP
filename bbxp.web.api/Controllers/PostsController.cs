@@ -16,7 +16,10 @@ namespace bbxp.web.blazor.Server.Controllers
         public PostsController(bbxpDbContext dbContext, IMemoryCache memoryCache) : base(dbContext, memoryCache) { }
 
         [HttpGet]
-        public IEnumerable<Posts> Get() => GetPosts(a => a.Active);
+        public IEnumerable<Posts> Get() => GetPosts(a => a.Active).OrderByDescending(a => a.PostDate);
+
+        [HttpPatch]
+        public async Task<bool> UpdateAsync(PostUpdateRequestItem post) => await UpdatePostAsync(post);
 
         [HttpPost]
         public async Task<bool> AddAsync(PostCreationRequestItem post) => await AddPostAsync(post);

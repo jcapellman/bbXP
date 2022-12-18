@@ -4,6 +4,7 @@ using bbxp.lib.Database.Tables;
 using bbxp.lib.JSON;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace bbxp.web.blazor.Server.Controllers.Base
@@ -56,6 +57,22 @@ namespace bbxp.web.blazor.Server.Controllers.Base
             AddToCache(key, dbResult);
 
             return dbResult;
+        }
+
+        protected async Task<bool> UpdatePostAsync(PostUpdateRequestItem updatePost)
+        {
+            var post = await _dbContext.Posts.FirstOrDefaultAsync(a => a.Id == updatePost.Id);
+
+            if (post == null)
+            {
+                return false;
+            }
+
+            post.Title = updatePost.Title;
+            post.Body = updatePost.Body;
+            post.Category = updatePost.Category;
+
+            return await _dbContext.SaveChangesAsync() > 0;
         }
 
         protected async Task<bool> AddPostAsync(PostCreationRequestItem newPost)
