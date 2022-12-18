@@ -1,0 +1,14 @@
+﻿@model IndexModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@foreach (var post in Model.Posts)
+{
+    <div class="post">
+        <div class="date">@post.PostDate.ToLongDateString()</div>
+        <h2 class="header">@post.Title</h2>
+        <div class="postbody">@Html.Raw(post.Body)</div>
+    </div>
+}

@@ -1,0 +1,65 @@
+html {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: white;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+a:link, a:visited {
+    color: #4f8f8f;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: gold;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: #0f1f1f;
+}
+
+.post {
+    border: 1px solid white;
+    background-color: #343a40;
+    margin-bottom: 10px;
+    font-size: 12px;
+    color: white;
+}
+
+.post h2 {
+    padding-left: 10px;
+}
+
+.post .postbody {
+    padding: 10px;
+}
+
+.post .date {
+    color: #6c757d;
+    font-weight: bold;
+    padding-top: 5px;
+    padding-left: 10px;
+}
+
+footer p {
+    text-align: center;
+    margin-top: 10px;
+    display: block;
+    font-size: 12px;
+}
