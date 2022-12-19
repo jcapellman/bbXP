@@ -1,3 +1,5 @@
+using bbxp.lib.Configuration;
+
 namespace bbxp.web.mvc
 {
     public class Program
@@ -6,8 +8,8 @@ namespace bbxp.web.mvc
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.Configure<AppConfiguration>(builder.Configuration.GetSection(nameof(AppConfiguration)));
 
             var app = builder.Build();
 
