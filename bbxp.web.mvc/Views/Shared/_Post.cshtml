@@ -1,7 +1,7 @@
-﻿@model bbxp.lib.Database.Tables.Posts
+﻿@model PostViewModel
 
 <div class="post">
-    <div class="date">@Model.PostDate.ToLongDateString()</div>
-    <h2 class="header">@Model.Title</h2>
-    <div class="postbody">@Html.Raw(Model.Body)</div>
+    <div class="date">@Model.Post.PostDate.ToLongDateString()</div>
+    <h2 class="header">@Model.Post.Title</h2>
+    <div class="postbody">@Html.Raw(Model.Post.Body)</div>
 </div>

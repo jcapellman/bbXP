@@ -22,9 +22,11 @@ namespace bbxp.web.mvc.Controllers
         {
             var postHttpHandler = new PostHttpHandler(_appConfiguration.APIUrl);
 
+            var posts = await postHttpHandler.GetPostsAsync();
+
             var model = new IndexModel(_appConfiguration)
             {
-                Posts = await postHttpHandler.GetPostsAsync()
+                Posts = posts.Select(a => new PostViewModel(_appConfiguration) { Post = a}).ToList()
             };
 
             return View(model);
@@ -37,9 +39,14 @@ namespace bbxp.web.mvc.Controllers
 
             var post = await postHttpHandler.GetSinglePostAsync(postURL);
 
+            if (post == null)
+            {
+                return NotFound();
+            }
+
             ViewData["Title"] = post.Title;
 
-            return View("_PostPartial", post);
+            return View("_Post", new PostViewModel(_appConfiguration) { Post = post });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

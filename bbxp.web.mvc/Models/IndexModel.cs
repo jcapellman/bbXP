@@ -1,5 +1,5 @@
 ﻿using bbxp.lib.Configuration;
-using bbxp.lib.Database.Tables;
+
 using bbxp.web.mvc.Models.Base;
 
 namespace bbxp.web.mvc.Models
@@ -8,9 +8,9 @@ namespace bbxp.web.mvc.Models
     {
         public IndexModel(AppConfiguration config) : base(config)
         {
-            Posts = new List<Posts>();
+            Posts = new List<PostViewModel>();
         }
 
-        public List<Posts> Posts { get; set; }
+        public List<PostViewModel> Posts { get; set; }
     }
 }

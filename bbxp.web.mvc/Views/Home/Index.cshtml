@@ -1,9 +1,5 @@
 ﻿@model IndexModel
 
-@{
-    ViewData["Title"] = "Home Page";
-}
-
 @foreach (var post in Model.Posts)
 {
     @await Html.PartialAsync("_Post", post)

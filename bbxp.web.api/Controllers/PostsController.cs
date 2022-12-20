@@ -16,11 +16,8 @@ namespace bbxp.web.blazor.Server.Controllers
         public PostsController(bbxpDbContext dbContext, IMemoryCache memoryCache) : base(dbContext, memoryCache) { }
 
         [HttpGet]
-        public async Task<List<Posts>> GetAsync() => await GetPostsAsync();
-
-        [HttpGet]
-        [Route("{category}/{postCount}")]
-        public async Task<List<Posts>> GetAsync([FromRoute] string category, [FromRoute] int postCount) => await GetPostsAsync(postCount, category);
+        [Route("{url}")]
+        public async Task<Posts?> GetAsync([FromRoute] string url) => await GetPostAsync(url);
 
         [HttpPatch]
         public async Task<bool> UpdateAsync(PostUpdateRequestItem post) => await UpdatePostAsync(post);

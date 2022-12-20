@@ -57,6 +57,25 @@ namespace bbxp.web.blazor.Server.Controllers.Base
             return dbResult;
         }
 
+        protected async Task<Posts?> GetPostAsync(string postUrl)
+        {
+            if (_memoryCache.TryGetValue(postUrl, out Posts? result) && result != null)
+            {
+                return result;
+            }
+
+            var dbResult = await _dbContext.Set<Posts>().FirstOrDefaultAsync(a => a.Active && a.URL == postUrl);
+
+            if (dbResult == null)
+            {
+                return null;
+            }
+
+            AddToCache(postUrl, dbResult);
+
+            return dbResult;
+        }
+
         protected async Task<bool> UpdatePostAsync(PostUpdateRequestItem updatePost)
         {
             var post = await _dbContext.Posts.FirstOrDefaultAsync(a => a.Id == updatePost.Id);
