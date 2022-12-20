@@ -1,5 +1,6 @@
 ﻿using bbxp.lib.Configuration;
 using bbxp.lib.HttpHandlers;
+using bbxp.web.mvc.Controllers.Base;
 using bbxp.web.mvc.Models;
 
 using Microsoft.AspNetCore.Mvc;
@@ -8,27 +9,37 @@ using System.Diagnostics;
 
 namespace bbxp.web.mvc.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private readonly AppConfiguration _appConfiguration;
-
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger, IOptions<AppConfiguration> appConfiguration)
+        public HomeController(ILogger<HomeController> logger, IOptions<AppConfiguration> appConfiguration) : base(appConfiguration)
         {
             _logger = logger;
-            _appConfiguration = appConfiguration.Value;
         }
 
         public async Task<IActionResult> Index()
         {
             var postHttpHandler = new PostHttpHandler(_appConfiguration.APIUrl);
 
-            var model = new IndexModel();
-
-            model.Posts = await postHttpHandler.GetPostsAsync();
+            var model = new IndexModel(_appConfiguration)
+            {
+                Posts = await postHttpHandler.GetPostsAsync()
+            };
 
             return View(model);
+        }
+
+        [Route("{postURL}")]
+        public async Task<IActionResult> GetSinglePostAsync(string postURL)
+        {
+            var postHttpHandler = new PostHttpHandler(_appConfiguration.APIUrl);
+
+            var post = await postHttpHandler.GetSinglePostAsync(postURL);
+
+            ViewData["Title"] = post.Title;
+
+            return View("_PostPartial", post);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
