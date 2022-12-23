@@ -18,7 +18,7 @@ jobs:
       run: docker build -f bbxp.web.mvc/Dockerfile -t ${{ secrets.REGISTRY_NAME }}/bbxp:$(echo $GITHUB_SHA | head -c7) .
 
     - name: Auth mit das Registry
-      run: docker login -u ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} -p ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} 
+      run: docker login -u ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} -p ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} ${{ secrets.DOCKER_REGISTRY_URL }}
       
     - name: Push sie image to DOCR
       run: docker push ${{ secrets.REGISTRY_NAME }}/bbxp:$(echo $GITHUB_SHA | head -c7)
