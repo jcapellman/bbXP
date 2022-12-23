@@ -24,7 +24,7 @@ jobs:
       run: docker push ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.REGISTRY_NAME }}/bbxp:$(echo $GITHUB_SHA | head -c7)
 
     - name: Update sie deployment file
-      run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|${{ secrets.REGISTRY_NAME }}/bbxp:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
+      run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.REGISTRY_NAME }}/bbxp:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
 
     - name: Install doctl
       uses: digitalocean/action-doctl@v2
