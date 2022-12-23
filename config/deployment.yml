@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bbxp.web.mvc
+  name: bbxp-web-mvc
   labels:
-    app: bbxp.web.mvc
+    app: bbxp-web-mvc
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: bbxp.web.mvc
+      app: bbxp-web-mvc
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -17,10 +17,10 @@ spec:
   template:
     metadata:
       labels:
-        app: bbxp.web.mvc
+        app: bbxp-web-mvc
     spec:
       containers:
-      - name: bbxp.web.mvc
+      - name: bbxp-web-mvc
         image: <IMAGE>
         ports:
         - containerPort: 80
@@ -33,7 +33,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: bbxp.web.mvc-service
+  name: bbxp-web-mvc-service
 spec:
   type: LoadBalancer
   ports:
@@ -42,4 +42,4 @@ spec:
       port: 80
       targetPort: 80
   selector:
-    app: bbxp.web.mvc
+    app: bbxp-web-mvc
