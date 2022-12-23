@@ -6,8 +6,14 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /src
-COPY ["bbxp.web.mvc/bbxp.web.mvc.csproj", "bbxp.web.mvc/"]
+WORKDIR "/src"
+
+COPY *.sln .
+COPY bbxp.lib/*.csproj ./bbxp.lib/
+COPY bbxp.web.mvc/*.csproj ./bbxp.web.mvc/
+
+RUN dotnet restore "bbxp.lib/bbxp.lib.csproj"
+
 RUN dotnet restore "bbxp.web.mvc/bbxp.web.mvc.csproj"
 COPY . .
 WORKDIR "/src/bbxp.web.mvc"
