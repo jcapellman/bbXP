@@ -13,22 +13,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Install doctl
-      uses: digitalocean/action-doctl@v2
-      with:
-        token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-    
-    - name: Log in to DigitalOcean Container Registry with short-lived credentials
-      run: doctl registry login
-      
     - uses: actions/checkout@v3
-    - name: Build the Docker image
+    - name: Build sie Docker image
       run: docker build -f bbxp.web.mvc/Dockerfile -t ${{ secrets.REGISTRY_NAME }}/bbxp:$(echo $GITHUB_SHA | head -c7) .
 
-    - name: Push image to DigitalOcean Container Registry
+    - name: Auth mit das Registry
+      run: docker login -u ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} -p ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} 
+      
+    - name: Push sie image to DOCR
       run: docker push ${{ secrets.REGISTRY_NAME }}/bbxp:$(echo $GITHUB_SHA | head -c7)
 
-    - name: Update deployment file
+    - name: Update sie deployment file
       run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|${{ secrets.REGISTRY_NAME }}/bbxp:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
 
     - name: Save DigitalOcean kubeconfig with short-lived credentials
