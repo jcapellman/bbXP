@@ -63,3 +63,13 @@ footer p {
     display: block;
     font-size: 12px;
 }
+
+.nav-link.text-dark:hover {
+    color: white !important;
+    opacity: 100% !important;
+}
+
+.nav-link.text-dark:link, .nav-link.text-dark:visited {
+    color: white !important;
+    opacity: 50%;
+}
