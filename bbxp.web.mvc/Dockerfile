@@ -22,6 +22,8 @@ RUN dotnet build "bbxp.web.mvc.csproj" -c Release -o /app/build
 FROM build AS publish
 RUN dotnet publish "bbxp.web.mvc.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
+ENV ASPNETCORE_URLS http://*:8080
+
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .

@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bbxp.cli.migration", "bbxp.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bbxp.web.mvc", "bbxp.web.mvc\bbxp.web.mvc.csproj", "{74093657-8D8B-4496-8723-C3DA82721419}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bbxp.web.api", "bbxp.web.api\bbxp.web.api.csproj", "{354E102C-5DBA-40E7-AF5B-50917928A01D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bbxp.web.api", "bbxp.web.api\bbxp.web.api.csproj", "{354E102C-5DBA-40E7-AF5B-50917928A01D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{50E38DC9-C4B3-439C-B8E3-2A38FDE52F27}"
+	ProjectSection(SolutionItems) = preProject
+		config\deployment.yml = config\deployment.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

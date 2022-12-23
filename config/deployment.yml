@@ -23,7 +23,7 @@ spec:
       - name: bbxp-web-mvc
         image: <IMAGE>
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         resources:
           requests:
             cpu: 100m

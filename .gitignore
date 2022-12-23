@@ -5,3 +5,4 @@ node_modules/
 typings/
 *.lock.json
 /Properties/PublishProfiles
+/bbxp.web.mvc/bbxp.web.mvc.csproj.user
