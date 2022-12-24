@@ -15,25 +15,25 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build sie MVC Docker image
-      run: docker build -f bbxp.web.mvc/Dockerfile -t ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.REGISTRY_NAME }}/bbxp-mvc:$(echo $GITHUB_SHA | head -c7) .
+      run: docker build -f bbxp.web.mvc/Dockerfile -t ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.REGISTRY_NAME }}/bbxpmvc:$(echo $GITHUB_SHA | head -c7) .
 
     - name: Build sie API Docker image
-      run: docker build -f bbxp.web.api/Dockerfile -t ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.REGISTRY_NAME }}/bbxp-api:$(echo $GITHUB_SHA | head -c7) .
+      run: docker build -f bbxp.web.api/Dockerfile -t ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.REGISTRY_NAME }}/bbxpapi:$(echo $GITHUB_SHA | head -c7) .
 
     - name: Auth mit das Registry
       run: docker login -u ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} -p ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} ${{ secrets.DOCKER_REGISTRY_URL }}
       
     - name: Push sie MVC image to DOCR
-      run: docker push ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.REGISTRY_NAME }}/bbxp-mvc:$(echo $GITHUB_SHA | head -c7)
+      run: docker push ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.REGISTRY_NAME }}/bbxpmvc:$(echo $GITHUB_SHA | head -c7)
     
     - name: Push sie API image to DOCR
-      run: docker push ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.REGISTRY_NAME }}/bbxp-api:$(echo $GITHUB_SHA | head -c7)
+      run: docker push ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.REGISTRY_NAME }}/bbxpapi:$(echo $GITHUB_SHA | head -c7)
 
     - name: Update sie deployment file fur die mvc
-      run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<MVCIMAGE>|${{ secrets.DOCKER_REGISTRY_URL }}//${{ secrets.REGISTRY_NAME }}/bbxp-mvc:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
+      run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<MVCIMAGE>|${{ secrets.DOCKER_REGISTRY_URL }}//${{ secrets.REGISTRY_NAME }}/bbxpmvc:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
     
     - name: Update sie deployment file fur die api
-      run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<APIIMAGE>|${{ secrets.DOCKER_REGISTRY_URL }}//${{ secrets.REGISTRY_NAME }}/bbxp-api:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
+      run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<APIIMAGE>|${{ secrets.DOCKER_REGISTRY_URL }}//${{ secrets.REGISTRY_NAME }}/bbxpapi:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
 
     - name: Install doctl
       uses: digitalocean/action-doctl@v2
