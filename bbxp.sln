@@ -17,6 +17,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.github\workflows\docker-image.yml = .github\workflows\docker-image.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helm", "Helm", "{98D3C977-7CB8-457E-B5FC-8DC0FFC69D85}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bbxp-mvc", "bbxp-mvc", "{1CCB2263-B24B-4F0D-9182-B3ACF05AFFC9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bbxp-api", "bbxp-api", "{8DE8CFD9-7865-40B5-A7A0-1D4F993CF755}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -240,6 +246,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{98D3C977-7CB8-457E-B5FC-8DC0FFC69D85} = {50E38DC9-C4B3-439C-B8E3-2A38FDE52F27}
+		{1CCB2263-B24B-4F0D-9182-B3ACF05AFFC9} = {98D3C977-7CB8-457E-B5FC-8DC0FFC69D85}
+		{8DE8CFD9-7865-40B5-A7A0-1D4F993CF755} = {98D3C977-7CB8-457E-B5FC-8DC0FFC69D85}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FD01EEDC-E280-4AE4-9E7A-789CF8309E58}
