@@ -7,6 +7,13 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
+
+COPY *.sln .
+COPY bbxp.lib/*.csproj ./bbxp.lib/
+COPY bbxp.web.api/*.csproj ./bbxp.web.api/
+
+RUN dotnet restore "bbxp.lib/bbxp.lib.csproj"
+
 COPY ["bbxp.web.api/bbxp.web.api.csproj", "bbxp.web.api/"]
 RUN dotnet restore "bbxp.web.api/bbxp.web.api.csproj"
 COPY . .
