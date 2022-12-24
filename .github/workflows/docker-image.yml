@@ -30,10 +30,10 @@ jobs:
       run: docker push ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.REGISTRY_NAME }}/bbxp-api:$(echo $GITHUB_SHA | head -c7)
 
     - name: Update sie deployment file fur die mvc
-      run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<MVCIMAGE>|${{ secrets.REGISTRY_NAME }}/bbxp-mvc:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
-
+      run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<MVCIMAGE>|${{ secrets.DOCKER_REGISTRY_URL }}//${{ secrets.REGISTRY_NAME }}/bbxp-mvc:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
+    
     - name: Update sie deployment file fur die api
-      run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<APIIMAGE>|${{ secrets.REGISTRY_NAME }}/bbxp-api:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
+      run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<APIIMAGE>|${{ secrets.DOCKER_REGISTRY_URL }}//${{ secrets.REGISTRY_NAME }}/bbxp-api:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
 
     - name: Install doctl
       uses: digitalocean/action-doctl@v2
