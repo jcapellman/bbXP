@@ -28,6 +28,25 @@ namespace bbxp.web.blazor.Server.Controllers.Base
             _memoryCache.Set(key, value, cacheEntryOptions);
         }
 
+        public async Task<List<string>> GetPostCategoriesAsync()
+        {
+            if (_memoryCache.TryGetValue(AppConstants.POST_REQUEST_DEFAULT_CATEGORY, out List<string> result) && result != null)
+            {
+                return result;
+            }
+
+            var dbResult = await _dbContext.Set<Posts>().Where(a => a.Active).Select(a => a.Category).Distinct().ToListAsync();
+
+            if (dbResult == null)
+            {
+                return new List<string>();
+            }
+
+            AddToCache(AppConstants.POST_REQUEST_DEFAULT_CATEGORY, dbResult);
+
+            return dbResult;
+        }
+
         protected async Task<List<Posts>> GetPostsAsync(int postCountLimit = AppConstants.POST_REQUEST_DEFAULT_LIMIT, string category = AppConstants.POST_REQUEST_DEFAULT_CATEGORY)
         {
             if (_memoryCache.TryGetValue(category, out List<Posts> result) && result != null)
