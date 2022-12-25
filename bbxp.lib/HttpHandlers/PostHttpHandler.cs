@@ -15,5 +15,7 @@ namespace bbxp.lib.HttpHandlers
             => await GetAsync<List<Posts>>($"postcategories/{category}/{postCountLimit}");
 
         public async Task<Posts?> GetSinglePostAsync(string postUrl) => await GetAsync<Posts?>($"posts/{postUrl}");
+
+        public async Task<List<string>> GetPostCategoriesAsync() => await GetAsync<List<string>>("postcategories");
     }
 }
