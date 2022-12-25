@@ -21,16 +21,6 @@ namespace bbxp.web.blazor.Server.Controllers.Base
             _memoryCache = memoryCache;
         }
 
-        private static string GetKey<T>(Func<T,bool>? expression = null)
-        {
-            if (expression == null)
-            {
-                return typeof(T).ToString();
-            }
-
-            return expression.ToString() ?? string.Empty;
-        }
-
         private void AddToCache(string key, object value)
         {
             var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromHours(AppConstants.CACHE_HOUR_EXPIRATION));
