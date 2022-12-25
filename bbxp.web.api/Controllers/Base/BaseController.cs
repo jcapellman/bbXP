@@ -35,7 +35,15 @@ namespace bbxp.web.blazor.Server.Controllers.Base
                 return result;
             }
 
-            var dbResult = await _dbContext.Set<Posts>().Where(a => a.Active && a.Category == category).OrderByDescending(a => a.PostDate).Take(postCountLimit).ToListAsync();
+            List<Posts>? dbResult = null;
+
+            dbResult = category switch
+            {
+                AppConstants.POST_REQUEST_DEFAULT_CATEGORY => 
+                    await _dbContext.Set<Posts>().Where(a => a.Active).OrderByDescending(a => a.PostDate).Take(postCountLimit).ToListAsync(),
+                _ => 
+                    await _dbContext.Set<Posts>().Where(a => a.Active && a.Category == category).OrderByDescending(a => a.PostDate).Take(postCountLimit).ToListAsync(),
+            };
 
             if (dbResult == null)
             {
