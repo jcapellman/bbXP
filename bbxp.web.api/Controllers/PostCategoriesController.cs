@@ -16,5 +16,8 @@ namespace bbxp.web.api.Controllers
         [HttpGet]
         [Route("{category}/{postCount}")]
         public async Task<List<Posts>> GetAsync([FromRoute] string category, [FromRoute] int postCount) => await GetPostsAsync(postCount, category);
+
+        [HttpGet]
+        public async Task<List<string>> GetAsync() => await GetPostCategoriesAsync();
     }
 }
