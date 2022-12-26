@@ -19,8 +19,13 @@ namespace bbxp.web.mvc.Controllers
             _logger = logger;
         }
 
-        [Route("/{category}/{postCountLimit}/")]
-        public async Task<IActionResult> Index(string category = AppConstants.POST_REQUEST_DEFAULT_CATEGORY, int postCountLimit = AppConstants.POST_REQUEST_DEFAULT_LIMIT)
+
+        [Route("{category}/{postCountLimit}/")]
+        public async Task<IActionResult> Index(string category, int postCountLimit) => await GetPostsAsync(category, postCountLimit);
+
+        public async Task<IActionResult> Index() => await GetPostsAsync();
+
+        private async Task<IActionResult> GetPostsAsync(string category = AppConstants.POST_REQUEST_DEFAULT_CATEGORY, int postCountLimit = AppConstants.POST_REQUEST_DEFAULT_LIMIT)
         {
             var postHttpHandler = new PostHttpHandler(_appConfiguration.APIUrl);
 
