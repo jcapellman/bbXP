@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace bbxp.web.blazor.Server.Controllers.Base
+namespace bbxp.web.api.Controllers.Base
 {
     public class BaseController : ControllerBase
     {
