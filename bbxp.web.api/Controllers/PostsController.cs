@@ -21,7 +21,7 @@ namespace bbxp.web.api.Controllers
 
         [HttpGet]
         [Route("{url}")]
-        public async Task<Posts?> GetAsync([FromRoute] string url) => await GetPostAsync(url);
+        public async Task<Posts?> GetPostAsync([FromRoute] string url) => await GetPostAsync(url);
 
         [HttpPatch]
         public async Task<bool> UpdateAsync(PostUpdateRequestItem post) => await UpdatePostAsync(post);

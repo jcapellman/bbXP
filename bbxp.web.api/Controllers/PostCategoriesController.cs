@@ -12,6 +12,6 @@ namespace bbxp.web.api.Controllers
         public PostCategoriesController(bbxpDbContext dbContext, IMemoryCache memoryCache) : base(dbContext, memoryCache) { }
 
         [HttpGet]
-        public async Task<List<string>> GetAsync() => await GetPostCategoriesAsync();
+        public async Task<List<string>> GetPostCategoriesAsync() => await GetCategoriesAsync();
     }
 }

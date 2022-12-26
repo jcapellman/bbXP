@@ -28,7 +28,7 @@ namespace bbxp.web.api.Controllers.Base
             _memoryCache.Set(key, value, cacheEntryOptions);
         }
 
-        public async Task<List<string>> GetPostCategoriesAsync()
+        protected async Task<List<string>> GetCategoriesAsync()
         {
             if (_memoryCache.TryGetValue(AppConstants.POST_REQUEST_DEFAULT_CATEGORY, out List<string> result) && result != null)
             {
