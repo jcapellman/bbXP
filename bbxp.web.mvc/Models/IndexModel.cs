@@ -9,8 +9,12 @@ namespace bbxp.web.mvc.Models
         public IndexModel(AppConfiguration config) : base(config)
         {
             Posts = new List<PostViewModel>();
+
+            Categories = new List<string>();
         }
 
         public List<PostViewModel> Posts { get; set; }
+
+        public List<string> Categories { get; set; }
     }
 }

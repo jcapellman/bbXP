@@ -1,4 +1,5 @@
-﻿using bbxp.lib.Configuration;
+﻿using bbxp.lib.Common;
+using bbxp.lib.Configuration;
 using bbxp.lib.HttpHandlers;
 using bbxp.web.mvc.Controllers.Base;
 using bbxp.web.mvc.Models;
@@ -18,15 +19,19 @@ namespace bbxp.web.mvc.Controllers
             _logger = logger;
         }
 
-        public async Task<IActionResult> Index()
+        [Route("/{category}/{postCountLimit}/")]
+        public async Task<IActionResult> Index(string category = AppConstants.POST_REQUEST_DEFAULT_CATEGORY, int postCountLimit = AppConstants.POST_REQUEST_DEFAULT_LIMIT)
         {
             var postHttpHandler = new PostHttpHandler(_appConfiguration.APIUrl);
 
-            var posts = await postHttpHandler.GetPostsAsync();
+            var posts = await postHttpHandler.GetPostsAsync(category, postCountLimit);
+
+            var categories = await postHttpHandler.GetPostCategoriesAsync();
 
             var model = new IndexModel(_appConfiguration)
             {
-                Posts = posts.Select(a => new PostViewModel(_appConfiguration) { Post = a}).ToList()
+                Posts = posts.Select(a => new PostViewModel(_appConfiguration) { Post = a}).ToList(),
+                Categories = categories
             };
 
             return View(model);
