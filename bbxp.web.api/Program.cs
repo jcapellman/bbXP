@@ -36,10 +36,17 @@ namespace bbxp.web.api
                 app.UseSwaggerUI();
             }
 
-            using (var scope = app.Services.CreateScope())
+            try
             {
-                var db = scope.ServiceProvider.GetRequiredService<bbxpDbContext>();
-                db.Database.Migrate();
+                using (var scope = app.Services.CreateScope())
+                {
+                    var db = scope.ServiceProvider.GetRequiredService<bbxpDbContext>();
+                    db.Database.Migrate();
+                }
+            } catch (Exception ex)
+            {
+                // TODO: Logging
+                Console.WriteLine(ex.ToString());
             }
 
             app.UseCors("MyPolicy");
