@@ -18,10 +18,10 @@ namespace bbxp.web.api.Controllers
         [HttpGet]
         [Route("{category}/{postCount}/")]
         public async Task<List<Posts>> GetPostsAsync([FromRoute] string category, [FromRoute] int postCount) => await GetPostsAsync(postCount, category);
-
+        
         [HttpGet]
         [Route("{url}")]
-        public async Task<Posts?> GetPostAsync([FromRoute] string url) => await GetPostAsync(url);
+        public async Task<Posts?> GetSinglePostAsync([FromRoute] string url) => await GetPostAsync(url);
 
         [HttpPatch]
         public async Task<bool> UpdateAsync(PostUpdateRequestItem post) => await UpdatePostAsync(post);

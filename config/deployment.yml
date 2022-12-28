@@ -29,6 +29,9 @@ spec:
             cpu: "0.25"
           limits:
             cpu: "0.5"
+        volumeMounts:
+        - mountPath: "/data"
+          name: bbxp-web-pvc
       - name: bbxp-web-api
         image: <APIIMAGE>
         resources:
@@ -36,6 +39,16 @@ spec:
             cpu: "0.25"
           limits:
             cpu: "0.5"
+      volumeClaimTemplates:
+      - metadata:
+            name: bbxp-web-pvc
+        spec:
+            accessModes:
+            - ReadWriteOnce
+            resources:
+                requests:
+                    storage: 2Gi
+            storageClassName: do-block-storage
 ---
 apiVersion: v1
 kind: Service
