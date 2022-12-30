@@ -1,0 +1,6 @@
+2022-12-30 16:58:43.1620 Info Message Template Auto Format enabled
+2022-12-30 16:58:43.1971 Info Loading assembly: NLog.Web.AspNetCore
+2022-12-30 16:58:43.3043 Info Registered target NLog.Targets.FileTarget(Name=allfile)
+2022-12-30 16:58:43.3172 Info Registered target NLog.Targets.ConsoleTarget(Name=lifetimeConsole)
+2022-12-30 16:58:43.3917 Info Validating config: TargetNames=allfile, lifetimeConsole, ConfigItems=28, FilePath=/app/bin/Debug/net7.0/NLog.config
+2022-12-30 16:58:44.2537 Info Validating config: TargetNames=allfile, lifetimeConsole, ConfigItems=28, FilePath=/app/bin/Debug/net7.0/NLog.config
