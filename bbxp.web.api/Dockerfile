@@ -26,4 +26,4 @@ RUN dotnet publish "bbxp.web.api.csproj" -c Release -o /app/publish /p:UseAppHos
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "bbxp.web.api.dll"]
+ENTRYPOINT ["dotnet", "bbxp.web.api.dll", "http://+:8081"]
