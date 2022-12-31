@@ -36,7 +36,7 @@ namespace bbxp.web.api
 
                 builder.Services.AddMemoryCache();
                 builder.Services.AddDbContext<bbxpDbContext>(
-                    options => options.UseNpgsql(builder.Configuration.GetConnectionString("bbxpDbContext")));
+                    options => options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(bbxpDbContext))));
 
                 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -48,10 +48,14 @@ namespace bbxp.web.api
                     app.UseSwaggerUI();
                 }
 
-                using (var scope = app.Services.CreateScope())
+                using var scope = app.Services.CreateScope();
+
+                try
                 {
                     var db = scope.ServiceProvider.GetRequiredService<bbxpDbContext>();
                     db.Database.Migrate();
+                } catch (Exception dbex) {
+                    logger.Error(dbex, "Failed to run database migrations due to an exception");
                 }
 
                 app.UseCors("MyPolicy");

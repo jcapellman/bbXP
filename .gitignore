@@ -7,3 +7,4 @@ typings/
 /Properties/PublishProfiles
 /bbxp.web.mvc/bbxp.web.mvc.csproj.user
 *.log
+/bbxp.web.api/internal-nlog-bbxp-web-api.txt
