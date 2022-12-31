@@ -1,4 +1,11 @@
 {
+  "Kestrel": {
+    "EndPoints": {
+      "Http": {
+        "Url": "http://+:8081"
+      }
+    }
+  },
   "profiles": {
     "http": {
       "commandName": "Project",
