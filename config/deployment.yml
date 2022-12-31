@@ -23,7 +23,7 @@ spec:
       - name: bbxp-web-mvc-container
         image: <MVCIMAGE>
         ports:
-        - containerPort: 81
+        - containerPort: 443
       - name: bbxp-web-api-container
         image: <APIIMAGE>
         ports:
@@ -37,8 +37,10 @@ spec:
   type: LoadBalancer
   ports:
     - port: 80
-      targetPort: 81
+      targetPort: 443
+      name: bbxp-web-mvc-container
     - port: 8080
       targetPort: 80
+      name: bbxp-web-api-container
   selector:
     app: bbxp-web-app-pod
