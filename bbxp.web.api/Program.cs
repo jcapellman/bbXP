@@ -42,11 +42,12 @@ namespace bbxp.web.api
 
                 var app = builder.Build();
 
-                if (app.Environment.IsDevelopment())
-                {
+             //   if (app.Environment.IsDevelopment())
+               // {
                     app.UseSwagger();
+                    app.UseDeveloperExceptionPage();
                     app.UseSwaggerUI();
-                }
+                //}
 
                 using var scope = app.Services.CreateScope();
 
