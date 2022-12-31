@@ -17,6 +17,13 @@ jobs:
     - name: Build sie MVC Docker image
       run: docker build -f bbxp.web.mvc/Dockerfile -t ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.REGISTRY_NAME }}/bbxp-mvc:$(echo $GITHUB_SHA | head -c7) .
 
+    - name: Update API AppSettings
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: 'bbxp.web.api/appsettings.json'
+      env:
+        ConnectionStrings.bbxpDbContext: ${{ secrets.PSQL_CONNECTION_STRING }}
+    
     - name: Build sie API Docker image
       run: docker build -f bbxp.web.api/Dockerfile -t ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.REGISTRY_NAME }}/bbxp-api:$(echo $GITHUB_SHA | head -c7) .
 
