@@ -37,11 +37,20 @@ namespace bbxp.web.api.Controllers
 
         [HttpGet]
         [Route("{url}")]
-        public async Task<Posts?> GetSinglePostAsync([FromRoute] string url)
+        public async Task<ActionResult<Posts?>> GetSinglePostAsync([FromRoute] string url)
         {
             try
             {
-                return await GetPostAsync(url);
+                var post = await GetPostAsync(url);
+
+                if (post == null)
+                {
+                    _logger.LogDebug("Post ({url}) was not found", url);
+
+                    return NotFound($"Post ({url}) was not found");
+                }
+
+                return post;
             }
             catch (Exception ex)
             {
