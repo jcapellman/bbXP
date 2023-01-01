@@ -42,6 +42,18 @@ namespace bbxp.web.mvc.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Used for legacy handling only
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <param name="day"></param>
+        /// <param name="postURL"></param>
+        /// <returns></returns>
+        [Route("{year}/{month}/{day}/{postURL")]
+        public async Task<IActionResult> GetSinglePostLegacyAsync(int year, int month, int day, string postURL)
+            => await GetSinglePostAsync(postURL);
+
         [Route("{postURL}")]
         public async Task<IActionResult> GetSinglePostAsync(string postURL)
         {
