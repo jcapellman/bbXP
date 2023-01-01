@@ -39,6 +39,8 @@ namespace bbxp.web.mvc.Controllers
                 Categories = categories
             };
 
+            ViewData["Title"] = category;
+
             return View(model);
         }
 
