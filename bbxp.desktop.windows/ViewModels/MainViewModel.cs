@@ -3,6 +3,7 @@ using bbxp.lib.Database.Tables;
 using bbxp.lib.HttpHandlers;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,20 @@ namespace bbxp.desktop.windows.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        private const string REST_SERVICE_BASE_URL = "";
+        private const string SETTINGS_FILENAME = "bbxpsettings.json";
+
+        private string _restServiceURL;
+
+        public string RestServiceURL
+        {
+            get => _restServiceURL;
+
+            set
+            {
+                _restServiceURL = value;
+                OnPropertyChanged();
+            }
+        }
 
         private Posts _selectedPost;
 
@@ -44,12 +58,40 @@ namespace bbxp.desktop.windows.ViewModels
         {
             Posts = new List<Posts>();
 
+            LoadSettings();
+
             LoadData();
         }
 
-        public async void LoadData()
+        private void LoadSettings()
         {
-            Posts = await new PostHttpHandler(REST_SERVICE_BASE_URL).GetPostsAsync(postCountLimit: int.MaxValue);
+            var fullFilePath = Path.Combine(AppContext.BaseDirectory, SETTINGS_FILENAME);
+
+            if (!File.Exists(fullFilePath))
+            {
+                return;
+            }
+
+            RestServiceURL = File.ReadAllText(fullFilePath);
+        }
+
+        public void SaveSettings()
+        {
+            var fullPath = Path.Combine(AppContext.BaseDirectory, SETTINGS_FILENAME);
+
+            File.WriteAllText(fullPath, RestServiceURL);
+
+            LoadData();
+        }
+
+        private async void LoadData()
+        {
+            if (string.IsNullOrEmpty(RestServiceURL))
+            {
+                return;
+            }
+
+            Posts = await new PostHttpHandler(RestServiceURL).GetPostsAsync(postCountLimit: int.MaxValue);
 
             if (Posts != null && Posts.Count > 0)
             {

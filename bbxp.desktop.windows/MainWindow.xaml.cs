@@ -6,6 +6,8 @@ namespace bbxp.desktop.windows
 {
     public partial class MainWindow : MetroWindow
     {
+        private MainViewModel Context => (MainViewModel)DataContext;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -13,9 +15,20 @@ namespace bbxp.desktop.windows
             DataContext = new MainViewModel();
         }
 
+        private void btnSettings_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            foSettings.IsOpen = !foSettings.IsOpen;
+        }
+
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+        }
 
+        private void btnSaveSettings_Click(object sender, RoutedEventArgs e)
+        {
+            Context.SaveSettings();
+
+            foSettings.IsOpen = false;
         }
     }
 }
