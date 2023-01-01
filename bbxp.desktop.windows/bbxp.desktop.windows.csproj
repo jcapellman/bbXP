@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\bbxp.lib\bbxp.lib.csproj" />
   </ItemGroup>
 
