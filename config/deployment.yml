@@ -38,5 +38,9 @@ spec:
   ports:
     - port: 80
       targetPort: 8080
+      name: mvc-app
+    - port: 81
+      targetPort: 8081
+      name: api-app
   selector:
     app: bbxp-web-app-pod

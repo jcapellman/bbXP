@@ -21,6 +21,16 @@ namespace bbxp.web.api.Controllers.Base
             _memoryCache = memoryCache;
         }
 
+        protected void ClearCache()
+        {
+            if (_memoryCache is MemoryCache memoryCache)
+            {
+                var percentage = 1.0;
+
+                memoryCache.Compact(percentage);
+            }
+        }
+
         private void AddToCache(string key, object value)
         {
             var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromHours(AppConstants.CACHE_HOUR_EXPIRATION));
