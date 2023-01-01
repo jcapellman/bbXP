@@ -52,7 +52,7 @@ namespace bbxp.web.mvc.Controllers
         /// <param name="day"></param>
         /// <param name="postURL"></param>
         /// <returns></returns>
-        [Route("{year}/{month}/{day}/{postURL")]
+        [Route("{year}/{month}/{day}/{postURL}")]
         public async Task<IActionResult> GetSinglePostLegacyAsync(int year, int month, int day, string postURL)
             => await GetSinglePostAsync(postURL);
 
