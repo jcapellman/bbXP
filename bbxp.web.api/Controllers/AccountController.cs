@@ -1,4 +1,6 @@
-﻿using bbxp.lib.Common;
+﻿using bbxp.web.api.Configuration;
+using bbxp.lib.JSON;
+using bbxp.lib.Common;
 using bbxp.lib.Database;
 using bbxp.web.api.Controllers.Base;
 
@@ -9,8 +11,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
-using bbxp.web.api.Configuration;
-using bbxp.lib.JSON;
 
 namespace bbxp.web.api.Controllers
 {
@@ -55,7 +55,7 @@ namespace bbxp.web.api.Controllers
 
             if (hashToken != _config.JWTHashToken)
             {
-                Console.WriteLine($"{hashToken} != {_config.JWTHashToken} - failed login");
+                _logger.LogWarning("{hashToken} != {_config.JWTHashToken} - failed login", hashToken, _config.JWTHashToken);
 
                 return Forbid();
             }

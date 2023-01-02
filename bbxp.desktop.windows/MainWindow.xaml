@@ -43,15 +43,27 @@
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBox Grid.Row="0" Text="{Binding SelectedPost.Title, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Grid.Row="0" Text="Title" Margin="0,0,0,10" />
+            <TextBox Grid.Row="1" Text="{Binding SelectedPost.Title, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+
+            <TextBlock Grid.Row="2" Text="Category" Margin="0,0,0,10" />
+            <TextBox Grid.Row="3" Text="{Binding SelectedPost.Category, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+
+            <TextBlock Grid.Row="4" Text="Body" Margin="0,0,0,10" />
+            <TextBox Grid.Row="5" TextWrapping="Wrap" Text="{Binding SelectedPost.Body, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             
-            <TextBox Grid.Row="1" TextWrapping="Wrap" Text="{Binding SelectedPost.Body, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="6">
                 <Button x:Name="btnSave" Content="Save" Click="btnSave_Click" />
             </Grid>
         </Grid>
