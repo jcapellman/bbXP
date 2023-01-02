@@ -23,7 +23,8 @@ jobs:
         files: 'bbxp.web.api/appsettings.json'
       env:
         ConnectionStrings.bbxpDbContext: ${{ secrets.PSQL_CONNECTION_STRING }}
-    
+        ApiConfiguration: ${{ secrets.API_CONFIGURATION }}
+
     - name: Build sie API Docker image
       run: docker build -f bbxp.web.api/Dockerfile -t ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.REGISTRY_NAME }}/bbxp-api:$(echo $GITHUB_SHA | head -c7) .
 

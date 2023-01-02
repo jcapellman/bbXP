@@ -3,7 +3,7 @@ using bbxp.lib.Database.Tables;
 using bbxp.lib.JSON;
 
 using bbxp.web.api.Controllers.Base;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -60,6 +60,7 @@ namespace bbxp.web.api.Controllers
             }
         }
 
+        [Authorize]
         [HttpPatch]
         public async Task<bool> UpdateAsync(PostUpdateRequestItem post)
         {
@@ -75,6 +76,7 @@ namespace bbxp.web.api.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<bool> AddAsync(PostCreationRequestItem post)
         {
@@ -90,6 +92,7 @@ namespace bbxp.web.api.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete]
         public async Task<bool> DeleteAsync(int postId)
         {

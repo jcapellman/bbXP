@@ -1,9 +1,12 @@
+using bbxp.lib.Common;
 using bbxp.lib.Database;
-
+using bbxp.web.api.Configuration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.IdentityModel.Tokens;
 using NLog;
 using NLog.Web;
+using System.Text;
 
 namespace bbxp.web.api
 {
@@ -17,6 +20,13 @@ namespace bbxp.web.api
             try
             {
                 var builder = WebApplication.CreateBuilder(args);
+
+                var apiConfig = builder.Configuration.GetSection(nameof(ApiConfiguration)).Get<ApiConfiguration>();
+
+                if (apiConfig != null)
+                {
+                    builder.Services.AddSingleton(apiConfig);
+                }
 
                 builder.Logging.ClearProviders();
                 builder.Host.UseNLog();
@@ -39,6 +49,23 @@ namespace bbxp.web.api
                     options => options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(bbxpDbContext))));
 
                 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+                builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = apiConfig?.JWTIssuer,
+                        ValidAudience = apiConfig?.JWTAudience,
+                        ClockSkew = TimeSpan.Zero,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(apiConfig?.JWTSecret))
+                    };
+                });
 
                 var app = builder.Build();
 
