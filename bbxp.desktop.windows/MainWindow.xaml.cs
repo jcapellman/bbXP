@@ -22,6 +22,7 @@ namespace bbxp.desktop.windows
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            Context.SavePost();
         }
 
         private void btnSaveSettings_Click(object sender, RoutedEventArgs e)

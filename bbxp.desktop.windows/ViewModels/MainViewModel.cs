@@ -3,7 +3,7 @@ using bbxp.desktop.windows.ViewModels.Base;
 
 using bbxp.lib.Database.Tables;
 using bbxp.lib.HttpHandlers;
-
+using bbxp.lib.JSON;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -56,6 +56,8 @@ namespace bbxp.desktop.windows.ViewModels
             }
         }
 
+        private string _token = string.Empty;
+
         public MainViewModel()
         {
             Posts = new List<Posts>();
@@ -86,6 +88,22 @@ namespace bbxp.desktop.windows.ViewModels
             Setting = JsonSerializer.Deserialize<Settings>(str) ?? new Settings();
         }
 
+        public async void SavePost()
+        {
+            if (SelectedPost.Id == 0)
+            {
+                var createPost = new PostCreationRequestItem { Body = SelectedPost.Body, Category = SelectedPost.Category, Title = SelectedPost.Title };
+
+                await new PostHttpHandler(Setting.RESTServiceURL, _token).CreateNewPost(createPost);
+
+                return;
+            }
+
+            var updatePost = new PostUpdateRequestItem { Body = SelectedPost.Body, Category = SelectedPost.Category, Title = SelectedPost.Title, Id = SelectedPost.Id };
+
+            await new PostHttpHandler(Setting.RESTServiceURL, _token).UpdatePost(updatePost);
+        }
+
         public void SaveSettings()
         {
             var fullPath = Path.Combine(AppContext.BaseDirectory, SETTINGS_FILENAME);
@@ -99,6 +117,16 @@ namespace bbxp.desktop.windows.ViewModels
         {
             if (string.IsNullOrEmpty(Setting?.RESTServiceURL))
             {
+                return;
+            }
+
+            try
+            {
+                _token = await new AccountHttpHandler(Setting.RESTServiceURL).LoginAsync(Setting.Username, Setting.Password);
+            } catch (Exception ex)
+            {
+                var message = ex.Message;
+
                 return;
             }
 

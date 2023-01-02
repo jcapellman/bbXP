@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using System.Net.Http.Headers;
+using System.Net.Http.Json;
 
 namespace bbxp.lib.HttpHandlers.Base
 {
@@ -6,17 +7,28 @@ namespace bbxp.lib.HttpHandlers.Base
     {
         protected readonly HttpClient httpClient;
 
-        public BaseHttpHandler(string baseAddress)
+        public BaseHttpHandler(string baseAddress, string? token = null)
         {
             httpClient = new HttpClient
             {
                 BaseAddress = new Uri(baseAddress)
             };
+
+            if (!string.IsNullOrEmpty(token)) {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
         }
 
         protected async Task<bool> PostAsync<T>(string url, T objValue)
         {
             var result = await httpClient.PostAsJsonAsync<T>(url, objValue);
+
+            return result != null && result.IsSuccessStatusCode;
+        }
+
+        protected async Task<bool> PatchAsync<T>(string url, T objValue)
+        {
+            var result = await httpClient.PatchAsJsonAsync<T>(url, objValue);
 
             return result != null && result.IsSuccessStatusCode;
         }
