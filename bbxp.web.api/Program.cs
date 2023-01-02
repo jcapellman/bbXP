@@ -63,7 +63,7 @@ namespace bbxp.web.api
                         ValidIssuer = apiConfig?.JWTIssuer,
                         ValidAudience = apiConfig?.JWTAudience,
                         ClockSkew = TimeSpan.Zero,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(apiConfig?.JWTSecret))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(apiConfig.JWTSecret))
                     };
                 });
 
