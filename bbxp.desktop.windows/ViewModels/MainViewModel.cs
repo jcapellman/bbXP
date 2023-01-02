@@ -85,7 +85,16 @@ namespace bbxp.desktop.windows.ViewModels
                 return;
             }
 
-            Setting = JsonSerializer.Deserialize<Settings>(str) ?? new Settings();
+            try
+            {
+                Setting = JsonSerializer.Deserialize<Settings>(str) ?? new Settings();
+            } catch (JsonException jex)
+            {
+                // TODO: Log
+                Console.WriteLine(jex.Message);
+
+                Setting = new Settings();
+            }
         }
 
         public async void SavePost()
