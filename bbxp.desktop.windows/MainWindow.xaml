@@ -24,7 +24,7 @@
     
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" MaxWidth="250" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         
@@ -34,7 +34,7 @@
             <ListView ItemsSource="{Binding Posts}" SelectionMode="Single" SelectedItem="{Binding SelectedPost, Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Title}" />
+                        <TextBlock Text="{Binding Title}" ToolTip="{Binding Title}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
@@ -42,12 +42,16 @@
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBox Grid.Row="0" Text="{Binding SelectedPost.Body, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Grid Grid.Row="1">
+            <TextBox Grid.Row="0" Text="{Binding SelectedPost.Title, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+            
+            <TextBox Grid.Row="1" TextWrapping="Wrap" Text="{Binding SelectedPost.Body, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            
+            <Grid Grid.Row="2">
                 <Button x:Name="btnSave" Content="Save" Click="btnSave_Click" />
             </Grid>
         </Grid>

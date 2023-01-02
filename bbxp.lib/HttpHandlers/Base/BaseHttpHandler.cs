@@ -30,7 +30,12 @@ namespace bbxp.lib.HttpHandlers.Base
         {
             var response = await httpClient.PostAsJsonAsync<T>(url, objValue);
 
-            return await response.Content.ReadAsStringAsync();
+            if (response != null && response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadAsStringAsync();
+            }
+
+            return string.Empty;
         }
 
         protected async Task<bool> PatchAsync<T>(string url, T objValue)

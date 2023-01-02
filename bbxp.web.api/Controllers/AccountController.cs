@@ -55,6 +55,8 @@ namespace bbxp.web.api.Controllers
 
             if (hashToken != _config.JWTHashToken)
             {
+                Console.WriteLine($"{hashToken} != {_config.JWTHashToken} - failed login");
+
                 return Forbid();
             }
 
