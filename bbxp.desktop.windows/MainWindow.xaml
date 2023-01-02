@@ -59,12 +59,24 @@
                     <RowDefinition Height="Auto" />
 
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Text="REST Service URL" Margin="0,0,0,10" />
-                <TextBox Grid.Row="1" Text="{Binding RestServiceURL, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" />
+                <TextBox Grid.Row="1" Text="{Binding Setting.RESTServiceURL, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" />
 
-                <Button Grid.Row="2" Click="btnSaveSettings_Click" HorizontalAlignment="Center" Width="100">
+                <TextBlock Grid.Row="2" Text="Username" Margin="0,0,0,10" />
+                <TextBox Grid.Row="3" Text="{Binding Setting.Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" />
+
+                <TextBlock Grid.Row="4" Text="Password" Margin="0,0,0,10" />
+                <TextBox Grid.Row="5" InputScope="Password" Text="{Binding Setting.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" />
+
+                <Button Grid.Row="6" Click="btnSaveSettings_Click" HorizontalAlignment="Center" Width="100">
                     <iconpacks:PackIconMaterial Kind="ContentSave" />
                 </Button>
             </Grid>
