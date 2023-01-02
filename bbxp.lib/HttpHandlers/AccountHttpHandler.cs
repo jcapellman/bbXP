@@ -1,4 +1,5 @@
 ﻿using bbxp.lib.HttpHandlers.Base;
+using bbxp.lib.JSON;
 
 namespace bbxp.lib.HttpHandlers
 {
@@ -6,6 +7,6 @@ namespace bbxp.lib.HttpHandlers
     {
         public AccountHttpHandler(string baseAddress, string? token = null) : base(baseAddress, token) { }
 
-        public async Task<string> LoginAsync(string username, string password) => await GetAsync<string>($"account?username={username}&password={password}");
+        public async Task<string> LoginAsync(UserLoginRequestItem userLogin) => await PostReturnStringAsync("account", userLogin);
     }
 }

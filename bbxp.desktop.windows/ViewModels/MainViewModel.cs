@@ -122,7 +122,10 @@ namespace bbxp.desktop.windows.ViewModels
 
             try
             {
-                _token = await new AccountHttpHandler(Setting.RESTServiceURL).LoginAsync(Setting.Username, Setting.Password);
+                _token = await new AccountHttpHandler(Setting.RESTServiceURL).LoginAsync(new UserLoginRequestItem { 
+                    UserName = Setting.Username, 
+                    Password = Setting.Password
+                });
             } catch (Exception ex)
             {
                 var message = ex.Message;

@@ -1,5 +1,4 @@
-﻿using bbxp.lib.Configuration;
-using bbxp.lib.Common;
+﻿using bbxp.lib.Common;
 using bbxp.lib.Database;
 using bbxp.web.api.Controllers.Base;
 
@@ -11,6 +10,7 @@ using System.Security.Claims;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using bbxp.web.api.Configuration;
+using bbxp.lib.JSON;
 
 namespace bbxp.web.api.Controllers
 {
@@ -48,10 +48,10 @@ namespace bbxp.web.api.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        [HttpGet]
-        public ActionResult<string> Login(string username, string password)
+        [HttpPost]
+        public ActionResult<string> Login(UserLoginRequestItem userLogin)
         {
-            var hashToken = (username + password).ToSHA256();
+            var hashToken = (userLogin.UserName + userLogin.Password).ToSHA256();
 
             if (hashToken != _config.JWTHashToken)
             {

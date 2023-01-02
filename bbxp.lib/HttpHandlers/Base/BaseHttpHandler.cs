@@ -26,6 +26,13 @@ namespace bbxp.lib.HttpHandlers.Base
             return result != null && result.IsSuccessStatusCode;
         }
 
+        protected async Task<string> PostReturnStringAsync<T>(string url, T objValue)
+        {
+            var response = await httpClient.PostAsJsonAsync<T>(url, objValue);
+
+            return await response.Content.ReadAsStringAsync();
+        }
+
         protected async Task<bool> PatchAsync<T>(string url, T objValue)
         {
             var result = await httpClient.PatchAsJsonAsync<T>(url, objValue);
