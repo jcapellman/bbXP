@@ -60,6 +60,7 @@ namespace bbxp.desktop.windows.ViewModels
 
         public MainViewModel()
         {
+            Setting = new Settings();
             Posts = new List<Posts>();
 
             LoadSettings();
