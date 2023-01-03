@@ -68,7 +68,7 @@
             </Grid>
         </Grid>
 
-        <mah:Flyout x:Name="foSettings" Header="Settings" Position="Right" Width="400">
+        <mah:Flyout x:Name="foSettings" Header="Settings" Position="Right" Width="200">
             <Grid Margin="10,10,10,10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
