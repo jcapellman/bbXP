@@ -73,3 +73,9 @@ footer p {
     color: white !important;
     opacity: 50%;
 }
+
+pre {
+    background-color: white !important;
+    padding: 0px 5px 5px 5px !important;
+    border-radius: 10px;
+}
