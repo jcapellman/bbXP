@@ -45,12 +45,15 @@ namespace bbxp.web.api.Controllers.Base
                 return result;
             }
 
-            var dbResult = await _dbContext.Set<Posts>().Where(a => a.Active).Select(a => a.Category).Distinct().ToListAsync();
+            var dbResult = await _dbContext.Set<Posts>().Where(a => a.Active && 
+                a.Category != AppConstants.POST_REQUEST_DEFAULT_CATEGORY).Select(a => a.Category).Distinct().OrderBy(a => a).ToListAsync();
 
             if (dbResult == null)
             {
                 return new List<string>();
             }
+
+            dbResult.Insert(0, AppConstants.POST_REQUEST_DEFAULT_CATEGORY);
 
             AddToCache(AppConstants.POST_REQUEST_DEFAULT_CATEGORY, dbResult);
 
