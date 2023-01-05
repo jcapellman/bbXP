@@ -71,7 +71,7 @@ footer p {
 
 .nav-link.text-dark:link, .nav-link.text-dark:visited {
     color: white !important;
-    opacity: 50%;
+    opacity: 75%;
 }
 
 pre {
