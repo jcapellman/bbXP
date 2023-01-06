@@ -21,6 +21,7 @@ namespace bbxp.web.mvc.Controllers
 
 
         [Route("{category}/{postCountLimit}/")]
+        [ResponseCache(VaryByQueryKeys = new[] { "*" }, Duration = int.MaxValue)]
         public async Task<IActionResult> Index(string category, int postCountLimit) => await GetPostsAsync(category, postCountLimit);
 
         public async Task<IActionResult> Index() => await GetPostsAsync();
@@ -53,10 +54,12 @@ namespace bbxp.web.mvc.Controllers
         /// <param name="postURL"></param>
         /// <returns></returns>
         [Route("{year}/{month}/{day}/{postURL}")]
+        [ResponseCache(VaryByQueryKeys = new[] { "*" }, Duration = int.MaxValue)]
         public async Task<IActionResult> GetSinglePostLegacyAsync(int year, int month, int day, string postURL)
             => await GetSinglePostAsync(postURL);
 
         [Route("{postURL}")]
+        [ResponseCache(VaryByQueryKeys = new[] { "*" }, Duration = int.MaxValue)]
         public async Task<IActionResult> GetSinglePostAsync(string postURL)
         {
             var postHttpHandler = new PostHttpHandler(_appConfiguration.APIUrl);
