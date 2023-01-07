@@ -19,5 +19,7 @@ namespace bbxp.lib.HttpHandlers
         public async Task<Posts?> GetSinglePostAsync(string postUrl) => await GetAsync<Posts?>($"posts/{postUrl}");
 
         public async Task<List<string>> GetPostCategoriesAsync() => await GetAsync<List<string>>("postcategories/");
+
+        public async Task<List<Posts>> SearchPostsAsync(string searchQuery) => await GetAsync<List<Posts>>($"postsearch/{searchQuery}");
     }
 }
