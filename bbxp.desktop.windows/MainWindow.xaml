@@ -6,10 +6,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:iconpacks="clr-namespace:MahApps.Metro.IconPacks;assembly=MahApps.Metro.IconPacks.Material"
         xmlns:local="clr-namespace:bbxp.desktop.windows"
+        xmlns:lc="clr-namespace:bbxp.desktop.windows.Converters"
         xmlns:viewModels="clr-namespace:bbxp.desktop.windows.ViewModels"
         mc:Ignorable="d"        
         ShowIconOnTitleBar="False"
         Title="bbxp.admin" Height="720" Width="1280">
+    <Window.Resources>
+        <lc:CharacterLimitConverter x:Key="charLimitConverter"/>
+    </Window.Resources>
+    
     <Window.DataContext>
         <viewModels:MainViewModel />
     </Window.DataContext>
@@ -27,17 +32,17 @@
     
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" MaxWidth="250" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         
         
         <!-- Left Hand Post List -->
-        <Grid Grid.Column="0">
-            <ListView ItemsSource="{Binding Posts}" SelectionMode="Single" SelectedItem="{Binding SelectedPost, Mode=TwoWay}">
+        <Grid Grid.Column="0" Margin="0,0,10,0">
+            <ListView ItemsSource="{Binding Posts}" ScrollViewer.CanContentScroll="False" SelectionMode="Single" SelectedItem="{Binding SelectedPost, Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Title}" ToolTip="{Binding Title}" />
+                        <TextBlock Text="{Binding Title, Converter={StaticResource charLimitConverter}, ConverterParameter='50'}" ToolTip="{Binding Title}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
