@@ -24,6 +24,33 @@ namespace bbxp.web.mvc.Controllers
         [ResponseCache(VaryByQueryKeys = new[] { "*" }, Duration = int.MaxValue)]
         public async Task<IActionResult> Index(string category, int postCountLimit) => await GetPostsAsync(category, postCountLimit);
 
+        [Route("postsearch/")]
+        [Route("postsearch/{searchQuery}")]
+        public async Task<IActionResult> Index(string? searchQuery = null)
+        {
+            var model = new SearchViewModel(_appConfiguration);
+
+            if (searchQuery == null)
+            {
+                ViewData["Title"] = "Search";
+
+                model.SearchQuery = string.Empty;
+
+                return View("PostSearch", model);
+            }
+
+            var postHttpHandler = new PostHttpHandler(_appConfiguration.APIUrl);
+
+            var posts = await postHttpHandler.SearchPostsAsync(searchQuery);
+
+            model.Posts = posts.Select(a => new PostViewModel(_appConfiguration) { Post = a }).ToList();
+            model.SearchQuery = searchQuery;
+
+            ViewData["Title"] = searchQuery;
+
+            return View("PostSearch", model);
+        }
+
         public async Task<IActionResult> Index() => await GetPostsAsync();
 
         private async Task<IActionResult> GetPostsAsync(string category = AppConstants.POST_REQUEST_DEFAULT_CATEGORY, int postCountLimit = AppConstants.POST_REQUEST_DEFAULT_LIMIT)

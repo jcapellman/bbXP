@@ -1,0 +1,24 @@
+﻿@model SearchViewModel
+
+<h3>Search Posts</h3>
+@using (Html.BeginForm("Index", "PostSearch", FormMethod.Post))
+{
+    <input type="text" class="form-control" placeholder="enter your search terms here" name="searchQuery" />
+}
+
+@if (!string.IsNullOrEmpty(Model.SearchQuery)) {
+    <div style="margin-top: 20px">
+        <h3>Search results for <i>@Model.SearchQuery</i></h3>
+
+        @if (!Model.Posts.Any()) {
+            <div>
+                No results found
+            </div>
+        } else {
+            @foreach (var post in Model.Posts)
+            {
+                @await Html.PartialAsync("_Post", post)
+            }
+        }
+    </div>
+}
