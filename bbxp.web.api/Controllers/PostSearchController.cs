@@ -20,7 +20,7 @@ namespace bbxp.web.api.Controllers
 
         [HttpGet]
         [Route("{searchQuery}")]
-        public async Task<ActionResult<List<Posts>>> SearchPosts(string searchQuery)
+        public async Task<ActionResult<List<Posts>>> SearchPosts([FromRoute] string searchQuery)
         {
             try
             {
