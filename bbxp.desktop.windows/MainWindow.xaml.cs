@@ -20,9 +20,16 @@ namespace bbxp.desktop.windows
             foSettings.IsOpen = !foSettings.IsOpen;
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private async void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            Context.SavePost();
+            var result = await Context.SavePostAsync();
+
+            if (!result)
+            {
+                MessageBox.Show("Failed to save post - try again");
+
+                return;
+            }
         }
 
         private void btnSaveSettings_Click(object sender, RoutedEventArgs e)

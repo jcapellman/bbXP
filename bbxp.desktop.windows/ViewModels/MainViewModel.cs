@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace bbxp.desktop.windows.ViewModels
 {
@@ -98,22 +99,30 @@ namespace bbxp.desktop.windows.ViewModels
             }
         }
 
-        public async void SavePost()
+        public async Task<bool> SavePostAsync()
         {
+            bool result;
+
             if (SelectedPost.Id == default)
             {
                 var createPost = new PostCreationRequestItem { PostDate = DateTime.Now, Body = SelectedPost.Body, Category = SelectedPost.Category, Title = SelectedPost.Title };
 
-                await new PostHttpHandler(Setting.RESTServiceURL, _token).CreateNewPost(createPost);
+                result = await new PostHttpHandler(Setting.RESTServiceURL, _token).CreateNewPost(createPost);
+            } else
+            {
+                var updatePost = new PostUpdateRequestItem { Body = SelectedPost.Body, Category = SelectedPost.Category, Title = SelectedPost.Title, Id = SelectedPost.Id };
 
-                LoadData();
-
-                return;
+                result = await new PostHttpHandler(Setting.RESTServiceURL, _token).UpdatePost(updatePost);
             }
 
-            var updatePost = new PostUpdateRequestItem { Body = SelectedPost.Body, Category = SelectedPost.Category, Title = SelectedPost.Title, Id = SelectedPost.Id };
+            if (!result)
+            {
+                return false;
+            }
 
-            await new PostHttpHandler(Setting.RESTServiceURL, _token).UpdatePost(updatePost);
+            LoadData();
+
+            return true;
         }
 
         public void NewPost()
