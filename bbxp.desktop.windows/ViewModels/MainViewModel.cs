@@ -10,12 +10,62 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace bbxp.desktop.windows.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
         private const string SETTINGS_FILENAME = "bbxpsettings.json";
+
+        private Visibility _showLoadingIndicator;
+
+        public Visibility ShowLoadingIndicator
+        {
+            get => _showLoadingIndicator;
+
+            set
+            {
+                _showLoadingIndicator = value;
+                OnPropertyChanged();
+
+                if (value == Visibility.Visible)
+                {
+                    ShowPostForm = Visibility.Collapsed;
+                    ShowPostListing = Visibility.Collapsed;
+                } else
+                {
+                    ShowPostForm = Visibility.Visible;
+                    ShowPostListing = Visibility.Visible;
+                }
+            }
+        }
+
+        private Visibility _showPostListing;
+
+        public Visibility ShowPostListing
+        {
+            get => _showPostListing;
+
+            set
+            {
+                _showPostListing = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private Visibility _showPostForm;
+
+        public Visibility ShowPostForm
+        {
+            get => _showPostForm;
+
+            set
+            {
+                _showPostForm = value;
+                OnPropertyChanged();
+            }
+        }
 
         private Settings _settings;
 
@@ -61,6 +111,8 @@ namespace bbxp.desktop.windows.ViewModels
 
         public MainViewModel()
         {
+            ShowLoadingIndicator = Visibility.Visible;
+
             Setting = new Settings();
             Posts = new List<Posts>();
 
@@ -101,6 +153,8 @@ namespace bbxp.desktop.windows.ViewModels
 
         public async Task<bool> SavePostAsync()
         {
+            ShowLoadingIndicator = Visibility.Visible;
+
             bool result;
 
             if (SelectedPost.Id == default)
@@ -117,6 +171,8 @@ namespace bbxp.desktop.windows.ViewModels
 
             if (!result)
             {
+                ShowLoadingIndicator = Visibility.Collapsed;
+
                 return false;
             }
 
@@ -141,8 +197,12 @@ namespace bbxp.desktop.windows.ViewModels
 
         private async void LoadData()
         {
+            ShowLoadingIndicator = Visibility.Visible;
+
             if (string.IsNullOrEmpty(Setting?.RESTServiceURL))
             {
+                ShowLoadingIndicator = Visibility.Collapsed;
+
                 return;
             }
 
@@ -156,6 +216,8 @@ namespace bbxp.desktop.windows.ViewModels
             {
                 var message = ex.Message;
 
+                ShowLoadingIndicator = Visibility.Collapsed;
+
                 return;
             }
 
@@ -165,6 +227,8 @@ namespace bbxp.desktop.windows.ViewModels
             {
                 SelectedPost = Posts.FirstOrDefault();
             }
+
+            ShowLoadingIndicator = Visibility.Collapsed;
         }
     }
 }
