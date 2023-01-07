@@ -38,8 +38,15 @@
         
         
         <!-- Left Hand Post List -->
-        <Grid Grid.Column="0" Margin="0,0,10,0">
-            <ListView ItemsSource="{Binding Posts}" ScrollViewer.CanContentScroll="False" SelectionMode="Single" SelectedItem="{Binding SelectedPost, Mode=TwoWay}">
+        <Grid Grid.Column="0" Margin="10,10,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="posts" Padding="0,0,0,10" Style="{StaticResource MahApps.Styles.TextBlock.HamburgerMenuHeader}" />
+
+            <ListView Grid.Row="1" ItemsSource="{Binding Posts}" ScrollViewer.CanContentScroll="False" SelectionMode="Single" SelectedItem="{Binding SelectedPost, Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Title, Converter={StaticResource charLimitConverter}, ConverterParameter='50'}" ToolTip="{Binding Title}" />
@@ -48,7 +55,7 @@
             </ListView>
         </Grid>
 
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1" Margin="0,10,10,10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
