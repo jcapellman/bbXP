@@ -159,12 +159,12 @@ namespace bbxp.desktop.windows.ViewModels
 
             if (SelectedPost.Id == default)
             {
-                var createPost = new PostCreationRequestItem { PostDate = DateTime.Now, Body = SelectedPost.Body, Category = SelectedPost.Category, Title = SelectedPost.Title };
+                var createPost = new PostCreationRequestItem { PostDate = SelectedPost.PostDate, Body = SelectedPost.Body, Category = SelectedPost.Category, Title = SelectedPost.Title };
 
                 result = await new PostHttpHandler(Setting.RESTServiceURL, _token).CreateNewPost(createPost);
             } else
             {
-                var updatePost = new PostUpdateRequestItem { Body = SelectedPost.Body, Category = SelectedPost.Category, Title = SelectedPost.Title, Id = SelectedPost.Id };
+                var updatePost = new PostUpdateRequestItem { PostDate = SelectedPost.PostDate, Body = SelectedPost.Body, Category = SelectedPost.Category, Title = SelectedPost.Title, Id = SelectedPost.Id };
 
                 result = await new PostHttpHandler(Setting.RESTServiceURL, _token).UpdatePost(updatePost);
             }

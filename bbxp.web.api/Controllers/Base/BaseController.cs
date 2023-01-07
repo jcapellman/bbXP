@@ -118,6 +118,7 @@ namespace bbxp.web.api.Controllers.Base
             post.Title = updatePost.Title;
             post.Body = updatePost.Body;
             post.Category = updatePost.Category;
+            post.PostDate = updatePost.PostDate;
 
             return await _dbContext.SaveChangesAsync() > 0;
         }

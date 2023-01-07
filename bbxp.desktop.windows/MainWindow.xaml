@@ -68,6 +68,9 @@
                 <RowDefinition Height="Auto" />
 
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 
                 <RowDefinition Height="Auto" />
@@ -79,10 +82,13 @@
             <TextBlock Grid.Row="2" Text="Category" Margin="0,0,0,10" />
             <TextBox Grid.Row="3" Margin="0,0,0,10" Text="{Binding SelectedPost.Category, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
 
-            <TextBlock Grid.Row="4" Text="Body" Margin="0,0,0,10" />
-            <TextBox Grid.Row="5" Margin="0,0,0,10" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" Text="{Binding SelectedPost.Body, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Grid.Row="4" Text="Post Date" Margin="0,0,0,10" />
+            <mah:DateTimePicker Grid.Row="5" Margin="0,0,0,10" SelectedDateTime="{Binding SelectedPost.PostDate, Mode=TwoWay}" />
+
+            <TextBlock Grid.Row="6" Text="Body" Margin="0,0,0,10" />
+            <TextBox Grid.Row="7" Margin="0,0,0,10" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" Text="{Binding SelectedPost.Body, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             
-            <Grid Grid.Row="6">
+            <Grid Grid.Row="8">
                 <Button x:Name="btnSave" Content="Save" Click="btnSave_Click" />
             </Grid>
         </Grid>
