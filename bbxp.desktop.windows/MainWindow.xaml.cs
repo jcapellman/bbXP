@@ -31,5 +31,10 @@ namespace bbxp.desktop.windows
 
             foSettings.IsOpen = false;
         }
+
+        private void btnNewPost_Click(object sender, RoutedEventArgs e)
+        {
+            Context.NewPost();
+        }
     }
 }

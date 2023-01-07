@@ -16,6 +16,9 @@
     
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
+            <Button VerticalAlignment="Center" Click="btnNewPost_Click">
+                <iconpacks:PackIconMaterial VerticalAlignment="Center" Kind="Creation" />
+            </Button>
             <Button VerticalAlignment="Center" Click="btnSettings_Click">
                 <iconpacks:PackIconMaterial VerticalAlignment="Center" Kind="SettingsHelper" />
             </Button>
@@ -61,7 +64,7 @@
             <TextBox Grid.Row="3" Text="{Binding SelectedPost.Category, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
 
             <TextBlock Grid.Row="4" Text="Body" Margin="0,0,0,10" />
-            <TextBox Grid.Row="5" TextWrapping="Wrap" Text="{Binding SelectedPost.Body, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Grid.Row="5" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" Text="{Binding SelectedPost.Body, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             
             <Grid Grid.Row="6">
                 <Button x:Name="btnSave" Content="Save" Click="btnSave_Click" />

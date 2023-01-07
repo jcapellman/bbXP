@@ -100,11 +100,13 @@ namespace bbxp.desktop.windows.ViewModels
 
         public async void SavePost()
         {
-            if (SelectedPost.Id == 0)
+            if (SelectedPost.Id == default)
             {
-                var createPost = new PostCreationRequestItem { Body = SelectedPost.Body, Category = SelectedPost.Category, Title = SelectedPost.Title };
+                var createPost = new PostCreationRequestItem { PostDate = DateTime.Now, Body = SelectedPost.Body, Category = SelectedPost.Category, Title = SelectedPost.Title };
 
                 await new PostHttpHandler(Setting.RESTServiceURL, _token).CreateNewPost(createPost);
+
+                LoadData();
 
                 return;
             }
@@ -112,6 +114,11 @@ namespace bbxp.desktop.windows.ViewModels
             var updatePost = new PostUpdateRequestItem { Body = SelectedPost.Body, Category = SelectedPost.Category, Title = SelectedPost.Title, Id = SelectedPost.Id };
 
             await new PostHttpHandler(Setting.RESTServiceURL, _token).UpdatePost(updatePost);
+        }
+
+        public void NewPost()
+        {
+            SelectedPost = new Posts { Id = default, Body = string.Empty, Title = string.Empty, Category = string.Empty, PostDate = DateTime.Now, URL = string.Empty };
         }
 
         public void SaveSettings()
