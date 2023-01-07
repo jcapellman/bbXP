@@ -9,6 +9,7 @@
         xmlns:lc="clr-namespace:bbxp.desktop.windows.Converters"
         xmlns:viewModels="clr-namespace:bbxp.desktop.windows.ViewModels"
         mc:Ignorable="d"        
+        WindowState="Maximized"
         ShowIconOnTitleBar="False"
         Title="bbxp.admin" Height="720" Width="1280">
     <Window.Resources>
