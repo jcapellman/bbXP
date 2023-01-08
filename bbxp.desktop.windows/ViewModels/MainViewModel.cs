@@ -164,7 +164,7 @@ namespace bbxp.desktop.windows.ViewModels
                 result = await new PostHttpHandler(Setting.RESTServiceURL, _token).CreateNewPost(createPost);
             } else
             {
-                var updatePost = new PostUpdateRequestItem { PostDate = SelectedPost.PostDate, Body = SelectedPost.Body, Category = SelectedPost.Category, Title = SelectedPost.Title, Id = SelectedPost.Id };
+                var updatePost = new PostUpdateRequestItem { URL = SelectedPost.URL, PostDate = SelectedPost.PostDate, Body = SelectedPost.Body, Category = SelectedPost.Category, Title = SelectedPost.Title, Id = SelectedPost.Id };
 
                 result = await new PostHttpHandler(Setting.RESTServiceURL, _token).UpdatePost(updatePost);
             }
