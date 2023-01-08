@@ -53,7 +53,9 @@ namespace bbxp.web.api.Controllers.Base
             }
 
             var dbResult = await _dbContext.Set<Posts>().Where(a => a.Active && 
-                a.Category != AppConstants.POST_REQUEST_DEFAULT_CATEGORY).Select(a => a.Category).Distinct().OrderBy(a => a).ToListAsync();
+                a.Category != AppConstants.POST_REQUEST_DEFAULT_CATEGORY && 
+                a.Category != AppConstants.POST_REQUEST_INTERNAL_CATEGORY)
+                .Select(a => a.Category).Distinct().OrderBy(a => a).ToListAsync();
 
             if (dbResult == null)
             {

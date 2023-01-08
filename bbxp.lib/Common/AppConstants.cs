@@ -8,6 +8,8 @@
 
         public const string POST_REQUEST_DEFAULT_CATEGORY = "Latest";
 
+        public const string POST_REQUEST_INTERNAL_CATEGORY = "Internal";
+
         public const string POST_CATEGORY_CACHE_KEY = "PostCategories";
     }
 }
