@@ -26,7 +26,7 @@ namespace bbxp.web.mvc.Controllers
 
         [Route("postsearch/")]
         [Route("postsearch/{searchQuery}")]
-        public async Task<IActionResult> Index(string? searchQuery = null)
+        public async Task<IActionResult> PostSearchAsync(string? searchQuery = null)
         {
             var model = new SearchViewModel(_appConfiguration);
 
