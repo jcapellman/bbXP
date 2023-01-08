@@ -126,11 +126,13 @@ namespace bbxp.web.api.Controllers.Base
             post.Body = updatePost.Body;
             post.Category = updatePost.Category;
             post.PostDate = updatePost.PostDate;
+            post.URL = updatePost.URL;
 
             return await _dbContext.SaveChangesAsync() > 0;
         }
 
-        private static string CreateURLSafeTitle(string title) => title.ToLower().Replace(' ', '-');
+        private static string CreateURLSafeTitle(string title) => 
+            title.ToLower().Replace(' ', '_').Replace(".", "").Replace(",","").Replace("-", "_");
 
         protected async Task<bool> AddPostAsync(PostCreationRequestItem newPost)
         {

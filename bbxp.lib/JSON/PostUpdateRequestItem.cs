@@ -11,5 +11,7 @@
         public required string Category { get; set; }
 
         public required DateTime PostDate { get; set; }
+
+        public required string URL { get; set; }
     }
 }
