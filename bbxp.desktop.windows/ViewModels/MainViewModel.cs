@@ -41,6 +41,32 @@ namespace bbxp.desktop.windows.ViewModels
             }
         }
 
+        private Visibility _showCodeView;
+
+        public Visibility ShowCodeView
+        {
+            get => _showCodeView;
+
+            set
+            {
+                _showCodeView = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private Visibility _showPreview;
+
+        public Visibility ShowPreview
+        {
+            get => _showPreview;
+
+            set
+            {
+                _showCodeView = value;
+                OnPropertyChanged();
+            }
+        }
+
         private Visibility _showPostListing;
 
         public Visibility ShowPostListing
@@ -112,6 +138,7 @@ namespace bbxp.desktop.windows.ViewModels
         public MainViewModel()
         {
             ShowLoadingIndicator = Visibility.Visible;
+            ShowCode();
 
             Setting = new Settings();
             Posts = new List<Posts>();
@@ -119,6 +146,18 @@ namespace bbxp.desktop.windows.ViewModels
             LoadSettings();
 
             LoadData();
+        }
+
+        public void ShowCode()
+        {
+            ShowCodeView = Visibility.Visible;
+            ShowPreview = Visibility.Collapsed;
+        }
+
+        public void ShowMarkdownRender()
+        {
+            ShowPreview = Visibility.Visible;
+            ShowCodeView = Visibility.Collapsed;
         }
 
         private void LoadSettings()
@@ -184,6 +223,8 @@ namespace bbxp.desktop.windows.ViewModels
         public void NewPost()
         {
             SelectedPost = new Posts { Id = default, Body = string.Empty, Title = string.Empty, Category = string.Empty, PostDate = DateTime.Now, URL = string.Empty };
+
+            ShowCode();
         }
 
         public void SaveSettings()

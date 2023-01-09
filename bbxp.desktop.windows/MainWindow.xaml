@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:iconpacks="clr-namespace:MahApps.Metro.IconPacks;assembly=MahApps.Metro.IconPacks.Material"
         xmlns:local="clr-namespace:bbxp.desktop.windows"
+        xmlns:editor="clr-namespace:Markdown.Wpf.Editor;assembly=Markdown.Wpf.Editor"
         xmlns:lc="clr-namespace:bbxp.desktop.windows.Converters"
         xmlns:viewModels="clr-namespace:bbxp.desktop.windows.ViewModels"
         mc:Ignorable="d"        
@@ -92,8 +93,8 @@
             <TextBox Grid.Row="7" Margin="0,0,0,10" Text="{Binding SelectedPost.URL, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
 
             <TextBlock Grid.Row="8" Text="Body" Margin="0,0,0,10" />
-            <TextBox Grid.Row="9" Margin="0,0,0,10" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" Text="{Binding SelectedPost.Body, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            
+            <editor:MarkdownEditor Grid.Row="9" AutoUpdate="true" Text="{Binding SelectedPost.Body}" />
+
             <Grid Grid.Row="10">
                 <Button x:Name="btnSave" Content="Save" Click="btnSave_Click" />
             </Grid>
