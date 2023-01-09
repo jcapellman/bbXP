@@ -1,7 +1,9 @@
-﻿@model PostViewModel
+﻿@using bbxp.web.mvc.Common;
+
+@model PostViewModel
 
 <div class="post">
     <div class="date">@Model.Post.PostDate.ToLongDateString()</div>
     <h2 class="header">@Model.Post.Title</h2>
-    <div class="postbody">@Html.Raw(Model.Post.Body)</div>
+    <div class="postbody">@Model.Post.Body.ToHtmlString()</div>
 </div>
