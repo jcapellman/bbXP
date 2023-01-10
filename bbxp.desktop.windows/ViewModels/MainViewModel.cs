@@ -18,6 +18,28 @@ namespace bbxp.desktop.windows.ViewModels
     {
         private const string SETTINGS_FILENAME = "bbxpsettings.json";
 
+        private string _SearchTerm;
+
+        public string SearchTerm
+        {
+            get => _SearchTerm;
+
+            set
+            {
+                _SearchTerm = value.ToLower();
+
+                OnPropertyChanged();
+
+                if (string.IsNullOrEmpty(_SearchTerm))
+                {
+                    FilteredPosts = Posts;
+                } else
+                {
+                    FilteredPosts = Posts.Where(a => a.Title.ToLower().Contains(_SearchTerm)).ToList();
+                }
+            }
+        }
+
         private Visibility _showLoadingIndicator;
 
         public Visibility ShowLoadingIndicator
@@ -133,6 +155,20 @@ namespace bbxp.desktop.windows.ViewModels
             }
         }
 
+        private List<Posts> _filteredPosts;
+
+        public List<Posts> FilteredPosts
+        {
+            get => _filteredPosts;
+
+            set
+            {
+                _filteredPosts = value;
+
+                OnPropertyChanged();
+            }
+        }
+
         private string _token = string.Empty;
 
         public MainViewModel()
@@ -142,6 +178,9 @@ namespace bbxp.desktop.windows.ViewModels
 
             Setting = new Settings();
             Posts = new List<Posts>();
+            FilteredPosts = new List<Posts>();
+
+            SearchTerm = string.Empty;
 
             LoadSettings();
 
@@ -266,7 +305,9 @@ namespace bbxp.desktop.windows.ViewModels
 
             if (Posts != null && Posts.Count > 0)
             {
-                SelectedPost = Posts.FirstOrDefault();
+                FilteredPosts = Posts;
+
+                SelectedPost = FilteredPosts.FirstOrDefault();
             }
 
             ShowLoadingIndicator = Visibility.Collapsed;

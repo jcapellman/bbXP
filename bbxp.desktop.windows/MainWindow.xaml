@@ -46,12 +46,18 @@
         <Grid Grid.Column="0" Margin="10,10,10,10" Visibility="{Binding ShowPostListing}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Text="posts" Padding="0,0,0,10" Style="{StaticResource MahApps.Styles.TextBlock.HamburgerMenuHeader}" />
+            <TextBlock Grid.Row="0" Text="search" Padding="0,0,0,10" Style="{StaticResource MahApps.Styles.TextBlock.HamburgerMenuHeader}" />
+            <TextBox Grid.Row="1" Text="{Binding SearchTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-            <ListView Grid.Row="1" ItemsSource="{Binding Posts}" ScrollViewer.CanContentScroll="False" SelectionMode="Single" SelectedItem="{Binding SelectedPost, Mode=TwoWay}">
+            <TextBlock Grid.Row="2" Text="posts" Padding="0,0,0,10" Style="{StaticResource MahApps.Styles.TextBlock.HamburgerMenuHeader}" />
+
+            <ListView Grid.Row="3" ItemsSource="{Binding FilteredPosts}" ScrollViewer.CanContentScroll="False" SelectionMode="Single" SelectedItem="{Binding SelectedPost, Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Title, Converter={StaticResource charLimitConverter}, ConverterParameter='50'}" ToolTip="{Binding Title}" />
