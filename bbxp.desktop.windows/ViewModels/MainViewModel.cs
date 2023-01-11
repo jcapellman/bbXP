@@ -311,6 +311,8 @@ namespace bbxp.desktop.windows.ViewModels
                 }
             }
 
+            SearchTerm = string.Empty;
+
             Posts = await new PostHttpHandler(Setting.RESTServiceURL).GetPostsAsync(postCountLimit: int.MaxValue);
 
             if (Posts != null && Posts.Count > 0)
