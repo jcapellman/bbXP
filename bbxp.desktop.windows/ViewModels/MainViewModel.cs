@@ -33,7 +33,7 @@ namespace bbxp.desktop.windows.ViewModels
                 if (string.IsNullOrEmpty(_SearchTerm))
                 {
                     FilteredPosts = Posts;
-                } else
+                } else if (_SearchTerm.Length >= 3)
                 {
                     FilteredPosts = Posts.Where(a => a.Title.ToLower().Contains(_SearchTerm)).ToList();
                 }
