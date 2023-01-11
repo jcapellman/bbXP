@@ -291,19 +291,24 @@ namespace bbxp.desktop.windows.ViewModels
                 return;
             }
 
-            try
+            if (string.IsNullOrEmpty(_token))
             {
-                _token = await new AccountHttpHandler(Setting.RESTServiceURL).LoginAsync(new UserLoginRequestItem { 
-                    UserName = Setting.Username, 
-                    Password = Setting.Password
-                });
-            } catch (Exception ex)
-            {
-                var message = ex.Message;
+                try
+                {
+                    _token = await new AccountHttpHandler(Setting.RESTServiceURL).LoginAsync(new UserLoginRequestItem
+                    {
+                        UserName = Setting.Username,
+                        Password = Setting.Password
+                    });
+                }
+                catch (Exception ex)
+                {
+                    var message = ex.Message;
 
-                ShowLoadingIndicator = Visibility.Collapsed;
+                    ShowLoadingIndicator = Visibility.Collapsed;
 
-                return;
+                    return;
+                }
             }
 
             Posts = await new PostHttpHandler(Setting.RESTServiceURL).GetPostsAsync(postCountLimit: int.MaxValue);
