@@ -37,6 +37,11 @@ namespace bbxp.desktop.windows.ViewModels
                 {
                     FilteredPosts = Posts.Where(a => a.Title.ToLower().Contains(_SearchTerm)).ToList();
                 }
+
+                if (FilteredPosts.Count > 0)
+                {
+                    SelectedPost = FilteredPosts.First();
+                }
             }
         }
 
