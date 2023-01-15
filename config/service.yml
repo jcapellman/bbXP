@@ -2,21 +2,16 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: 'true'
-    service.beta.kubernetes.io/do-loadbalancer-hostname: "jarredcapellman.com"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
   name: bbxp-web-app-service
 spec:
   type: LoadBalancer
+  selector:
+    app: bbxp-web-app-pod
   ports:
     - port: 80
       targetPort: 8080
       name: mvc-app
-    - name: mvc-app-https
-      port: 443
-      protocol: TCP
-      targetPort: 8080
     - port: 81
       targetPort: 8081
       name: api-app
-  selector:
-    app: bbxp-web-app-pod
