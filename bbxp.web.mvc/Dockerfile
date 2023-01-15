@@ -3,9 +3,8 @@
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
 EXPOSE 8080
-EXPOSE 443
 
-ENV ASPNETCORE_URLS=http://+:8080
+ENV ASPNETCORE_URLS=https://+:8080
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR "/src"
@@ -27,4 +26,4 @@ RUN dotnet publish "bbxp.web.mvc.csproj" -c Release -o /app/publish /p:UseAppHos
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "bbxp.web.mvc.dll", "http://+:8080"]
+ENTRYPOINT ["dotnet", "bbxp.web.mvc.dll", "https://+:8080"]
