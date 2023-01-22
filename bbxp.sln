@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\cicd.yml = .github\workflows\cicd.yml
 		config\deployment.yml = config\deployment.yml
+		config\production_issuer.yml = config\production_issuer.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bbxp.desktop.windows", "bbxp.desktop.windows\bbxp.desktop.windows.csproj", "{9D1C1AFE-414C-44DC-8AE6-E2BAB074EE3D}"

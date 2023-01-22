@@ -32,9 +32,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
   name: bbxp-web-app-service
 spec:
   type: LoadBalancer
+  selector:
+    app: bbxp-web-app-pod
   ports:
     - port: 80
       targetPort: 8080
@@ -42,5 +46,3 @@ spec:
     - port: 81
       targetPort: 8081
       name: api-app
-  selector:
-    app: bbxp-web-app-pod
