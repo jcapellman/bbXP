@@ -13,8 +13,8 @@
 	  <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3" />
 	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
-    <PackageReference Include="NLog" Version="5.2.7" />
-    <PackageReference Include="NLog.Web.AspNetCore" Version="5.3.7" />
+    <PackageReference Include="NLog" Version="5.2.8" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="5.3.8" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
