@@ -21,6 +21,8 @@ namespace bbxp.web.api
             {
                 var builder = WebApplication.CreateBuilder(args);
 
+                builder.Configuration.AddEnvironmentVariables();
+
                 var apiConfig = builder.Configuration.GetSection(nameof(ApiConfiguration)).Get<ApiConfiguration>();
 
                 if (apiConfig != null)
