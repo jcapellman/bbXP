@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>8921cfbe-87e8-42db-867b-4b0ac313689e</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	<ContainerRepository>bbxp-web-api</ContainerRepository>
   </PropertyGroup>
 
   <ItemGroup>
