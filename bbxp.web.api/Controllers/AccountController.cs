@@ -11,6 +11,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
+using bbxp.lib.Database.Tables;
+using LimDB.lib;
 
 namespace bbxp.web.api.Controllers
 {
@@ -22,7 +24,7 @@ namespace bbxp.web.api.Controllers
 
         private readonly ApiConfiguration _config;
 
-        public AccountController(bbxpDbContext dbContext, IMemoryCache memoryCache, ILogger<AccountController> logger, ApiConfiguration config) : base(dbContext, memoryCache)
+        public AccountController(LimDbContext<Posts> dbContext, IMemoryCache memoryCache, ILogger<AccountController> logger, ApiConfiguration config) : base(dbContext, memoryCache)
         {
             _logger = logger;
             _config = config;

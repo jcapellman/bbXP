@@ -3,6 +3,7 @@ using bbxp.lib.Database.Tables;
 using bbxp.lib.JSON;
 
 using bbxp.web.api.Controllers.Base;
+using LimDB.lib;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -15,17 +16,17 @@ namespace bbxp.web.api.Controllers
     {
         private readonly ILogger<PostsController> _logger;
 
-        public PostsController(bbxpDbContext dbContext, IMemoryCache memoryCache, ILogger<PostsController> logger) : base(dbContext, memoryCache) {
+        public PostsController(LimDbContext<Posts> dbContext, IMemoryCache memoryCache, ILogger<PostsController> logger) : base(dbContext, memoryCache) {
             _logger = logger;
         }
 
         [HttpGet]
         [Route("{category}/{postCount}/")]
-        public async Task<List<Posts>> GetPostsAsync([FromRoute] string category, [FromRoute] int postCount)
+        public IEnumerable<Posts> GetPostsAsync([FromRoute] string category, [FromRoute] int postCount)
         {
             try
             {
-                return await GetPostsAsync(postCount, category);
+                return GetPostsAsync(postCount, category);
             }
             catch (Exception ex)
             {
@@ -37,11 +38,11 @@ namespace bbxp.web.api.Controllers
 
         [HttpGet]
         [Route("{url}")]
-        public async Task<ActionResult<Posts?>> GetSinglePostAsync([FromRoute] string url)
+        public ActionResult<Posts?> GetSinglePostAsync([FromRoute] string url)
         {
             try
             {
-                var post = await GetPostAsync(url);
+                var post = GetPostAsync(url);
 
                 if (post == null)
                 {
@@ -62,11 +63,11 @@ namespace bbxp.web.api.Controllers
 
         [Authorize]
         [HttpPatch]
-        public async Task<bool> UpdateAsync(PostUpdateRequestItem post)
+        public bool UpdateAsync(PostUpdateRequestItem post)
         {
             try
             {
-                return await UpdatePostAsync(post);
+                return UpdatePostAsync(post);
             }
             catch (Exception ex)
             {
@@ -82,7 +83,7 @@ namespace bbxp.web.api.Controllers
         {
             try
             {
-                return await AddPostAsync(post);
+                return AddPostAsync(post);
             }
             catch (Exception ex)
             {
@@ -94,11 +95,11 @@ namespace bbxp.web.api.Controllers
 
         [Authorize]
         [HttpDelete]
-        public async Task<bool> DeleteAsync(int postId)
+        public bool DeleteAsync(int postId)
         {
             try
             {
-                return await DeletePostAsync(postId);
+                return DeletePostAsync(postId);
             }
             catch (Exception ex)
             {

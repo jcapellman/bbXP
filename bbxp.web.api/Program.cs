@@ -2,17 +2,20 @@ using bbxp.lib.Common;
 using bbxp.lib.Database;
 using bbxp.web.api.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
+
 using Microsoft.IdentityModel.Tokens;
 using NLog;
 using NLog.Web;
 using System.Text;
+using bbxp.lib.Database.Tables;
+using LimDB.lib;
+using LimDB.lib.Sources;
 
 namespace bbxp.web.api
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
             logger.Debug("bbxp.web.api starting up...");
@@ -47,10 +50,12 @@ namespace bbxp.web.api
                 builder.Services.AddSwaggerGen();
 
                 builder.Services.AddMemoryCache();
-                builder.Services.AddDbContext<bbxpDbContext>(
-                    options => options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(bbxpDbContext))));
 
-                AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+                var limDbContext =
+                    await LimDbContext<Posts>.CreateAsync(
+                        new HttpStorageSource(builder.Configuration.GetConnectionString("DbContext")));
+
+                builder.Services.AddSingleton(limDbContext);
 
                 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
                 {
@@ -79,14 +84,6 @@ namespace bbxp.web.api
                 }
 
                 using var scope = app.Services.CreateScope();
-
-                try
-                {
-                    var db = scope.ServiceProvider.GetRequiredService<bbxpDbContext>();
-                    db.Database.Migrate();
-                } catch (Exception dbex) {
-                    logger.Error(dbex, "Failed to run database migrations due to an exception");
-                }
 
                 app.UseCors("MyPolicy");
 

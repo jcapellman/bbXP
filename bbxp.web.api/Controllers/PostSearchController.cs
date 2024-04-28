@@ -1,7 +1,7 @@
 ﻿using bbxp.lib.Database;
 using bbxp.lib.Database.Tables;
 using bbxp.web.api.Controllers.Base;
-
+using LimDB.lib;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -13,25 +13,17 @@ namespace bbxp.web.api.Controllers
     {
         private readonly ILogger<PostSearchController> _logger;
 
-        public PostSearchController(bbxpDbContext dbContext, IMemoryCache memoryCache, ILogger<PostSearchController> logger) : base(dbContext, memoryCache)
+        public PostSearchController(LimDbContext<Posts> dbContext, IMemoryCache memoryCache, ILogger<PostSearchController> logger) : base(dbContext, memoryCache)
         {
             _logger = logger;
         }
 
         [HttpGet]
         [Route("{searchQuery}")]
-        public async Task<ActionResult<List<Posts>>> SearchPosts([FromRoute] string searchQuery)
+        public IEnumerable<Posts> SearchPosts([FromRoute] string searchQuery)
         {
-            try
-            {
-                return await GetPostsFromSearchAsync(searchQuery);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Failed to search posts due to an exception.  Query was {searchQuery}", searchQuery);
-
-                throw;
-            }
+                return GetPostsFromSearchAsync(searchQuery);
+            
         }
     }
 }

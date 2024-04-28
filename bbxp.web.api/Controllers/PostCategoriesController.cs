@@ -1,5 +1,7 @@
 ﻿using bbxp.lib.Database;
+using bbxp.lib.Database.Tables;
 using bbxp.web.api.Controllers.Base;
+using LimDB.lib;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -11,16 +13,16 @@ namespace bbxp.web.api.Controllers
     {
         private readonly ILogger<PostCategoriesController> _logger;
 
-        public PostCategoriesController(bbxpDbContext dbContext, IMemoryCache memoryCache, ILogger<PostCategoriesController> logger) : base(dbContext, memoryCache) {
+        public PostCategoriesController(LimDbContext<Posts> dbContext, IMemoryCache memoryCache, ILogger<PostCategoriesController> logger) : base(dbContext, memoryCache) {
             _logger = logger;
         }
 
         [HttpGet]
-        public async Task<List<string>> GetPostCategoriesAsync()
+        public IOrderedEnumerable<string> GetPostCategoriesAsync()
         {
             try
             {
-                return await GetCategoriesAsync();
+                return GetCategoriesAsync();
             }
             catch (Exception ex) {
                 _logger.LogError("Failed to obtain Categories {ex}", ex);
