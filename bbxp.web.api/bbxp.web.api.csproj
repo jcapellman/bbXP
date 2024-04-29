@@ -7,6 +7,10 @@
     <UserSecretsId>8921cfbe-87e8-42db-867b-4b0ac313689e</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 	<ContainerRepository>bbxp-web-api</ContainerRepository>
+	<PublishSingleFile>true</PublishSingleFile>
+	<RuntimeIdentifier>linux-musl-x64</RuntimeIdentifier>
+	<ContainerFamily>alpine</ContainerFamily>
+	<ContainerRuntimeIdentifier>linux-x64</ContainerRuntimeIdentifier>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,5 +27,4 @@
   <ItemGroup>
     <ProjectReference Include="..\bbxp.lib\bbxp.lib.csproj" />
   </ItemGroup>
-
 </Project>
