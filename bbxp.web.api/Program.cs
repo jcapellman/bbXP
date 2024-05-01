@@ -1,5 +1,3 @@
-using bbxp.lib.Common;
-using bbxp.lib.Database;
 using bbxp.web.api.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 

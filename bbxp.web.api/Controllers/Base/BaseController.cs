@@ -1,33 +1,26 @@
 ﻿using bbxp.lib.Common;
-using bbxp.lib.Database;
 using bbxp.lib.Database.Tables;
 using bbxp.lib.JSON;
+
 using LimDB.lib;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace bbxp.web.api.Controllers.Base
 {
-    public class BaseController : ControllerBase
+    public class BaseController(LimDbContext<Posts> dbContext, IMemoryCache memoryCache) : ControllerBase
     {
-        private readonly LimDbContext<Posts> _dbContext;
-
-        private readonly IMemoryCache _memoryCache;
-
-        public BaseController(LimDbContext<Posts> dbContext, IMemoryCache memoryCache)
-        {
-            _dbContext = dbContext;
-            _memoryCache = memoryCache;
-        }
+        private readonly IMemoryCache _memoryCache = memoryCache;
 
         protected void ClearCache()
         {
-            if (_memoryCache is MemoryCache memoryCache)
+            if (_memoryCache is not MemoryCache memoryCache)
             {
-                var percentage = 1.0;
-
-                memoryCache.Compact(percentage);
+                return;
             }
+
+            memoryCache.Compact(100);
         }
 
         private void AddToCache(string key, object value)
@@ -41,7 +34,7 @@ namespace bbxp.web.api.Controllers.Base
         {
             searchQuery = searchQuery.ToLower();
 
-            return _dbContext.GetMany(a => a.Title.ToLower().Contains(searchQuery));
+            return dbContext.GetMany(a => a.Title.Contains(searchQuery, StringComparison.CurrentCultureIgnoreCase));
         }
 
         protected IOrderedEnumerable<string> GetCategoriesAsync()
@@ -51,12 +44,10 @@ namespace bbxp.web.api.Controllers.Base
                 return result;
             }
 
-            var dbResult = _dbContext.GetMany(a => a.Active &&
+            var dbResult = dbContext.GetMany(a => a.Active &&
                                                          a.Category != AppConstants.POST_REQUEST_DEFAULT_CATEGORY &&
                                                          a.Category != AppConstants.POST_REQUEST_INTERNAL_CATEGORY)
                 .Select(a => a.Category).Distinct().OrderBy(a => a);
-
-//            dbResult.Insert(0, AppConstants.POST_REQUEST_DEFAULT_CATEGORY);
 
             AddToCache(AppConstants.POST_REQUEST_DEFAULT_CATEGORY, dbResult);
 
@@ -75,9 +66,9 @@ namespace bbxp.web.api.Controllers.Base
             dbResult = category switch
             {
                 AppConstants.POST_REQUEST_DEFAULT_CATEGORY => 
-                     _dbContext.GetMany(a => a.Active).OrderByDescending(a => a.PostDate).Take(postCountLimit),
+                     dbContext.GetMany(a => a.Active).OrderByDescending(a => a.PostDate).Take(postCountLimit),
                 _ => 
-                     _dbContext.GetMany(a => a.Active && a.Category == category).OrderByDescending(a => a.PostDate),
+                     dbContext.GetMany(a => a.Active && a.Category == category).OrderByDescending(a => a.PostDate),
             };
 
             AddToCache(category, dbResult);
@@ -92,7 +83,7 @@ namespace bbxp.web.api.Controllers.Base
                 return result;
             }
 
-            var dbResult = _dbContext.GetOne(a => a.Active && a.URL == postUrl);
+            var dbResult = dbContext.GetOne(a => a.Active && a.URL == postUrl);
 
             if (dbResult == null)
             {
@@ -104,11 +95,11 @@ namespace bbxp.web.api.Controllers.Base
             return dbResult;
         }
 
-        protected bool UpdatePostAsync(PostUpdateRequestItem updatePost)
+        protected async Task<bool> UpdatePostAsync(PostUpdateRequestItem updatePost)
         {
-            var post = _dbContext.GetOneById(updatePost.Id);
+            var post = dbContext.GetOneById(updatePost.Id);
 
-            if (post == null)
+            if (post is null)
             {
                 return false;
             }
@@ -119,15 +110,13 @@ namespace bbxp.web.api.Controllers.Base
             post.PostDate = updatePost.PostDate;
             post.URL = updatePost.URL;
 
-            return false;
-            // TODO: LimDb CRUD
-            //  return await _dbContext.SaveChangesAsync() > 0;
+            return await dbContext.InsertAsync(post) > 0;
         }
 
-        private static string CreateURLSafeTitle(string title) => 
+        private static string CreateUrlSafeTitle(string title) => 
             title.ToLower().Replace(' ', '_').Replace(".", "").Replace(",","").Replace("-", "_");
 
-        protected bool AddPostAsync(PostCreationRequestItem newPost)
+        protected async Task<bool> AddPostAsync(PostCreationRequestItem newPost)
         {
             var post = new Posts
             {
@@ -135,18 +124,15 @@ namespace bbxp.web.api.Controllers.Base
                 Body = newPost.Body,
                 Title = newPost.Title,
                 Category = newPost.Category,
-                URL = CreateURLSafeTitle(newPost.Title)
+                URL = CreateUrlSafeTitle(newPost.Title)
             };
 
-            //_dbContext.Posts.Add(post);
-
-            return false;
-            // return await _dbContext.SaveChangesAsync() > 0;
+            return await dbContext.InsertAsync(post) > 0;
         }
 
         protected bool DeletePostAsync(int postId)
         {
-            var post = _dbContext.GetOneById(postId);
+            var post = dbContext.GetOneById(postId);
 
             if (post == null)
             {

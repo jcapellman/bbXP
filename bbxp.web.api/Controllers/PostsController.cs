@@ -63,11 +63,11 @@ namespace bbxp.web.api.Controllers
 
         [Authorize]
         [HttpPatch]
-        public bool UpdateAsync(PostUpdateRequestItem post)
+        public async Task<bool> UpdateAsync(PostUpdateRequestItem post)
         {
             try
             {
-                return UpdatePostAsync(post);
+                return await UpdatePostAsync(post);
             }
             catch (Exception ex)
             {
@@ -83,7 +83,7 @@ namespace bbxp.web.api.Controllers
         {
             try
             {
-                return AddPostAsync(post);
+                return await AddPostAsync(post);
             }
             catch (Exception ex)
             {
