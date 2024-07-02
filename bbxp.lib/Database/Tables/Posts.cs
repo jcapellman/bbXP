@@ -1,8 +1,8 @@
-﻿using LimDB.lib.Objects.Base;
+﻿using bbxp.lib.Database.Tables.Base;
 
 namespace bbxp.lib.Database.Tables
 {
-    public class Posts : BaseObject
+    public class Posts : BaseTable
     {
         public required string Title { get; set; }
 
