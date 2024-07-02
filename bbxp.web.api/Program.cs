@@ -5,9 +5,9 @@ using Microsoft.IdentityModel.Tokens;
 using NLog;
 using NLog.Web;
 using System.Text;
-using bbxp.lib.Database.Tables;
-using LimDB.lib;
-using LimDB.lib.Sources;
+
+using bbxp.lib.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace bbxp.web.api
 {
@@ -48,12 +48,8 @@ namespace bbxp.web.api
                 builder.Services.AddSwaggerGen();
 
                 builder.Services.AddMemoryCache();
-
-                var limDbContext =
-                    await LimDbContext<Posts>.CreateAsync(
-                        new HttpStorageSource(builder.Configuration.GetConnectionString("DbContext")));
-
-                builder.Services.AddSingleton(limDbContext);
+                builder.Services.AddDbContext<BbxpContext>(
+                    options => options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(BbxpContext)), b => b.MigrationsAssembly("bbxp.web.api")));
 
                 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
                 {
@@ -82,6 +78,16 @@ namespace bbxp.web.api
                 }
 
                 using var scope = app.Services.CreateScope();
+
+                try
+                {
+                    var db = scope.ServiceProvider.GetRequiredService<BbxpContext>();
+                    db.Database.Migrate();
+                }
+                catch (Exception dbex)
+                {
+                    logger.Error(dbex, "Failed to run database migrations due to an exception");
+                }
 
                 app.UseCors("MyPolicy");
 
