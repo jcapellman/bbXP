@@ -3,7 +3,7 @@ using bbxp.lib.Database.Tables;
 using bbxp.lib.JSON;
 
 using bbxp.web.api.Controllers.Base;
-using LimDB.lib;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -12,14 +12,8 @@ namespace bbxp.web.api.Controllers
 {
     [ApiController]
     [Route("api/posts")]
-    public class PostsController : BaseController
+    public class PostsController(BbxpContext dbContext, IMemoryCache memoryCache, ILogger<PostsController> logger) : BaseController(dbContext, memoryCache)
     {
-        private readonly ILogger<PostsController> _logger;
-
-        public PostsController(LimDbContext<Posts> dbContext, IMemoryCache memoryCache, ILogger<PostsController> logger) : base(dbContext, memoryCache) {
-            _logger = logger;
-        }
-
         [HttpGet]
         [Route("{category}/{postCount}/")]
         public IEnumerable<Posts> GetPostsAsync([FromRoute] string category, [FromRoute] int postCount)
@@ -30,7 +24,7 @@ namespace bbxp.web.api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to Get Posts due to {ex}", ex);
+                logger.LogError("Failed to Get Posts due to {ex}", ex);
 
                 throw;
             }
@@ -46,7 +40,7 @@ namespace bbxp.web.api.Controllers
 
                 if (post == null)
                 {
-                    _logger.LogDebug("Post ({url}) was not found", url);
+                    logger.LogDebug("Post ({url}) was not found", url);
 
                     return NotFound($"Post ({url}) was not found");
                 }
@@ -55,7 +49,7 @@ namespace bbxp.web.api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to Get Post due to {ex}", ex);
+                logger.LogError("Failed to Get Post due to {ex}", ex);
 
                 throw;
             }
@@ -71,7 +65,7 @@ namespace bbxp.web.api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to Update Post due to {ex}", ex);
+                logger.LogError("Failed to Update Post due to {ex}", ex);
 
                 throw;
             }
@@ -87,7 +81,7 @@ namespace bbxp.web.api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to Create Post due to {ex}", ex);
+                logger.LogError("Failed to Create Post due to {ex}", ex);
 
                 throw;
             }
@@ -95,15 +89,15 @@ namespace bbxp.web.api.Controllers
 
         [Authorize]
         [HttpDelete]
-        public bool DeleteAsync(int postId)
+        public async Task<bool> DeleteAsync(int postId)
         {
             try
             {
-                return DeletePostAsync(postId);
+                return await DeletePostAsync(postId);
             }
             catch (Exception ex)
             {
-                _logger.LogError("Failed to Delete Post due to {ex}", ex);
+                logger.LogError("Failed to Delete Post due to {ex}", ex);
 
                 throw;
             }

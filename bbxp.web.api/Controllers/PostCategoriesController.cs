@@ -1,7 +1,6 @@
 ﻿using bbxp.lib.Database;
-using bbxp.lib.Database.Tables;
 using bbxp.web.api.Controllers.Base;
-using LimDB.lib;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -9,16 +8,12 @@ namespace bbxp.web.api.Controllers
 {
     [ApiController]
     [Route("api/postcategories")]
-    public class PostCategoriesController : BaseController
+    public class PostCategoriesController(BbxpContext dbContext, IMemoryCache memoryCache, ILogger<PostCategoriesController> logger) : BaseController(dbContext, memoryCache)
     {
-        private readonly ILogger<PostCategoriesController> _logger;
-
-        public PostCategoriesController(LimDbContext<Posts> dbContext, IMemoryCache memoryCache, ILogger<PostCategoriesController> logger) : base(dbContext, memoryCache) {
-            _logger = logger;
-        }
+        private readonly ILogger<PostCategoriesController> _logger = logger;
 
         [HttpGet]
-        public IOrderedEnumerable<string> GetPostCategoriesAsync()
+        public IOrderedQueryable<string> GetPostCategoriesAsync()
         {
             try
             {

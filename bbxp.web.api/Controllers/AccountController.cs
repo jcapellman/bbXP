@@ -18,17 +18,11 @@ namespace bbxp.web.api.Controllers
 {
     [ApiController]
     [Route("api/account")]
-    public class AccountController : BaseController
+    public class AccountController(BbxpContext dbContext, IMemoryCache memoryCache, ILogger<AccountController> logger, ApiConfiguration config) : BaseController(dbContext, memoryCache)
     {
-        private readonly ILogger<AccountController> _logger;
+        private readonly ILogger<AccountController> _logger = logger;
 
-        private readonly ApiConfiguration _config;
-
-        public AccountController(LimDbContext<Posts> dbContext, IMemoryCache memoryCache, ILogger<AccountController> logger, ApiConfiguration config) : base(dbContext, memoryCache)
-        {
-            _logger = logger;
-            _config = config;
-        }
+        private readonly ApiConfiguration _config = config;
 
         private string GenerateToken(string hashToken)
         {

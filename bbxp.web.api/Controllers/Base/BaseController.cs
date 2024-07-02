@@ -1,15 +1,17 @@
 ﻿using bbxp.lib.Common;
+using bbxp.lib.Database;
 using bbxp.lib.Database.Tables;
 using bbxp.lib.JSON;
 
 using LimDB.lib;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace bbxp.web.api.Controllers.Base
 {
-    public class BaseController(LimDbContext<Posts> dbContext, IMemoryCache memoryCache) : ControllerBase
+    public class BaseController(BbxpContext dbContext, IMemoryCache memoryCache) : ControllerBase
     {
         private readonly IMemoryCache _memoryCache = memoryCache;
 
@@ -34,17 +36,17 @@ namespace bbxp.web.api.Controllers.Base
         {
             searchQuery = searchQuery.ToLower();
 
-            return dbContext.GetMany(a => a.Title.Contains(searchQuery, StringComparison.CurrentCultureIgnoreCase));
+            return dbContext.Posts.Where(a => a.Title.Contains(searchQuery, StringComparison.CurrentCultureIgnoreCase));
         }
 
-        protected IOrderedEnumerable<string> GetCategoriesAsync()
+        protected IOrderedQueryable<string> GetCategoriesAsync()
         {
-            if (_memoryCache.TryGetValue(AppConstants.POST_REQUEST_DEFAULT_CATEGORY, out IOrderedEnumerable<string> result) && result != null)
+            if (_memoryCache.TryGetValue(AppConstants.POST_REQUEST_DEFAULT_CATEGORY, out IOrderedQueryable<string> result) && result != null)
             {
                 return result;
             }
 
-            var dbResult = dbContext.GetMany(a => a.Active &&
+            var dbResult = dbContext.Posts.Where(a => a.Active &&
                                                          a.Category != AppConstants.POST_REQUEST_DEFAULT_CATEGORY &&
                                                          a.Category != AppConstants.POST_REQUEST_INTERNAL_CATEGORY)
                 .Select(a => a.Category).Distinct().OrderBy(a => a);
@@ -66,9 +68,9 @@ namespace bbxp.web.api.Controllers.Base
             dbResult = category switch
             {
                 AppConstants.POST_REQUEST_DEFAULT_CATEGORY => 
-                     dbContext.GetMany(a => a.Active).OrderByDescending(a => a.PostDate).Take(postCountLimit),
+                     dbContext.Posts.Where(a => a.Active).OrderByDescending(a => a.PostDate).Take(postCountLimit),
                 _ => 
-                     dbContext.GetMany(a => a.Active && a.Category == category).OrderByDescending(a => a.PostDate),
+                     dbContext.Posts.Where(a => a.Active && a.Category == category).OrderByDescending(a => a.PostDate),
             };
 
             AddToCache(category, dbResult);
@@ -83,7 +85,7 @@ namespace bbxp.web.api.Controllers.Base
                 return result;
             }
 
-            var dbResult = dbContext.GetOne(a => a.Active && a.URL == postUrl);
+            var dbResult = dbContext.Posts.FirstOrDefault(a => a.Active && a.URL == postUrl);
 
             if (dbResult == null)
             {
@@ -97,7 +99,7 @@ namespace bbxp.web.api.Controllers.Base
 
         protected async Task<bool> UpdatePostAsync(PostUpdateRequestItem updatePost)
         {
-            var post = dbContext.GetOneById(updatePost.Id);
+            var post = dbContext.Posts.FirstOrDefault(a => a.Id == updatePost.Id);
 
             if (post is null)
             {
@@ -110,7 +112,7 @@ namespace bbxp.web.api.Controllers.Base
             post.PostDate = updatePost.PostDate;
             post.URL = updatePost.URL;
 
-            return await dbContext.InsertAsync(post) > 0;
+            return await dbContext.SaveChangesAsync() > 0;
         }
 
         private static string CreateUrlSafeTitle(string title) => 
@@ -127,12 +129,13 @@ namespace bbxp.web.api.Controllers.Base
                 URL = CreateUrlSafeTitle(newPost.Title)
             };
 
-            return await dbContext.InsertAsync(post) > 0;
-        }
+            dbContext.Posts.Add(post);
 
-        protected bool DeletePostAsync(int postId)
+            return await dbContext.SaveChangesAsync() > 0;
+        }
+        protected async Task<bool> DeletePostAsync(int postId)
         {
-            var post = dbContext.GetOneById(postId);
+            var post = await dbContext.Posts.FirstAsync(a => a.Id == postId);
 
             if (post == null)
             {
@@ -141,8 +144,7 @@ namespace bbxp.web.api.Controllers.Base
 
             post.Active = false;
 
-            return false;
-            // return await _dbContext.SaveChangesAsync() > 0;
+            return await dbContext.SaveChangesAsync() > 0;
         }
     }
 }
