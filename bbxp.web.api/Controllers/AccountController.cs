@@ -1,7 +1,6 @@
 ﻿using bbxp.web.api.Configuration;
 using bbxp.lib.JSON;
 using bbxp.lib.Common;
-using bbxp.lib.Database;
 using bbxp.web.api.Controllers.Base;
 
 using Microsoft.AspNetCore.Mvc;
@@ -11,14 +10,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
-using bbxp.lib.Database.Tables;
-using LimDB.lib;
 
 namespace bbxp.web.api.Controllers
 {
     [ApiController]
     [Route("api/account")]
-    public class AccountController(BbxpContext dbContext, IMemoryCache memoryCache, ILogger<AccountController> logger, ApiConfiguration config) : BaseController(dbContext, memoryCache)
+    public class AccountController(IMemoryCache memoryCache, ILogger<AccountController> logger, ApiConfiguration config) : BaseController(memoryCache)
     {
         private readonly ILogger<AccountController> _logger = logger;
 
