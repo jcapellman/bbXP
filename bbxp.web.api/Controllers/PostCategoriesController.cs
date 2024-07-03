@@ -8,22 +8,9 @@ namespace bbxp.web.api.Controllers
 {
     [ApiController]
     [Route("api/postcategories")]
-    public class PostCategoriesController(BbxpContext dbContext, IMemoryCache memoryCache, ILogger<PostCategoriesController> logger) : BaseController(dbContext, memoryCache)
+    public class PostCategoriesController(BbxpContext dbContext, IMemoryCache memoryCache) : BaseController(dbContext, memoryCache)
     {
-        private readonly ILogger<PostCategoriesController> _logger = logger;
-
         [HttpGet]
-        public async Task<List<string>> GetPostCategoriesAsync()
-        {
-            try
-            {
-                return await GetCategoriesAsync();
-            }
-            catch (Exception ex) {
-                _logger.LogError("Failed to obtain Categories {ex}", ex);
-
-                throw;
-            }
-        }
+        public async Task<List<string>> GetPostCategoriesAsync() => await GetCategoriesAsync();
     }
 }
