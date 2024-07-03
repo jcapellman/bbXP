@@ -9,7 +9,7 @@ namespace bbxp.web.api.Controllers
 {
     [ApiController]
     [Route("api/posts")]
-    public class CacheController(BbxpContext dbContext, IMemoryCache memoryCache) : BaseController(dbContext, memoryCache)
+    public class CacheController(IMemoryCache memoryCache) : BaseController(memoryCache)
     {
         [Authorize]
         [HttpGet]
