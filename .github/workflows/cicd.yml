@@ -19,6 +19,7 @@ jobs:
         TAG_API: 'bbxp-web-api'
         TAG_MVC: 'bbxp-web-mvc'
         PUBLISH_FLAGS: '-r linux-x64 /t:PublishContainer -c Release'
+        VERSION: '2024.7.${{env.GITHUB_RUN_NUMBER}}'
 
     steps:
     - name: Checkout the code
@@ -36,13 +37,13 @@ jobs:
       run: dotnet restore ${{env.FILEPATH_MVC}}
 
     - name: Build API Container
-      run: dotnet publish ${{env.FILEPATH_API}} ${{env.PUBLISH_FLAGS}}
+      run: dotnet publish ${{env.FILEPATH_API}} ${{env.PUBLISH_FLAGS}} /p:Version='${{env.VERSION}}'
 
     - name: Tag API Container
       run: docker tag ${{env.TAG_API}}:latest us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/${{env.FOLDER_API}}/${{env.TAG_API}}:latest
 
     - name: Build MVC Container
-      run: dotnet publish ${{env.FILEPATH_MVC}} ${{env.PUBLISH_FLAGS}}
+      run: dotnet publish ${{env.FILEPATH_MVC}} ${{env.PUBLISH_FLAGS}} /p:Version='${{env.VERSION}}'
 
     - name: Tag MVC Container
       run: docker tag ${{env.TAG_MVC}}:latest us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/${{env.FOLDER_MVC}}/${{env.TAG_MVC}}:latest
