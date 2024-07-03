@@ -7,9 +7,11 @@
     <UserSecretsId>e49aff9f-9a88-49f4-8bc9-3f9e7805d2f4</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 	<ContainerRepository>bbxp-web-mvc</ContainerRepository>
-	  <PublishSingleFile>true</PublishSingleFile>
-	  <ContainerFamily>alpine</ContainerFamily>
-	  <ContainerRuntimeIdentifier>linux-x64</ContainerRuntimeIdentifier>
+	<PublishSingleFile>true</PublishSingleFile>
+	<ContainerFamily>alpine</ContainerFamily>
+	<ContainerRuntimeIdentifier>linux-x64</ContainerRuntimeIdentifier>
+	<IsPublishable>true</IsPublishable>
+	<EnableSdkContainerSupport>true</EnableSdkContainerSupport>
   </PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)' == 'Release'">

@@ -6,8 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>8921cfbe-87e8-42db-867b-4b0ac313689e</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	<IsPublishable>true</IsPublishable>
+	<EnableSdkContainerSupport>true</EnableSdkContainerSupport>
 	<ContainerRepository>bbxp-web-api</ContainerRepository>
-	<PublishSingleFile>true</PublishSingleFile>
 	<ContainerFamily>alpine</ContainerFamily>
 	<ContainerRuntimeIdentifier>linux-x64</ContainerRuntimeIdentifier>
   </PropertyGroup>
