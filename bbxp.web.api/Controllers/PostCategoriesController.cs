@@ -15,7 +15,7 @@ namespace bbxp.web.api.Controllers
         [HttpGet]
         public async Task<List<string>> GetPostCategoriesAsync()
         {
-            var cacheResult = GetFromCache<List<string>>(AppConstants.POST_REQUEST_DEFAULT_CATEGORY);
+            var cacheResult = GetFromCache<List<string>>(AppConstants.POST_CATEGORY_CACHE_KEY);
 
             if (cacheResult is not null)
             {
@@ -27,7 +27,7 @@ namespace bbxp.web.api.Controllers
                                                          a.Category != AppConstants.POST_REQUEST_INTERNAL_CATEGORY)
                 .Select(a => a.Category).Distinct().OrderBy(a => a).ToListAsync();
 
-            return AddToCache(AppConstants.POST_REQUEST_DEFAULT_CATEGORY, dbResult);
+            return AddToCache(AppConstants.POST_CATEGORY_CACHE_KEY, dbResult);
         }
     }
 }
