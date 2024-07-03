@@ -19,7 +19,7 @@ jobs:
         TAG_API: 'bbxp-web-api'
         TAG_MVC: 'bbxp-web-mvc'
         PUBLISH_FLAGS: '-r linux-x64 /t:PublishContainer -c Release'
-        VERSION: '2024.7.${{env.GITHUB_RUN_NUMBER}}'
+        VERSION: '2024.7.$GITHUB_RUN_NUMBER'
 
     steps:
     - name: Checkout the code
