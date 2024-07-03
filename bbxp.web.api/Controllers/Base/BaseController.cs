@@ -1,9 +1,6 @@
 ﻿using bbxp.lib.Common;
-using bbxp.lib.Database.Tables;
-using bbxp.lib.JSON;
 
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace bbxp.web.api.Controllers.Base
@@ -39,97 +36,6 @@ namespace bbxp.web.api.Controllers.Base
             }
 
             return (T)value;
-        }
-
-        protected async Task<List<Posts>> GetPostsAsync(int postCountLimit = AppConstants.POST_REQUEST_DEFAULT_LIMIT, string category = AppConstants.POST_REQUEST_DEFAULT_CATEGORY)
-        {
-            if (_memoryCache.TryGetValue(category, out List<Posts> result) && result != null)
-            {
-                return result;
-            }
-
-            List<Posts> dbResult = [];
-
-            dbResult = category switch
-            {
-                AppConstants.POST_REQUEST_DEFAULT_CATEGORY => 
-                     await dbContext.Posts.Where(a => a.Active).OrderByDescending(a => a.PostDate).Take(postCountLimit).ToListAsync(),
-                _ => 
-                    await dbContext.Posts.Where(a => a.Active && a.Category == category).OrderByDescending(a => a.PostDate).ToListAsync(),
-            };
-
-            AddToCache(category, dbResult);
-
-            return dbResult;
-        }
-
-        protected Posts? GetPostAsync(string postUrl)
-        {
-            if (_memoryCache.TryGetValue(postUrl, out Posts? result) && result != null)
-            {
-                return result;
-            }
-
-            var dbResult = dbContext.Posts.FirstOrDefault(a => a.Active && a.URL == postUrl);
-
-            if (dbResult == null)
-            {
-                return null;
-            }
-
-            AddToCache(postUrl, dbResult);
-
-            return dbResult;
-        }
-
-        protected async Task<bool> UpdatePostAsync(PostUpdateRequestItem updatePost)
-        {
-            var post = dbContext.Posts.FirstOrDefault(a => a.Id == updatePost.Id);
-
-            if (post is null)
-            {
-                return false;
-            }
-
-            post.Title = updatePost.Title;
-            post.Body = updatePost.Body;
-            post.Category = updatePost.Category;
-            post.PostDate = updatePost.PostDate;
-            post.URL = updatePost.URL;
-
-            return await dbContext.SaveChangesAsync() > 0;
-        }
-
-        private static string CreateUrlSafeTitle(string title) => 
-            title.ToLower().Replace(' ', '_').Replace(".", "").Replace(",","").Replace("-", "_");
-
-        protected async Task<bool> AddPostAsync(PostCreationRequestItem newPost)
-        {
-            var post = new Posts
-            {
-                PostDate = newPost.PostDate ?? DateTime.Now,
-                Body = newPost.Body,
-                Title = newPost.Title,
-                Category = newPost.Category,
-                URL = CreateUrlSafeTitle(newPost.Title)
-            };
-
-            dbContext.Posts.Add(post);
-
-            return await dbContext.SaveChangesAsync() > 0;
-        }
-        protected async Task<bool> DeletePostAsync(int postId)
-        {
-            var post = await dbContext.Posts.FirstAsync(a => a.Id == postId);
-
-            if (post == null)
-            {
-                return false;
-            }
-
-            post.Active = false;
-
-            return await dbContext.SaveChangesAsync() > 0;
         }
     }
 }
