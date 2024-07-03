@@ -30,22 +30,22 @@ jobs:
         dotnet-version: '8.0.x'
         
     - name: Restore API dependencies
-      run: dotnet restore $FILEPATH_API
+      run: dotnet restore ${{env.FILEPATH_API}}
       
     - name: Restore MVC dependencies
-      run: dotnet restore $FILEPATH_MVC
+      run: dotnet restore ${{env.FILEPATH_MVC}}
 
     - name: Build API Container
-      run: dotnet publish $FILEPATH_API $PUBLISH_FLAGS
+      run: dotnet publish ${{env.FILEPATH_API}} ${{env.PUBLISH_FLAGS}}
 
     - name: Tag API Container
-      run: docker tag $TAG_API:latest us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/$FOLDER_API/$TAG_API:latest
+      run: docker tag ${{env.TAG_API}}:latest us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/${{env.FOLDER_API}}/${{env.TAG_API}}:latest
 
     - name: Build MVC Container
-      run: dotnet publish $FILEPATH_MVC $PUBLISH_FLAGS
+      run: dotnet publish ${{env.FILEPATH_MVC}} ${{env.PUBLISH_FLAGS}}
 
     - name: Tag MVC Container
-      run: docker tag $TAG_MVC:latest us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/$FOLDER_MVC/$TAG_MVC:latest
+      run: docker tag ${{env.TAG_MVC}}:latest us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/${{env.FOLDER_MVC}}/${{env.TAG_MVC}}:latest
     
     - name: Authenticate to GCP
       uses: google-github-actions/auth@v2
@@ -60,19 +60,19 @@ jobs:
       run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
     - name: Push API Container to GCP
-      run: docker push us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/$FOLDER_API/$TAG_API:latest
+      run: docker push us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/${{env.FOLDER_API}}/${{env.TAG_API}}:latest
 
     - name: Deploy API to CLoud Run
       uses: 'google-github-actions/deploy-cloudrun@v2'
       with:
-        service: bbxp-web-api
-        image: us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/$FOLDER_API/$TAG_API
+        service: ${{env.TAG_API}}
+        image: us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/${{env.FOLDER_API}}/${{env.TAG_API}}
 
     - name: Push MVC Container to GCP
-      run: docker push us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/$FOLDER_MVC/$TAG_MVC:latest
+      run: docker push us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/${{env.FOLDER_MVC}}/${{env.TAG_MVC}}:latest
 
     - name: Deploy MVC to CLoud Run
       uses: 'google-github-actions/deploy-cloudrun@v2'
       with:
-        service: bbxp-web-mvc
-        image: us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/$FOLDER_MVC/$TAG_MVC
+        service: ${{env.TAG_MVC}}
+        image: us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/${{env.FOLDER_MVC}}/${{env.TAG_MVC}}
