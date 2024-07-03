@@ -14,7 +14,12 @@ namespace bbxp.web.api.Controllers
     {
         [HttpGet]
         [Route("{searchQuery}")]
-        public async Task<List<Posts>> SearchPostsAsync([FromRoute] string searchQuery) => await dbContext.Posts.Where(a => a.Title.Contains(searchQuery, StringComparison.CurrentCultureIgnoreCase)).ToListAsync();
+        public async Task<List<Posts>> SearchPostsAsync([FromRoute] string searchQuery)
+        {
+            searchQuery = searchQuery.ToLower();
+
+            return await dbContext.Posts.AsNoTracking().Where(a => a.Title.ToLower().Contains(searchQuery)).ToListAsync();
+        }
      
     }
 }
