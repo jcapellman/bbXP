@@ -31,13 +31,13 @@ jobs:
       run: dotnet publish /home/runner/work/bbXP/bbXP/bbxp.web.api/bbxp.web.api.csproj -r linux-x64 /t:PublishContainer -c Release
 
     - name: Tag API Container
-      run: docker tag bbxp-web-api:latest us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/bbxp-web-api/bbxp-web-api:latest
+      run: docker tag bbxp-web-api:latest us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/bbxp-webapi/bbxp-web-api:latest
 
     - name: Build MVC Container
       run: dotnet publish /home/runner/work/bbXP/bbXP/bbxp.web.mvc/bbxp.web.mvc.csproj -r linux-x64 /t:PublishContainer -c Release
 
     - name: Tag MVC Container
-      run: docker tag bbxp-web-mvc:latest us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/bbxp-web-mvc/bbxp-web-mvc:latest
+      run: docker tag bbxp-web-mvc:latest us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/bbxp-mvc/bbxp-web-mvc:latest
     
     - name: Authenticate to GCP
       uses: google-github-actions/auth@v2
@@ -52,7 +52,7 @@ jobs:
       run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
     - name: Push API Container to GCP
-      run: docker push us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/bbxp-web-api/bbxp-web-api:latest
+      run: docker push us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/bbxp-webapi/bbxp-web-api:latest
 
     - name: Deploy API to CLoud Run
       uses: 'google-github-actions/deploy-cloudrun@v2'
