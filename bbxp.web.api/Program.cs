@@ -77,7 +77,7 @@ namespace bbxp.web.api
                     app.UseSwaggerUI();
                 }
 
-                using var scope = app.Services.CreateScope();
+                var scope = app.Services.CreateScope();
 
                 try
                 {
