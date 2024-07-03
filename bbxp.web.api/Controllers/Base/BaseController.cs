@@ -22,30 +22,23 @@ namespace bbxp.web.api.Controllers.Base
             memoryCache.Compact(100);
         }
 
-        private void AddToCache(string key, object value)
+        protected T AddToCache<T>(string key, T value)
         {
             var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromHours(AppConstants.CACHE_HOUR_EXPIRATION));
 
             _memoryCache.Set(key, value, cacheEntryOptions);
+
+            return value;
         }
 
-        protected async Task<List<Posts>> GetPostsFromSearchAsync(string searchQuery) => await dbContext.Posts.Where(a => a.Title.Contains(searchQuery, StringComparison.CurrentCultureIgnoreCase)).ToListAsync();
-        
-        protected async Task<List<string>> GetCategoriesAsync()
+        protected T? GetFromCache<T>(string key)
         {
-            if (_memoryCache.TryGetValue(AppConstants.POST_REQUEST_DEFAULT_CATEGORY, out List<string> result) && result != null)
+            if (!_memoryCache.TryGetValue(key, out var value) || value is null)
             {
-                return result;
+                return default;
             }
 
-            var dbResult = await dbContext.Posts.Where(a => a.Active &&
-                                                         a.Category != AppConstants.POST_REQUEST_DEFAULT_CATEGORY &&
-                                                         a.Category != AppConstants.POST_REQUEST_INTERNAL_CATEGORY)
-                .Select(a => a.Category).Distinct().OrderBy(a => a).ToListAsync();
-
-            AddToCache(AppConstants.POST_REQUEST_DEFAULT_CATEGORY, dbResult);
-
-            return dbResult;
+            return (T)value;
         }
 
         protected async Task<List<Posts>> GetPostsAsync(int postCountLimit = AppConstants.POST_REQUEST_DEFAULT_LIMIT, string category = AppConstants.POST_REQUEST_DEFAULT_CATEGORY)
