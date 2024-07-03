@@ -16,11 +16,11 @@ namespace bbxp.web.api.Controllers
     {
         [HttpGet]
         [Route("{category}/{postCount}/")]
-        public IEnumerable<Posts> GetPostsAsync([FromRoute] string category, [FromRoute] int postCount)
+        public async Task<List<Posts>> GetPostsAsync([FromRoute] string category, [FromRoute] int postCount)
         {
             try
             {
-                return GetPostsAsync(postCount, category);
+                return await GetPostsAsync(postCount, category);
             }
             catch (Exception ex)
             {
