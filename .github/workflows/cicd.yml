@@ -58,13 +58,13 @@ jobs:
       uses: 'google-github-actions/deploy-cloudrun@v2'
       with:
         service: 'bbxp-web-api'
-        image: us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/bbxp-web-api/bbxp-web-api
+        image: us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/bbxp-webapi/bbxp-web-api
 
     - name: Push MVC Container to GCP
-      run: docker push us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/bbxp-web-mvc/bbxp-web-mvc:latest
+      run: docker push us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/bbxp-mvc/bbxp-web-mvc:latest
 
     - name: Deploy MVC to CLoud Run
       uses: 'google-github-actions/deploy-cloudrun@v2'
       with:
         service: 'bbxp-web-api'
-        image: us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/bbxp-web-mvc/bbxp-web-mvc
+        image: us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/bbxp-mvc/bbxp-web-mvc
