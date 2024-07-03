@@ -66,5 +66,5 @@ jobs:
     - name: Deploy MVC to CLoud Run
       uses: 'google-github-actions/deploy-cloudrun@v2'
       with:
-        service: 'bbxp-web-api'
+        service: 'bbxp-web-mvc'
         image: us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/bbxp-mvc/bbxp-web-mvc
