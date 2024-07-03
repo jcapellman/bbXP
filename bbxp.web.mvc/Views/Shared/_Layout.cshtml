@@ -1,5 +1,7 @@
 ﻿@model bbxp.web.mvc.Models.Base.BaseViewModel
 
+@using static bbxp.web.mvc.Common.VersionHelper;
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,7 +70,7 @@
     <footer class="border-top footer text-muted">        
         <p>
             @Model.Config.FooterNotice<br />
-            <a href="http://github.com/jcapellman/bbxp" target="_blank">bbXP version 2024.7.0</a>
+            <a href="http://github.com/jcapellman/bbxp" target="_blank">bbXP (@GetAssemblyVersion())</a>
         </p>        
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
