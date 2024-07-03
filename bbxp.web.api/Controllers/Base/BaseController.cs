@@ -39,38 +39,38 @@ namespace bbxp.web.api.Controllers.Base
             return dbContext.Posts.Where(a => a.Title.Contains(searchQuery, StringComparison.CurrentCultureIgnoreCase));
         }
 
-        protected IOrderedQueryable<string> GetCategoriesAsync()
+        protected async Task<List<string>> GetCategoriesAsync()
         {
-            if (_memoryCache.TryGetValue(AppConstants.POST_REQUEST_DEFAULT_CATEGORY, out IOrderedQueryable<string> result) && result != null)
+            if (_memoryCache.TryGetValue(AppConstants.POST_REQUEST_DEFAULT_CATEGORY, out List<string> result) && result != null)
             {
                 return result;
             }
 
-            var dbResult = dbContext.Posts.Where(a => a.Active &&
+            var dbResult = await dbContext.Posts.Where(a => a.Active &&
                                                          a.Category != AppConstants.POST_REQUEST_DEFAULT_CATEGORY &&
                                                          a.Category != AppConstants.POST_REQUEST_INTERNAL_CATEGORY)
-                .Select(a => a.Category).Distinct().OrderBy(a => a);
+                .Select(a => a.Category).Distinct().OrderBy(a => a).ToListAsync();
 
             AddToCache(AppConstants.POST_REQUEST_DEFAULT_CATEGORY, dbResult);
 
             return dbResult;
         }
 
-        protected IEnumerable<Posts> GetPostsAsync(int postCountLimit = AppConstants.POST_REQUEST_DEFAULT_LIMIT, string category = AppConstants.POST_REQUEST_DEFAULT_CATEGORY)
+        protected async Task<List<Posts>> GetPostsAsync(int postCountLimit = AppConstants.POST_REQUEST_DEFAULT_LIMIT, string category = AppConstants.POST_REQUEST_DEFAULT_CATEGORY)
         {
-            if (_memoryCache.TryGetValue(category, out IEnumerable<Posts> result) && result != null)
+            if (_memoryCache.TryGetValue(category, out List<Posts> result) && result != null)
             {
                 return result;
             }
 
-            IEnumerable<Posts>? dbResult = null;
+            List<Posts> dbResult = [];
 
             dbResult = category switch
             {
                 AppConstants.POST_REQUEST_DEFAULT_CATEGORY => 
-                     dbContext.Posts.Where(a => a.Active).OrderByDescending(a => a.PostDate).Take(postCountLimit),
+                     await dbContext.Posts.Where(a => a.Active).OrderByDescending(a => a.PostDate).Take(postCountLimit).ToListAsync(),
                 _ => 
-                     dbContext.Posts.Where(a => a.Active && a.Category == category).OrderByDescending(a => a.PostDate),
+                    await dbContext.Posts.Where(a => a.Active && a.Category == category).OrderByDescending(a => a.PostDate).ToListAsync(),
             };
 
             AddToCache(category, dbResult);
