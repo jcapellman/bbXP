@@ -13,7 +13,7 @@ namespace bbxp.web.api
 {
     public class Program
     {
-        public static async Task Main(string[] args)
+        public static void Main(string[] args)
         {
             var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
             logger.Debug("bbxp.web.api starting up...");
@@ -64,7 +64,7 @@ namespace bbxp.web.api
                         ValidIssuer = apiConfig?.JWTIssuer,
                         ValidAudience = apiConfig?.JWTAudience,
                         ClockSkew = TimeSpan.Zero,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(apiConfig.JWTSecret))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(apiConfig?.JWTSecret ?? throw new NullReferenceException("JWTSecret was null")))
                     };
                 });
 
