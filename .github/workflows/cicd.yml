@@ -18,8 +18,6 @@ jobs:
         FOLDER_MVC: 'bbxp-mvc'
         TAG_API: 'bbxp-web-api'
         TAG_MVC: 'bbxp-web-mvc'
-        SERVICE_API: 'bbxp-web-api'
-        SERVICE_MVC: 'bbxp-web-mvc'
         PUBLISH_FLAGS: '-r linux-x64 /t:PublishContainer -c Release'
 
     steps:
@@ -67,7 +65,7 @@ jobs:
     - name: Deploy API to CLoud Run
       uses: 'google-github-actions/deploy-cloudrun@v2'
       with:
-        service: '$SERVICE_API'
+        service: bbxp-web-api
         image: us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/$FOLDER_API/$TAG_API
 
     - name: Push MVC Container to GCP
@@ -76,5 +74,5 @@ jobs:
     - name: Deploy MVC to CLoud Run
       uses: 'google-github-actions/deploy-cloudrun@v2'
       with:
-        service: '$SERVICE_MVC'
+        service: bbxp-web-mvc
         image: us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/$FOLDER_MVC/$TAG_MVC
