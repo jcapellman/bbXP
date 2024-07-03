@@ -8,7 +8,7 @@ using Microsoft.Extensions.Caching.Memory;
 namespace bbxp.web.api.Controllers
 {
     [ApiController]
-    [Route("api/posts")]
+    [Route("api/cache")]
     public class CacheController(IMemoryCache memoryCache) : BaseController(memoryCache)
     {
         [Authorize]
