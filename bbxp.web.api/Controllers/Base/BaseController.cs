@@ -32,13 +32,8 @@ namespace bbxp.web.api.Controllers.Base
             _memoryCache.Set(key, value, cacheEntryOptions);
         }
 
-        protected IEnumerable<Posts> GetPostsFromSearchAsync(string searchQuery)
-        {
-            searchQuery = searchQuery.ToLower();
-
-            return dbContext.Posts.Where(a => a.Title.Contains(searchQuery, StringComparison.CurrentCultureIgnoreCase));
-        }
-
+        protected async Task<List<Posts>> GetPostsFromSearchAsync(string searchQuery) => await dbContext.Posts.Where(a => a.Title.Contains(searchQuery, StringComparison.CurrentCultureIgnoreCase)).ToListAsync();
+        
         protected async Task<List<string>> GetCategoriesAsync()
         {
             if (_memoryCache.TryGetValue(AppConstants.POST_REQUEST_DEFAULT_CATEGORY, out List<string> result) && result != null)
