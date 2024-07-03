@@ -14,12 +14,12 @@ jobs:
     env:
         FILEPATH_API: '/home/runner/work/bbXP/bbXP/bbxp.web.api/bbxp.web.api.csproj'
         FILEPATH_MVC: '/home/runner/work/bbXP/bbXP/bbxp.web.mvc/bbxp.web.mvc.csproj'
-        FOLDER_API: bbxp-webapi
-        FOLDER_MVC: bbxp-mvc
-        TAG_API: bbxp-web-api
-        TAG_MVC: bbxp-web-mvc
-        SERVICE_API: bbxp-web-api
-        SERVICE_MVC: bbxp-web-mvc
+        FOLDER_API: 'bbxp-webapi'
+        FOLDER_MVC: 'bbxp-mvc'
+        TAG_API: 'bbxp-web-api'
+        TAG_MVC: 'bbxp-web-mvc'
+        SERVICE_API: 'bbxp-web-api'
+        SERVICE_MVC: 'bbxp-web-mvc'
         PUBLISH_FLAGS: '-r linux-x64 /t:PublishContainer -c Release'
 
     steps:
