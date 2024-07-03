@@ -22,19 +22,19 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Restore API dependencies
-      run: dotnet restore home/runner/work/bbxp/bbxp.web.api/bbxp.web.api.csproj
+      run: dotnet restore home/runner/work/bbXP/bbXP/bbxp.web.api/bbxp.web.api.csproj
       
     - name: Restore MVC dependencies
-      run: dotnet restore home/runner/work/bbxp/bbxp.web.mvc/bbxp.web.mvc.csproj
+      run: dotnet restore home/runner/work/bbXP/bbXP/bbxp.web.mvc/bbxp.web.mvc.csproj
 
     - name: Build API Container
-      run: dotnet publish /home/runner/work/bbxp/bbxp.web.api/bbxp.web.api.csproj -r linux-x64 /t:PublishContainer -c Release
+      run: dotnet publish /home/runner/work/bbXP/bbXP/bbxp.web.api/bbxp.web.api.csproj -r linux-x64 /t:PublishContainer -c Release
 
     - name: Tag API Container
       run: docker tag bbxp-web-api:latest us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/bbxp-web-api/bbxp-web-api:latest
 
     - name: Build MVC Container
-      run: dotnet publish /home/runner/work/bbxp/bbxp.web.mvc/bbxp.web.mvc.csproj -r linux-x64 /t:PublishContainer -c Release
+      run: dotnet publish /home/runner/work/bbXP/bbXP/bbxp.web.mvc/bbxp.web.mvc.csproj -r linux-x64 /t:PublishContainer -c Release
 
     - name: Tag MVC Container
       run: docker tag bbxp-web-mvc:latest us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/bbxp-web-mvc/bbxp-web-mvc:latest
