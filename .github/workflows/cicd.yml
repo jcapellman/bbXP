@@ -24,11 +24,17 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
 
-    - name: Build Container
+    - name: Build API Container
       run: dotnet publish /home/runner/work/bbxp/bbxp.web.api/bbxp.web.api.csproj -r linux-x64 /t:PublishContainer -c Release
 
-    - name: Tag Container
+    - name: Tag API Container
       run: docker tag bbxp-web-api:latest us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/bbxp-web-api/bbxp-web-api:latest
+
+    - name: Build MVC Container
+      run: dotnet publish /home/runner/work/bbxp/bbxp.web.mvc/bbxp.web.mvc.csproj -r linux-x64 /t:PublishContainer -c Release
+
+    - name: Tag MVC Container
+      run: docker tag bbxp-web-mvc:latest us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/bbxp-web-mvc/bbxp-web-mvc:latest
     
     - name: Authenticate to GCP
       uses: google-github-actions/auth@v2
@@ -42,11 +48,20 @@ jobs:
     - name: Configure Docker Auth
       run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
-    - name: Push Container to GCP
+    - name: Push API Container to GCP
       run: docker push us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/bbxp-web-api/bbxp-web-api:latest
 
-    - name: Deploy to CLoud Run
+    - name: Deploy API to CLoud Run
       uses: 'google-github-actions/deploy-cloudrun@v2'
       with:
         service: 'bbxp-web-api'
         image: us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/bbxp-web-api/bbxp-web-api
+
+    - name: Push MVC Container to GCP
+      run: docker push us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/bbxp-web-mvc/bbxp-web-mvc:latest
+
+    - name: Deploy MVC to CLoud Run
+      uses: 'google-github-actions/deploy-cloudrun@v2'
+      with:
+        service: 'bbxp-web-api'
+        image: us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/bbxp-web-mvc/bbxp-web-mvc
