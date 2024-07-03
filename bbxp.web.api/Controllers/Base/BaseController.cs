@@ -1,9 +1,6 @@
 ﻿using bbxp.lib.Common;
-using bbxp.lib.Database;
 using bbxp.lib.Database.Tables;
 using bbxp.lib.JSON;
-
-using LimDB.lib;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +8,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace bbxp.web.api.Controllers.Base
 {
-    public class BaseController(BbxpContext dbContext, IMemoryCache memoryCache) : ControllerBase
+    public class BaseController(IMemoryCache memoryCache) : ControllerBase
     {
         private readonly IMemoryCache _memoryCache = memoryCache;
 
