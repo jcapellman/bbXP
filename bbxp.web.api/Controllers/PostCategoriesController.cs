@@ -13,11 +13,11 @@ namespace bbxp.web.api.Controllers
         private readonly ILogger<PostCategoriesController> _logger = logger;
 
         [HttpGet]
-        public IOrderedQueryable<string> GetPostCategoriesAsync()
+        public async Task<List<string>> GetPostCategoriesAsync()
         {
             try
             {
-                return GetCategoriesAsync();
+                return await GetCategoriesAsync();
             }
             catch (Exception ex) {
                 _logger.LogError("Failed to obtain Categories {ex}", ex);
