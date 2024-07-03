@@ -67,7 +67,7 @@ jobs:
     - name: Deploy API to CLoud Run
       uses: 'google-github-actions/deploy-cloudrun@v2'
       with:
-        service: $SERVICE_API
+        service: '$SERVICE_API'
         image: us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/$FOLDER_API/$TAG_API
 
     - name: Push MVC Container to GCP
@@ -76,5 +76,5 @@ jobs:
     - name: Deploy MVC to CLoud Run
       uses: 'google-github-actions/deploy-cloudrun@v2'
       with:
-        service: $SERVICE_MVC
+        service: '$SERVICE_MVC'
         image: us-central1-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/$FOLDER_MVC/$TAG_MVC
