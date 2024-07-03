@@ -21,8 +21,11 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: Restore dependencies
-      run: dotnet restore
+    - name: Restore API dependencies
+      run: dotnet restore home/runner/work/bbxp/bbxp.web.api/bbxp.web.api.csproj
+      
+    - name: Restore MVC dependencies
+      run: dotnet restore home/runner/work/bbxp/bbxp.web.mvc/bbxp.web.mvc.csproj
 
     - name: Build API Container
       run: dotnet publish /home/runner/work/bbxp/bbxp.web.api/bbxp.web.api.csproj -r linux-x64 /t:PublishContainer -c Release
