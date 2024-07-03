@@ -21,7 +21,7 @@ namespace bbxp.web.api.Controllers.Base
 
         protected T AddToCache<T>(string key, T value)
         {
-            var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromHours(AppConstants.CACHE_HOUR_EXPIRATION));
+            var cacheEntryOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromHours(LibConstants.CACHE_HOUR_EXPIRATION));
 
             _memoryCache.Set(key, value, cacheEntryOptions);
 

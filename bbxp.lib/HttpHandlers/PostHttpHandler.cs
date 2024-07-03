@@ -13,7 +13,7 @@ namespace bbxp.lib.HttpHandlers
 
         public async Task<bool> UpdatePost(PostUpdateRequestItem updatePost) => await PatchAsync("posts", updatePost);
 
-        public async Task<List<Posts>> GetPostsAsync(string category = AppConstants.POST_REQUEST_DEFAULT_CATEGORY, int postCountLimit = AppConstants.POST_REQUEST_DEFAULT_LIMIT) 
+        public async Task<List<Posts>> GetPostsAsync(string category = LibConstants.POST_REQUEST_DEFAULT_CATEGORY, int postCountLimit = LibConstants.POST_REQUEST_DEFAULT_LIMIT) 
             => await GetAsync<List<Posts>>($"posts/{category}/{postCountLimit}");
 
         public async Task<Posts?> GetSinglePostAsync(string postUrl) => await GetAsync<Posts?>($"posts/{postUrl}");

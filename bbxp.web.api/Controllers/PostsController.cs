@@ -36,7 +36,7 @@ namespace bbxp.web.api.Controllers
 
                 dbResult = category switch
                 {
-                    AppConstants.POST_REQUEST_DEFAULT_CATEGORY =>
+                    LibConstants.POST_REQUEST_DEFAULT_CATEGORY =>
                          await dbContext.Posts.Where(a => a.Active).OrderByDescending(a => a.PostDate).Take(postCount).ToListAsync(),
                     _ =>
                         await dbContext.Posts.Where(a => a.Active && a.Category == category).OrderByDescending(a => a.PostDate).ToListAsync(),
