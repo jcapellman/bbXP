@@ -20,12 +20,12 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0.x'
-
+        
     - name: Restore API dependencies
-      run: dotnet restore home/runner/work/bbXP/bbXP/bbxp.web.api/bbxp.web.api.csproj
+      run: dotnet restore /home/runner/work/bbXP/bbXP/bbxp.web.api/bbxp.web.api.csproj
       
     - name: Restore MVC dependencies
-      run: dotnet restore home/runner/work/bbXP/bbXP/bbxp.web.mvc/bbxp.web.mvc.csproj
+      run: dotnet restore /home/runner/work/bbXP/bbXP/bbxp.web.mvc/bbxp.web.mvc.csproj
 
     - name: Build API Container
       run: dotnet publish /home/runner/work/bbXP/bbXP/bbxp.web.api/bbxp.web.api.csproj -r linux-x64 /t:PublishContainer -c Release
