@@ -4,7 +4,7 @@
 
 <div class="post">
     <div class="date">@Model.Post.PostDate.ToLongDateString()</div>
-    <h2 class="header">@Model.Post.Title</h2>
+    <h2 class="header"><a href="@Model.Post.URL">@Model.Post.Title</a></h2>
     <h2><span class="badge bg-white text-white"><a href="#@Model.Post.Id">Comments</a></span></h2>
     <div class="postbody">@Model.Post.Body.ToHtmlString()</div>
 
