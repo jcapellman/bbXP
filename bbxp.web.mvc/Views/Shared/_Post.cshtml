@@ -3,9 +3,16 @@
 @model PostViewModel
 
 <div class="post">
-    <div class="date">@Model.Post.PostDate.ToLongDateString()</div>
-    <h2 class="header"><a href="@Model.Post.URL">@Model.Post.Title</a></h2>
-    <h2><span class="badge bg-white text-white"><a href="#@Model.Post.Id">Comments</a></span></h2>
+    <div class="row">
+        <div class="col">
+            <div class="date">@Model.Post.PostDate.ToLongDateString()</div>
+            <h2 class="header text-white"><a href="@Model.Post.URL">@Model.Post.Title</a></h2>
+        </div>
+        <div class="col-auto ms-auto" style="padding-top: 10px; padding-right: 20px;">
+            <a href="#@Model.Post.Id" class="btn btn-secondary text-white">Comments</a>
+        </div>
+    </div>
+
     <div class="postbody">@Model.Post.Body.ToHtmlString()</div>
 
     <div class="commentbox" id="@Model.Post.Id"></div>
