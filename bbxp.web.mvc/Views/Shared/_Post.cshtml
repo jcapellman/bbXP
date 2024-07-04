@@ -5,5 +5,10 @@
 <div class="post">
     <div class="date">@Model.Post.PostDate.ToLongDateString()</div>
     <h2 class="header">@Model.Post.Title</h2>
+    <h2><span class="badge bg-white text-white"><a href="#@Model.Post.Id">Comments</a></span></h2>
     <div class="postbody">@Model.Post.Body.ToHtmlString()</div>
+
+    <div class="commentbox" id="@Model.Post.Id"></div>
+    <script src="https://unpkg.com/commentbox.io/dist/commentBox.min.js"></script>
+    <script>commentBox('5717696712802304-proj', { textColor: '#fff' })</script>
 </div>
