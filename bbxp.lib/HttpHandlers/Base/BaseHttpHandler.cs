@@ -45,6 +45,6 @@ namespace bbxp.lib.HttpHandlers.Base
             return result != null && result.IsSuccessStatusCode;
         }
 
-        protected async Task<T> GetAsync<T>(string url) => await httpClient.GetFromJsonAsync<T>(url);
+        protected async Task<T?> GetAsync<T>(string url) => await httpClient.GetFromJsonAsync<T>(url);
     }
 }

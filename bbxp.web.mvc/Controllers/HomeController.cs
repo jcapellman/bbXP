@@ -10,18 +10,10 @@ using System.Diagnostics;
 
 namespace bbxp.web.mvc.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController(IOptions<AppConfiguration> appConfiguration) : BaseController(appConfiguration)
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger, IOptions<AppConfiguration> appConfiguration) : base(appConfiguration)
-        {
-            _logger = logger;
-        }
-
-
         [Route("{category}/{postCountLimit}/")]
-        [ResponseCache(VaryByQueryKeys = new[] { "*" }, Duration = int.MaxValue)]
+        [ResponseCache(VaryByQueryKeys = ["*"], Duration = int.MaxValue)]
         public async Task<IActionResult> Index(string category, int postCountLimit) => await GetPostsAsync(category, postCountLimit);
 
         [Route("postsearch/")]
@@ -30,7 +22,7 @@ namespace bbxp.web.mvc.Controllers
         {
             var model = new SearchViewModel(_appConfiguration);
 
-            if (searchQuery == null)
+            if (searchQuery is null)
             {
                 ViewData["Title"] = "Search";
 
@@ -43,7 +35,7 @@ namespace bbxp.web.mvc.Controllers
 
             var posts = await postHttpHandler.SearchPostsAsync(searchQuery);
 
-            model.Posts = posts.Select(a => new PostViewModel(_appConfiguration) { Post = a }).ToList();
+            model.Posts = posts is not null ? posts.Select(a => new PostViewModel(_appConfiguration) { Post = a }).ToList() : [];
             model.SearchQuery = searchQuery;
 
             ViewData["Title"] = searchQuery;
@@ -63,8 +55,8 @@ namespace bbxp.web.mvc.Controllers
 
             var model = new IndexModel(_appConfiguration)
             {
-                Posts = posts.Select(a => new PostViewModel(_appConfiguration) { Post = a}).ToList(),
-                Categories = categories
+                Posts = posts is not null ? posts.Select(a => new PostViewModel(_appConfiguration) { Post = a}).ToList() : [],
+                Categories = categories is not null ? categories : []
             };
 
             ViewData["Title"] = category;
@@ -81,13 +73,13 @@ namespace bbxp.web.mvc.Controllers
         /// <param name="postURL"></param>
         /// <returns></returns>
         [Route("{year}/{month}/{day}/{postURL}")]
-        [ResponseCache(VaryByQueryKeys = new[] { "*" }, Duration = int.MaxValue)]
+        [ResponseCache(VaryByQueryKeys = ["*"], Duration = int.MaxValue)]
         public async Task<IActionResult> GetSinglePostLegacyAsync(int year, int month, int day, string postURL)
-            => await GetSinglePostAsync(postURL);
+            => await GetSinglePostAsync(postURL, year, month, day);
 
         [Route("{postURL}")]
-        [ResponseCache(VaryByQueryKeys = new[] { "*" }, Duration = int.MaxValue)]
-        public async Task<IActionResult> GetSinglePostAsync(string postURL)
+        [ResponseCache(VaryByQueryKeys = ["*"], Duration = int.MaxValue)]
+        public async Task<IActionResult> GetSinglePostAsync(string postURL, int year, int month, int day)
         {
             var postHttpHandler = new PostHttpHandler(_appConfiguration.APIUrl);
 

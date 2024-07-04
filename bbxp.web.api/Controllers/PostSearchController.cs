@@ -14,6 +14,7 @@ namespace bbxp.web.api.Controllers
     {
         [HttpGet]
         [Route("{searchQuery}")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1862:Use the 'StringComparison' method overloads to perform case-insensitive string comparisons", Justification = "Not supported in Cloud SQL")]
         public async Task<List<Posts>> SearchPostsAsync([FromRoute] string searchQuery)
         {
             searchQuery = searchQuery.ToLower();
