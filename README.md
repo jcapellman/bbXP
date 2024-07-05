@@ -9,6 +9,7 @@ This project technically started with the first web page I did back in 1996 on G
 ## Major Change Log
 ### July 3rd, 2024 ###
 -CI/CD migration to Google Cloud
+
 -Clean up of the code to use the latest patterns and language features
 
 ### Februrary 10, 2023 ###
