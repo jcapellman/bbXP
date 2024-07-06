@@ -35,7 +35,7 @@ namespace bbxp.desktop.windows.ViewModels
                     FilteredPosts = Posts;
                 } else if (_SearchTerm.Length >= 3)
                 {
-                    FilteredPosts = Posts.Where(a => a.Title.ToLower().Contains(_SearchTerm)).ToList();
+                    FilteredPosts = Posts.Where(a => a.Title.Contains(_SearchTerm, StringComparison.CurrentCultureIgnoreCase)).ToList();
                 }
 
                 if (FilteredPosts.Count > 0)
@@ -81,7 +81,7 @@ namespace bbxp.desktop.windows.ViewModels
             }
         }
 
-        private Visibility _showPreview;
+        private readonly Visibility _showPreview;
 
         public Visibility ShowPreview
         {
@@ -182,8 +182,8 @@ namespace bbxp.desktop.windows.ViewModels
             ShowCode();
 
             Setting = new Settings();
-            Posts = new List<Posts>();
-            FilteredPosts = new List<Posts>();
+            Posts = [];
+            FilteredPosts = [];
 
             SearchTerm = string.Empty;
 
@@ -303,7 +303,7 @@ namespace bbxp.desktop.windows.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    var message = ex.Message;
+                    Console.WriteLine(ex.Message);
 
                     ShowLoadingIndicator = Visibility.Collapsed;
 
@@ -313,13 +313,13 @@ namespace bbxp.desktop.windows.ViewModels
 
             SearchTerm = string.Empty;
 
-            Posts = await new PostHttpHandler(Setting.RESTServiceURL).GetPostsAsync(postCountLimit: int.MaxValue);
+            Posts = await new PostHttpHandler(Setting.RESTServiceURL).GetPostsAsync(postCountLimit: int.MaxValue) ?? [];
 
             if (Posts != null && Posts.Count > 0)
             {
                 FilteredPosts = Posts;
 
-                SelectedPost = FilteredPosts.FirstOrDefault();
+                SelectedPost = FilteredPosts.FirstOrDefault() ?? FilteredPosts.First();
             }
 
             ShowLoadingIndicator = Visibility.Collapsed;

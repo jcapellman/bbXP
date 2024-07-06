@@ -44,12 +44,7 @@ namespace bbxp.desktop.windows
             Context.NewPost();
         }
 
-        private void btnCodeView_Click(object sender, RoutedEventArgs e)
-        {
-            Context.ShowCode();
-        }
-
-        private void btnPreview_Click(object sender, RoutedEventArgs e)
+        private void btnUpdatePreview_Click(object sender, RoutedEventArgs e)
         {
             Context.ShowMarkdownRender();
         }

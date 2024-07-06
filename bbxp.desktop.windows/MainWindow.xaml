@@ -99,8 +99,16 @@
             <TextBox Grid.Row="7" Margin="0,0,0,10" Text="{Binding SelectedPost.URL, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
 
             <TextBlock Grid.Row="8" Text="Body" Margin="0,0,0,10" />
-            <editor:MarkdownEditor Grid.Row="9" AutoUpdate="true" Text="{Binding SelectedPost.Body}" />
-
+            <Grid Grid.Row="9" Margin="0,0,0,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <editor:MarkdownEditor Grid.Row="0" AutoUpdate="False" Text="{Binding SelectedPost.Body}" />
+                <Button Grid.Row="1" Click="btnUpdatePreview_Click" Content="Update Preview" />
+            </Grid>
+            
             <Grid Grid.Row="10">
                 <Button x:Name="btnSave" Content="Save" Click="btnSave_Click" />
             </Grid>
