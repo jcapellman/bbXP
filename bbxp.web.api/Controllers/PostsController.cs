@@ -1,11 +1,9 @@
 using bbxp.lib.Common;
 using bbxp.lib.Database;
 using bbxp.lib.Database.Tables;
-using bbxp.lib.JSON;
 
 using bbxp.web.api.Controllers.Base;
 
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
@@ -16,8 +14,6 @@ namespace bbxp.web.api.Controllers
     [Route("api/posts")]
     public class PostsController(BbxpContext dbContext, IMemoryCache memoryCache, ILogger<PostsController> logger) : BaseController(memoryCache)
     {
-        private static string CreateUrlSafeTitle(string title) =>
-            title.ToLower().Replace(' ', '_').Replace(".", "").Replace(",", "").Replace("-", "_");
 
         [HttpGet]
         [Route("{category}/{postCount}/")]
@@ -79,87 +75,6 @@ namespace bbxp.web.api.Controllers
             catch (Exception ex)
             {
                 logger.LogError("Failed to Get Post due to {ex}", ex);
-
-                throw;
-            }
-        }
-
-        [Authorize]
-        [HttpPatch]
-        public async Task<bool> UpdateAsync(PostUpdateRequestItem updatePost)
-        {
-            try
-            {
-                var post = dbContext.Posts.FirstOrDefault(a => a.Id == updatePost.Id);
-
-                if (post is null)
-                {
-                    return false;
-                }
-
-                post.Title = updatePost.Title;
-                post.Body = updatePost.Body;
-                post.Category = updatePost.Category;
-                post.PostDate = updatePost.PostDate;
-                post.URL = updatePost.URL;
-
-                return await dbContext.SaveChangesAsync() > 0;
-            }
-            catch (Exception ex)
-            {
-                logger.LogError("Failed to Update Post due to {ex}", ex);
-
-                throw;
-            }
-        }
-
-        [Authorize]
-        [HttpPost]
-        public async Task<bool> AddAsync(PostCreationRequestItem newPost)
-        {
-            try
-            {
-                var post = new Posts
-                {
-                    PostDate = newPost.PostDate ?? DateTime.Now,
-                    Body = newPost.Body,
-                    Title = newPost.Title,
-                    Category = newPost.Category,
-                    URL = CreateUrlSafeTitle(newPost.Title)
-                };
-
-                dbContext.Posts.Add(post);
-
-                return await dbContext.SaveChangesAsync() > 0;
-            }
-            catch (Exception ex)
-            {
-                logger.LogError("Failed to Create Post due to {ex}", ex);
-
-                throw;
-            }
-        }
-
-        [Authorize]
-        [HttpDelete]
-        public async Task<bool> DeleteAsync(int postId)
-        {
-            try
-            {
-                var post = await dbContext.Posts.FirstAsync(a => a.Id == postId);
-
-                if (post == null)
-                {
-                    return false;
-                }
-
-                post.Active = false;
-
-                return await dbContext.SaveChangesAsync() > 0;
-            }
-            catch (Exception ex)
-            {
-                logger.LogError("Failed to Delete Post due to {ex}", ex);
 
                 throw;
             }
