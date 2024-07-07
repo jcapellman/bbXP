@@ -1,4 +1,5 @@
-﻿using bbxp.desktop.windows.Objects.JSON;
+﻿using bbxp.desktop.windows.Managers;
+using bbxp.desktop.windows.Objects.JSON;
 using bbxp.desktop.windows.ViewModels.Base;
 
 using bbxp.lib.Database.Tables;
@@ -313,7 +314,7 @@ namespace bbxp.desktop.windows.ViewModels
 
             SearchTerm = string.Empty;
 
-            Posts = await new PostHttpHandler(Setting.RESTServiceURL).GetPostsAsync(postCountLimit: int.MaxValue) ?? [];
+            Posts = await new PostHttpHandler(Setting.RESTServiceURL, _token).GetPostsFromDateAsync(LiteDbManager.GetMostRecentPostUpdate()) ?? [];
 
             if (Posts != null && Posts.Count > 0)
             {
