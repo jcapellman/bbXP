@@ -2,7 +2,6 @@
 using bbxp.lib.Database.Tables;
 using bbxp.lib.HttpHandlers.Base;
 using bbxp.lib.JSON;
-using System.Web;
 
 namespace bbxp.lib.HttpHandlers
 {
@@ -15,7 +14,7 @@ namespace bbxp.lib.HttpHandlers
         public async Task<List<Posts>?> GetPostsAsync(string category = LibConstants.POST_REQUEST_DEFAULT_CATEGORY, int postCountLimit = LibConstants.POST_REQUEST_DEFAULT_LIMIT) 
             => await GetAsync<List<Posts>?>($"posts/{category}/{postCountLimit}");
 
-        public async Task<List<Posts>?> GetPostsFromDateAsync(DateTime date) => await GetAsync<List<Posts>>($"post-admin/{HttpUtility.UrlEncode(date.ToShortDateString())}");
+        public async Task<List<Posts>?> GetPostsFromDateAsync(DateTime date) => await GetAsync<List<Posts>>($"post-admin/{date:MM-dd-yyyy}");
 
         public async Task<Posts?> GetSinglePostAsync(string postUrl) => await GetAsync<Posts?>($"posts/{postUrl}");
 
