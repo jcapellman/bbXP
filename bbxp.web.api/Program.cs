@@ -94,6 +94,8 @@ namespace bbxp.web.api
 
                 var scope = app.Services.CreateScope();
 
+                AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
                 try
                 {
                     var db = scope.ServiceProvider.GetRequiredService<BbxpContext>();
