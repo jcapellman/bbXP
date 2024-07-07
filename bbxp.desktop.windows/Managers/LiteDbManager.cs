@@ -3,12 +3,13 @@ using System.Collections.Generic;
 
 using bbxp.lib.Database.Tables;
 using bbxp.desktop.windows.Common;
+using System.Linq;
 
 namespace bbxp.desktop.windows.Managers
 {
     public class LiteDbManager
     {
-        public static IEnumerable<Posts>? GetLocalPosts()
+        public static List<Posts> GetLocalPosts()
         {
             using var db = new LiteDB.LiteDatabase(AppConstants.DB_FILENAME);
 
@@ -16,10 +17,10 @@ namespace bbxp.desktop.windows.Managers
 
             if (collection is null)
             {
-                return null;
+                return [];
             }
 
-            return collection.FindAll();
+            return collection.FindAll().ToList();
         }
 
         public static DateTime GetMostRecentPostUpdate()
@@ -34,6 +35,17 @@ namespace bbxp.desktop.windows.Managers
             }
 
             return collection.Max(a => a.Modified);
+        }
+
+        public static void UpdateDatabase(List<Posts> posts)
+        {
+            using var db = new LiteDB.LiteDatabase(AppConstants.DB_FILENAME);
+
+            var collection = db.GetCollection<Posts>();
+
+            collection.InsertBulk(posts);
+
+            db.Commit();
         }
     }
 }
