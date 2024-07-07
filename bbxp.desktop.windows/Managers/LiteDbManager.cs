@@ -29,7 +29,7 @@ namespace bbxp.desktop.windows.Managers
 
             var collection = db.GetCollection<Posts>();
 
-            if (collection is null)
+            if (collection is null || collection.Count() == 0)
             {
                 return DateTime.MinValue;
             }
