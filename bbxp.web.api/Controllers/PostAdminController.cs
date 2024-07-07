@@ -106,6 +106,7 @@ namespace bbxp.web.api.Controllers
         /// <param name="date"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<List<Posts>> GetPostsFromDateAsync(DateTime date) => await dbContext.Posts.Where(a => a.Modified > date).ToListAsync();
+        [Route("{date}")]
+        public async Task<List<Posts>> GetPostsFromDateAsync([FromRoute]DateTime date) => await dbContext.Posts.Where(a => a.Modified > date).ToListAsync();
     }
 }
