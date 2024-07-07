@@ -1,7 +1,69 @@
 ﻿@page "/"
+@using bbxp.lib.Database.Tables
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@inject IHttpClientFactory ClientFactory
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+@if (Posts is null)
+{
+    <p>Unable to get posts.</p>
+}
+else
+{
+    <h5>Posts</h5>
+    <select @bind="@SelectedPostID">
+        @foreach (var post in Posts)
+        {
+            <option value="@post.Id">@post.Title</option>
+        }
+    </select>
 
-Welcome to your new app.
+    if (SelectedPost is not null)
+    {
+        <h5>Title</h5>
+        <InputText @bind-Value="SelectedPost.Title" />
+
+        <h5>Category</h5>
+        <InputText @bind-Value="SelectedPost.Category" />
+
+        <h5>Body</h5>
+        <InputTextArea @bind-Value="SelectedPost.Body" />
+
+        <button>Save Changes</button>
+    }
+}
+
+
+@code {
+    private IEnumerable<Posts>? Posts = [];
+    private Posts? SelectedPost;
+
+    private int? _selectedPostID = null;
+    private int? SelectedPostID
+    {
+        get
+        {
+            return _selectedPostID;
+        }
+        set
+        {
+            _selectedPostID = value;
+            SelectedPost = Posts?.FirstOrDefault(a => a.Id == _selectedPostID);
+        }
+    }
+
+    private bool shouldRender;
+
+    protected override bool ShouldRender() => shouldRender;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = ClientFactory.CreateClient();
+
+        Posts = await client.GetFromJsonAsync<List<Posts>>("https://api.jarredcapellman.com/api/posts/Latest/10");
+
+        shouldRender = true;
+    }
+}
