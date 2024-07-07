@@ -43,7 +43,27 @@ namespace bbxp.desktop.windows.Managers
 
             var collection = db.GetCollection<Posts>();
 
-            collection.InsertBulk(posts);
+            // If the collection is empty - no need to loop through here
+            if (collection.Count() == 0)
+            {
+                collection.InsertBulk(posts);
+            } else
+            {
+                foreach (var post in posts)
+                {
+                    var existingPost = collection.FindById(post.Id);
+
+                    if (existingPost is null)
+                    {
+                        collection.Insert(post);
+                    } else
+                    {
+                        existingPost = post;
+
+                        collection.Update(existingPost);
+                    }
+                }
+            }
 
             db.Commit();
         }
