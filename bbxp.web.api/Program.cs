@@ -8,6 +8,7 @@ using System.Text;
 
 using bbxp.lib.Database;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace bbxp.web.api
 {
@@ -45,7 +46,28 @@ namespace bbxp.web.api
 
                 builder.Services.AddControllers();
                 builder.Services.AddEndpointsApiExplorer();
-                builder.Services.AddSwaggerGen();
+                builder.Services.AddSwaggerGen(c =>
+                {
+                    var securityScheme = new OpenApiSecurityScheme
+                    {
+                        Name = "JWT Authentication",
+                        Description = "Enter JWT Bearer token **_only_**",
+                        In = ParameterLocation.Header,
+                        Type = SecuritySchemeType.Http,
+                        Scheme = "bearer",
+                        BearerFormat = "JWT",
+                        Reference = new OpenApiReference
+                        {
+                            Id = JwtBearerDefaults.AuthenticationScheme,
+                            Type = ReferenceType.SecurityScheme
+                        }
+                    };
+                    c.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
+                    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    {
+                        {securityScheme, Array.Empty<string>()}
+                    });
+                });
 
                 builder.Services.AddMemoryCache();
                 builder.Services.AddDbContext<BbxpContext>(
@@ -70,13 +92,6 @@ namespace bbxp.web.api
 
                 var app = builder.Build();
 
-                if (app.Environment.IsDevelopment())
-                {
-                    app.UseSwagger();
-                    app.UseDeveloperExceptionPage();
-                    app.UseSwaggerUI();
-                }
-
                 var scope = app.Services.CreateScope();
 
                 try
@@ -98,6 +113,13 @@ namespace bbxp.web.api
                 app.UseAuthorization();
 
                 app.MapControllers();
+
+                if (app.Environment.IsDevelopment())
+                {
+                    app.UseSwagger();
+                    app.UseDeveloperExceptionPage();
+                    app.UseSwaggerUI();
+                }
 
                 app.Run();
             }
