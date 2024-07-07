@@ -318,6 +318,12 @@ namespace bbxp.desktop.windows.ViewModels
 
             if (Posts != null && Posts.Count > 0)
             {
+                LiteDbManager.UpdateDatabase(Posts);
+            }
+
+            Posts = LiteDbManager.GetLocalPosts();
+
+            if (Posts.Count > 0) {
                 FilteredPosts = Posts;
 
                 SelectedPost = FilteredPosts.FirstOrDefault() ?? FilteredPosts.First();
