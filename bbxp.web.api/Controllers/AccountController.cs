@@ -23,10 +23,12 @@ namespace bbxp.web.api.Controllers
 
         private string GenerateToken(string hashToken)
         {
+            var iat = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
+            
             var claims = new[] {
                 new Claim(JwtRegisteredClaimNames.Sub, _config.JWTSubject),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+                new Claim(JwtRegisteredClaimNames.Iat, iat.ToString()),
                 new Claim("Token", hashToken)
             };
 
