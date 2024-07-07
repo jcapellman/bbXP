@@ -17,6 +17,11 @@ namespace bbxp.web.api.Controllers
     [Route("api/post-admin")]
     public class PostAdminController(BbxpContext dbContext, IMemoryCache memoryCache, ILogger<PostAdminController> logger) : BaseController(memoryCache)
     {
+        /// <summary>
+        /// Allows the updating of an existing post
+        /// </summary>
+        /// <param name="updatePost"></param>
+        /// <returns></returns>
         [HttpPatch]
         public async Task<bool> UpdateAsync(PostUpdateRequestItem updatePost)
         {
@@ -94,5 +99,13 @@ namespace bbxp.web.api.Controllers
                 throw;
             }
         }
+
+        /// <summary>
+        /// Returns all of the posts greater than the date passed in
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<List<Posts>> GetPostsFromDateAsync(DateTime date) => await dbContext.Posts.Where(a => a.Modified > date).ToListAsync();
     }
 }
