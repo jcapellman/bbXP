@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="LiteDB" Version="5.0.21" />
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="5.0.0" />
     <PackageReference Include="Markdown.Wpf.Editor" Version="1.0.0.38003" />
