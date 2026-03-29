@@ -1,13 +1,13 @@
 ﻿@model IndexModel
 
-<div class="categories-container">
+<div class="categories-container stagger-in">
     @foreach(var category in Model.Categories)
     {
         <a class="btn btn-dark" href="/@category/@bbxp.lib.Common.LibConstants.POST_REQUEST_DEFAULT_LIMIT/">@category</a>
     }
 </div>
 
-<div id="posts-container">
+<div id="posts-container" class="stagger-in">
     @foreach (var post in Model.Posts)
     {
         @await Html.PartialAsync("_Post", post)

@@ -6,10 +6,10 @@
     <div class="row">
         <div class="col">
             <div class="date">@Model.Post.PostDate.ToLongDateString()</div>
-            <h2 class="header text-white"><a href="@Model.Post.URL">@Model.Post.Title</a></h2>
+            <h2 class="header"><a href="@Model.Post.URL">@Model.Post.Title</a></h2>
         </div>
-        <div class="col-auto ms-auto" style="padding-top: 10px; padding-right: 20px;">
-            <a href="#@Model.Post.Id" class="btn btn-secondary text-white">Comments</a>
+        <div class="col-auto ms-auto" style="padding-right: 12px;">
+            <a href="#@Model.Post.Id" class="btn btn-secondary">Comments</a>
         </div>
     </div>
 

@@ -1,293 +1,496 @@
-/* Glassmorphism Theme */
+/* IRIX 6.5 Indigo Magic Theme - nedit/jot Text Editor Style */
 :root {
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    --accent-blue: #60a5fa;
-    --accent-purple: #a78bfa;
-    --accent-pink: #f472b6;
-    --text-primary: #ffffff;
-    --text-secondary: rgba(255, 255, 255, 0.7);
-    --transition: all 0.3s ease;
+    /* IRIX 6.5 Desktop */
+    --irix-desktop: #594878;
+
+    /* Classic Motif Grey - like nedit, jot, source */
+    --motif-grey: #b8b4b0;
+    --motif-grey-light: #d0ccc8;
+    --motif-grey-dark: #908c88;
+    --motif-grey-darker: #686460;
+
+    /* Window chrome */
+    --irix-panel: #a8a4a0;
+    --irix-panel-dark: #989490;
+
+    /* SGI Corporate Colors */
+    --sgi-blue: #3366aa;
+    --sgi-blue-light: #4488cc;
+    --sgi-blue-dark: #224488;
+    --sgi-red: #cc3333;
+    --sgi-green: #33aa66;
+    --sgi-yellow: #ccaa33;
+    --sgi-orange: #dd6622;
+
+    /* 4Dwm Window Decoration Colors */
+    --titlebar-active: linear-gradient(180deg, #5588bb 0%, #3366aa 50%, #224488 100%);
+    --titlebar-inactive: linear-gradient(180deg, #a0a0a0 0%, #808080 50%, #606060 100%);
+
+    /* Motif 3D borders */
+    --motif-light: #e0dcd8;
+    --motif-lighter: #f0ece8;
+    --motif-dark: #706c68;
+    --motif-darker: #504c48;
+
+    /* Text */
+    --text-dark: #000000;
+    --text-primary: #1a1a1a;
+    --text-secondary: #404040;
+    --text-titlebar: #ffffff;
+    --text-link: #0000cc;
+
+    --transition: all 0.12s ease;
 }
 
 html {
-    font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Lucida Grande', 'Lucida Sans', 'Helvetica', 'Arial', sans-serif;
     color: var(--text-primary);
     position: relative;
     min-height: 100%;
+    scroll-behavior: smooth;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
     html {
-        font-size: 16px;
+        font-size: 15px;
     }
 }
 
+/* Reading Progress Bar - SGI Blue */
+.reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--sgi-blue);
+    z-index: 9999;
+    transition: width 0.1s linear;
+}
+
+/* Back to Top Button - Motif Grey Style */
+.back-to-top {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 28px;
+    height: 28px;
+    background: var(--motif-grey);
+    border: 1px solid;
+    border-color: var(--motif-lighter) var(--motif-darker) var(--motif-darker) var(--motif-lighter);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+    z-index: 1000;
+    color: var(--text-dark);
+    font-size: 0.8rem;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background: var(--motif-grey-light);
+}
+
+.back-to-top:active {
+    border-color: var(--motif-darker) var(--motif-lighter) var(--motif-lighter) var(--motif-darker);
+    background: var(--motif-grey-dark);
+}
+
+/* Subtle fade animation */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.animate-in {
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.stagger-in > * {
+    opacity: 0;
+    animation: fadeIn 0.25s ease forwards;
+}
+
+.stagger-in > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger-in > *:nth-child(2) { animation-delay: 0.08s; }
+.stagger-in > *:nth-child(3) { animation-delay: 0.11s; }
+.stagger-in > *:nth-child(4) { animation-delay: 0.14s; }
+.stagger-in > *:nth-child(5) { animation-delay: 0.17s; }
+.stagger-in > *:nth-child(n+6) { animation-delay: 0.2s; }
+
+/* IRIX 6.5 Desktop Background */
 body {
     margin-bottom: 60px;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-    background-attachment: fixed;
+    background: var(--irix-desktop);
     color: var(--text-primary);
     min-height: 100vh;
 }
 
-/* Animated background orbs */
-body::before,
-body::after {
-    content: '';
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.4;
-    z-index: -1;
-    animation: float 20s ease-in-out infinite;
-}
-
-body::before {
-    width: 400px;
-    height: 400px;
-    background: var(--accent-purple);
-    top: -100px;
-    right: -100px;
-}
-
-body::after {
-    width: 300px;
-    height: 300px;
-    background: var(--accent-pink);
-    bottom: -50px;
-    left: -50px;
-    animation-delay: -10s;
-}
-
-@keyframes float {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(30px, -30px) scale(1.1); }
-    66% { transform: translate(-20px, 20px) scale(0.9); }
-}
-
 /* Focus States */
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.5);
-    outline: none;
+    box-shadow: none;
+    outline: 1px solid var(--sgi-blue);
+    outline-offset: 1px;
 }
 
-/* Links */
+/* Links - Classic blue underline */
 a:link, a:visited {
-    color: var(--accent-blue);
-    font-weight: 600;
-    text-decoration: none;
+    color: var(--text-link);
+    font-weight: 400;
+    text-decoration: underline;
     transition: var(--transition);
 }
 
 a:hover {
-    color: var(--accent-pink);
-    text-decoration: none;
+    color: var(--sgi-red);
 }
 
-/* Glass Navbar */
+/* IRIX Toolchest Menu Bar */
 .navbar {
-    background: var(--glass-bg) !important;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
+    background: var(--motif-grey) !important;
+    border: 1px solid;
+    border-color: var(--motif-lighter) var(--motif-darker) var(--motif-darker) var(--motif-lighter);
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    min-height: auto;
+}
+
+.navbar > .container {
+    padding: 0;
 }
 
 .navbar-brand {
-    font-weight: 700;
-    font-size: 1.4rem;
-    color: var(--text-primary) !important;
-    text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-dark) !important;
+    text-decoration: none !important;
+    padding: 0.35rem 0.75rem !important;
+    margin: 0;
+    border-right: 1px solid var(--motif-dark);
+    background: var(--motif-grey);
 }
 
+.navbar-brand:hover {
+    background: var(--motif-grey-light);
+}
+
+/* Menu items - Toolchest style */
 .nav-link.text-dark:link, .nav-link.text-dark:visited {
-    color: var(--text-secondary) !important;
-    opacity: 1;
+    color: var(--text-dark) !important;
     font-weight: 500;
-    padding: 0.5rem 1rem !important;
-    border-radius: 8px;
+    padding: 0.35rem 0.65rem !important;
     transition: var(--transition);
+    font-size: 0.85rem;
+    text-decoration: none !important;
+    border-right: 1px solid var(--motif-dark);
+    margin: 0;
 }
 
 .nav-link.text-dark:hover {
-    color: var(--text-primary) !important;
-    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-dark) !important;
+    background: var(--motif-grey-light);
+    text-decoration: none !important;
 }
 
-/* Glass Category Buttons */
+.nav-link.text-dark:active {
+    background: var(--motif-grey-dark);
+    box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Remove last border */
+.navbar-nav .nav-item:last-child .nav-link {
+    border-right: none;
+}
+
+/* Navbar toggler for mobile */
+.navbar-toggler {
+    background: var(--motif-grey);
+    border: 1px solid;
+    border-color: var(--motif-lighter) var(--motif-darker) var(--motif-darker) var(--motif-lighter);
+    padding: 0.25rem 0.5rem;
+    margin: 0.2rem 0.5rem;
+}
+
+.navbar-toggler:hover {
+    background: var(--motif-grey-light);
+}
+
+.navbar-toggler-icon {
+    filter: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0, 0, 0, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+/* Text Editor Tab-Style Category Buttons (like nedit tabs) */
 .btn-dark {
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
-    border-radius: 25px;
-    padding: 0.5rem 1.5rem;
+    background: var(--motif-grey);
+    border: 1px solid;
+    border-color: var(--motif-lighter) var(--motif-darker) var(--motif-darker) var(--motif-lighter);
+    border-bottom: none;
+    padding: 0.3rem 0.75rem;
     font-weight: 500;
-    color: var(--text-primary);
+    color: var(--text-dark);
     transition: var(--transition);
-    margin-right: 0.5rem;
-    margin-bottom: 1rem;
+    margin-right: 2px;
+    margin-bottom: 0;
+    font-size: 0.8rem;
+    letter-spacing: 0;
+    text-transform: none;
+    position: relative;
+    top: 1px;
+    border-radius: 3px 3px 0 0;
 }
 
 .btn-dark:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: var(--accent-blue);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(96, 165, 250, 0.3);
+    background: var(--motif-grey-light);
+    color: var(--text-dark);
 }
 
-/* Glass Post Cards */
+.btn-dark:active, .btn-dark.active {
+    background: var(--motif-grey-light);
+    border-color: var(--motif-darker) var(--motif-lighter) var(--motif-grey-light) var(--motif-darker);
+    box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+/* nedit/jot Style Window Post Cards */
 .post {
-    background: var(--glass-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    margin-bottom: 1.5rem;
+    background: var(--motif-grey);
+    border: 1px solid;
+    border-color: var(--motif-lighter) var(--motif-darker) var(--motif-darker) var(--motif-lighter);
+    margin-bottom: 1rem;
     font-size: 14px;
-    color: var(--text-primary);
-    box-shadow: var(--glass-shadow);
-    transition: var(--transition);
+    color: var(--text-dark);
     overflow: hidden;
     position: relative;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    padding-top: 22px; /* Space for titlebar */
 }
 
+/* 4Dwm Window Titlebar */
 .post::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    height: 20px;
+    background: var(--titlebar-active);
+    border-bottom: 1px solid var(--sgi-blue-dark);
+    z-index: 1;
+}
+
+/* Titlebar grip pattern */
+.post::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 6px;
+    width: 40px;
+    height: 10px;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent 0px,
+        transparent 1px,
+        rgba(255, 255, 255, 0.35) 1px,
+        rgba(255, 255, 255, 0.35) 2px,
+        transparent 2px,
+        transparent 3px
+    );
+    z-index: 2;
 }
 
 .post:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-    border-color: rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Post header row */
+.post > .row {
+    position: relative;
+    z-index: 3;
 }
 
 .post h2 {
-    padding-left: 1.5rem;
-    font-size: 1.5rem;
-    font-weight: 700;
+    padding: 0 0.75rem;
+    font-size: 1.15rem;
+    font-weight: 600;
     margin: 0;
+    background: var(--motif-grey);
 }
 
 .post h2 a {
-    color: var(--text-primary) !important;
+    color: var(--text-dark) !important;
+    text-decoration: none;
     transition: var(--transition);
 }
 
 .post h2 a:hover {
-    color: var(--accent-blue) !important;
-    text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+    color: var(--sgi-blue) !important;
+    text-decoration: underline;
 }
 
+/* Text area - like nedit text widget */
 .post .postbody {
-    padding: 1.5rem;
-    line-height: 1.8;
+    padding: 0.75rem 1rem 1rem 1rem;
+    line-height: 1.6;
+    background: #fffff8;
+    border: 1px solid;
+    border-color: var(--motif-darker) var(--motif-lighter) var(--motif-lighter) var(--motif-darker);
+    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+    color: var(--text-dark);
+    font-family: 'Courier New', 'Courier', monospace;
+    font-size: 0.9rem;
+}
+
+.post .postbody a {
+    color: var(--text-link);
 }
 
 .post .date {
     color: var(--text-secondary);
-    font-weight: 600;
-    font-size: 0.85rem;
-    padding: 1.5rem 1.5rem 0.5rem 1.5rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-weight: 500;
+    font-size: 0.7rem;
+    padding: 0.4rem 0.75rem 0 0.75rem;
+    background: var(--motif-grey);
 }
 
-/* Glass Comment Button */
+/* Motif Grey Button Style */
 .btn-secondary {
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
+    background: var(--motif-grey);
+    border: 1px solid;
+    border-color: var(--motif-lighter) var(--motif-darker) var(--motif-darker) var(--motif-lighter);
     font-weight: 500;
-    color: var(--text-primary) !important;
+    color: var(--text-dark) !important;
     transition: var(--transition);
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
 }
 
 .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: var(--accent-purple);
-    box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+    background: var(--motif-grey-light);
+    color: var(--text-dark) !important;
 }
 
-/* Glass Code Blocks */
+.btn-secondary:active {
+    border-color: var(--motif-darker) var(--motif-lighter) var(--motif-lighter) var(--motif-darker);
+    background: var(--motif-grey-dark);
+}
+
+/* IRIX xterm/winterm Style Code Blocks */
 pre {
-    background: rgba(0, 0, 0, 0.3) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 1.25rem !important;
-    border-radius: 15px;
-    color: #e0e0e0;
-    border: 1px solid var(--glass-border);
+    background: #000000 !important;
+    padding: 0.75rem !important;
+    color: #00ff00;
+    border: 1px solid;
+    border-color: var(--motif-darker) var(--motif-lighter) var(--motif-lighter) var(--motif-darker);
     overflow-x: auto;
+    font-family: 'Courier New', 'Courier', monospace;
+    font-size: 0.85rem;
+    margin: 0.5rem 0;
 }
 
 code {
-    font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+    font-family: 'Courier New', 'Courier', monospace;
+    color: var(--text-dark);
+    background: var(--motif-grey-light);
+    padding: 0.1rem 0.25rem;
+    border: 1px solid var(--motif-dark);
 }
 
-/* Glass Footer */
+pre code {
+    color: #00ff00;
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+/* IRIX 6.5 Footer - Toolbar style */
 footer {
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-top: 1px solid var(--glass-border);
-    padding: 1.5rem 0;
+    background: var(--motif-grey);
+    border: 1px solid;
+    border-color: var(--motif-lighter) var(--motif-darker) var(--motif-darker) var(--motif-lighter);
+    padding: 0.5rem 0;
 }
 
 footer p {
     text-align: center;
-    margin-top: 10px;
+    margin-top: 4px;
     display: block;
-    font-size: 0.85rem;
+    font-size: 0.7rem;
     color: var(--text-secondary);
 }
 
 footer a {
-    color: var(--accent-blue) !important;
+    color: var(--text-link) !important;
 }
 
-/* Scrollbar */
+/* Classic Motif Scrollbar */
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 16px;
+    height: 16px;
 }
 
 ::-webkit-scrollbar-track {
-    background: transparent;
+    background: var(--motif-grey-dark);
+    border: 1px solid var(--motif-darker);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
+    background: var(--motif-grey);
+    border: 1px solid;
+    border-color: var(--motif-lighter) var(--motif-darker) var(--motif-darker) var(--motif-lighter);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: var(--motif-grey-light);
+}
+
+::-webkit-scrollbar-corner {
+    background: var(--motif-grey-dark);
+}
+
+::-webkit-scrollbar-button {
+    background: var(--motif-grey);
+    border: 1px solid;
+    border-color: var(--motif-lighter) var(--motif-darker) var(--motif-darker) var(--motif-lighter);
+    height: 16px;
+    width: 16px;
 }
 
 /* Selection */
 ::selection {
-    background: var(--accent-purple);
+    background: var(--sgi-blue);
     color: white;
 }
 
-/* Categories Container */
+/* Tab Bar Container - like nedit tab row */
 .categories-container {
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
 }
 
-/* Infinite Scroll */
+/* Posts container gets the connected look */
+#posts-container {
+    background: var(--motif-grey-light);
+    border: 1px solid;
+    border-color: var(--motif-lighter) var(--motif-darker) var(--motif-darker) var(--motif-lighter);
+    padding: 0.75rem;
+    margin-top: -1px;
+}
+
+/* Loading States */
 #loading-indicator {
     color: var(--text-secondary);
 }
@@ -295,20 +498,223 @@ footer a {
 #no-more-posts {
     color: var(--text-secondary);
     font-style: italic;
+    font-size: 0.8rem;
 }
 
 .spinner {
-    width: 40px;
-    height: 40px;
+    width: 24px;
+    height: 24px;
     margin: 0 auto;
-    border: 3px solid var(--glass-border);
-    border-top-color: var(--accent-blue);
+    border: 2px solid var(--motif-grey-dark);
+    border-top-color: var(--sgi-blue);
     border-radius: 50%;
-    animation: spin 1s linear infinite;
+    animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
-    to {
-        transform: rotate(360deg);
+    to { transform: rotate(360deg); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1rem;
+    }
+
+    .post {
+        margin-bottom: 0.75rem;
+    }
+
+    .post h2 {
+        font-size: 1rem;
+        padding: 24px 0.5rem 0 0.5rem;
+    }
+
+    .post .postbody {
+        padding: 0.5rem 0.75rem 0.75rem 0.75rem;
+        margin: 0.4rem;
+        font-size: 0.85rem;
+    }
+
+    .post .date {
+        padding: 0.3rem 0.5rem 0 0.5rem;
+        font-size: 0.65rem;
+    }
+
+    .btn-dark {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.7rem;
+    }
+
+    .back-to-top {
+        width: 24px;
+        height: 24px;
+        bottom: 1rem;
+        right: 1rem;
+        font-size: 0.7rem;
+    }
+
+    #posts-container {
+        padding: 0.5rem;
+    }
+}
+
+/* Image Styling - sunken frame */
+.postbody img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid;
+    border-color: var(--motif-darker) var(--motif-lighter) var(--motif-lighter) var(--motif-darker);
+    margin: 0.5rem 0;
+}
+
+/* Blockquote */
+blockquote {
+    border-left: 3px solid var(--motif-grey-dark);
+    background: var(--motif-grey-light);
+    padding: 0.5rem 0.75rem;
+    margin: 0.5rem 0;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+/* Table - spreadsheet style */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.5rem 0;
+    background: #ffffff;
+    border: 1px solid;
+    border-color: var(--motif-darker) var(--motif-lighter) var(--motif-lighter) var(--motif-darker);
+    font-size: 0.85rem;
+}
+
+table th,
+table td {
+    padding: 0.3rem 0.5rem;
+    text-align: left;
+    border: 1px solid var(--motif-grey-dark);
+}
+
+table th {
+    background: var(--motif-grey);
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+table tr:nth-child(even) {
+    background: var(--motif-grey-light);
+}
+
+/* Accessibility */
+:focus-visible {
+    outline: 2px solid var(--sgi-blue);
+    outline-offset: 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    html { scroll-behavior: auto; }
+}}
+
+/* Image Styling - 4Dwm frame */
+.postbody img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid;
+    border-color: var(--motif-darker) var(--motif-light) var(--motif-light) var(--motif-darker);
+    margin: 0.75rem 0;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Blockquote */
+blockquote {
+    border-left: 3px solid var(--sgi-blue);
+    background: var(--irix-panel-dark);
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+    font-style: italic;
+    color: var(--text-secondary);
+    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Table - IRIX spreadsheet style */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.75rem 0;
+    background: var(--irix-panel-dark);
+    border: 1px solid;
+    border-color: var(--motif-darker) var(--motif-light) var(--motif-light) var(--motif-darker);
+    font-size: 0.9rem;
+}
+
+table th,
+table td {
+    padding: 0.4rem 0.6rem;
+    text-align: left;
+    border: 1px solid var(--motif-darker);
+}
+
+table th {
+    background: linear-gradient(180deg, var(--sgi-blue) 0%, var(--sgi-blue-dark) 100%);
+    color: white;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+table tr:nth-child(even) {
+    background: var(--irix-panel);
+}
+
+table tr:hover {
+    background: var(--irix-window);
+}
+
+/* Accessibility */
+:focus-visible {
+    outline: 2px solid var(--sgi-blue-light);
+    outline-offset: 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    html { scroll-behavior: auto; }
+}
+    background: var(--accent-gradient);
+    transition: width 0.3s ease;
+}
+
+.postbody a:hover::after {
+    width: 100%;
+}
+
+/* Focus visible for accessibility */
+:focus-visible {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    html {
+        scroll-behavior: auto;
     }
 }
