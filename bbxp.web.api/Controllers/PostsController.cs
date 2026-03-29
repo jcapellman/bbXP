@@ -79,5 +79,37 @@ namespace bbxp.web.api.Controllers
                 throw;
             }
         }
+
+        [HttpGet]
+        [Route("{category}/{postCount}/{offset}")]
+        public async Task<List<Posts>> GetPostsPagedAsync([FromRoute] string category, [FromRoute] int postCount, [FromRoute] int offset)
+        {
+            try
+            {
+                var cacheKey = $"{category}_{postCount}_{offset}";
+                var cacheResult = GetFromCache<List<Posts>>(cacheKey);
+
+                if (cacheResult is not null)
+                {
+                    return cacheResult;
+                }
+
+                List<Posts> dbResult = category switch
+                {
+                    LibConstants.POST_REQUEST_DEFAULT_CATEGORY =>
+                        await dbContext.Posts.Where(a => a.Active).OrderByDescending(a => a.PostDate).Skip(offset).Take(postCount).ToListAsync(),
+                    _ =>
+                        await dbContext.Posts.Where(a => a.Active && a.Category == category).OrderByDescending(a => a.PostDate).Skip(offset).Take(postCount).ToListAsync(),
+                };
+
+                return AddToCache(cacheKey, dbResult);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Failed to Get Paged Posts due to {ex}", ex);
+
+                throw;
+            }
+        }
     }
 }

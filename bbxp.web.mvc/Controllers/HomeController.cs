@@ -95,6 +95,24 @@ namespace bbxp.web.mvc.Controllers
             return View("_Post", new PostViewModel(_appConfiguration) { Post = post });
         }
 
+        [HttpGet]
+        [Route("api/posts/{category}/{count}/{offset}")]
+        public async Task<IActionResult> GetPostsPartialAsync(string category, int count, int offset)
+        {
+            var postHttpHandler = new PostHttpHandler(_appConfiguration.APIUrl);
+
+            var posts = await postHttpHandler.GetPostsPagedAsync(category, count, offset);
+
+            if (posts is null || posts.Count == 0)
+            {
+                return NoContent();
+            }
+
+            var postViewModels = posts.Select(a => new PostViewModel(_appConfiguration) { Post = a }).ToList();
+
+            return PartialView("_PostList", postViewModels);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

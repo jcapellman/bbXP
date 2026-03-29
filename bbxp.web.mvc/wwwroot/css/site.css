@@ -1,6 +1,21 @@
+/* Glassmorphism Theme */
+:root {
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --accent-blue: #60a5fa;
+    --accent-purple: #a78bfa;
+    --accent-pink: #f472b6;
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --transition: all 0.3s ease;
+}
+
 html {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    color: white;
+    font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: var(--text-primary);
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -9,75 +24,291 @@ html {
     }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+body {
+    margin-bottom: 60px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    min-height: 100vh;
 }
 
+/* Animated background orbs */
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    z-index: -1;
+    animation: float 20s ease-in-out infinite;
+}
+
+body::before {
+    width: 400px;
+    height: 400px;
+    background: var(--accent-purple);
+    top: -100px;
+    right: -100px;
+}
+
+body::after {
+    width: 300px;
+    height: 300px;
+    background: var(--accent-pink);
+    bottom: -50px;
+    left: -50px;
+    animation-delay: -10s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -30px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+}
+
+/* Focus States */
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.5);
+    outline: none;
+}
+
+/* Links */
 a:link, a:visited {
-    color: white;
-    font-weight: bold;
+    color: var(--accent-blue);
+    font-weight: 600;
     text-decoration: none;
+    transition: var(--transition);
 }
 
 a:hover {
+    color: var(--accent-pink);
     text-decoration: none;
-    color: gold;
 }
 
-html {
-    position: relative;
-    min-height: 100%;
+/* Glass Navbar */
+.navbar {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
 }
 
-body {
-    margin-bottom: 60px;
-    background-color: #0f1f1f;
-    color: white;
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--text-primary) !important;
+    text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
 }
 
+.nav-link.text-dark:link, .nav-link.text-dark:visited {
+    color: var(--text-secondary) !important;
+    opacity: 1;
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.nav-link.text-dark:hover {
+    color: var(--text-primary) !important;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Glass Category Buttons */
+.btn-dark {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 25px;
+    padding: 0.5rem 1.5rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    transition: var(--transition);
+    margin-right: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.btn-dark:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(96, 165, 250, 0.3);
+}
+
+/* Glass Post Cards */
 .post {
-    border: 1px solid white;
-    background-color: #343a40;
-    margin-bottom: 10px;
-    font-size: 12px;
-    color: white;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+    font-size: 14px;
+    color: var(--text-primary);
+    box-shadow: var(--glass-shadow);
+    transition: var(--transition);
+    overflow: hidden;
+    position: relative;
+}
+
+.post::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+}
+
+.post:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .post h2 {
-    padding-left: 10px;
+    padding-left: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.post h2 a {
+    color: var(--text-primary) !important;
+    transition: var(--transition);
+}
+
+.post h2 a:hover {
+    color: var(--accent-blue) !important;
+    text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
 }
 
 .post .postbody {
-    padding: 10px;
+    padding: 1.5rem;
+    line-height: 1.8;
 }
 
 .post .date {
-    color: #6c757d;
-    font-weight: bold;
-    padding-top: 5px;
-    padding-left: 10px;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Glass Comment Button */
+.btn-secondary {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    font-weight: 500;
+    color: var(--text-primary) !important;
+    transition: var(--transition);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--accent-purple);
+    box-shadow: 0 5px 15px rgba(167, 139, 250, 0.3);
+}
+
+/* Glass Code Blocks */
+pre {
+    background: rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 1.25rem !important;
+    border-radius: 15px;
+    color: #e0e0e0;
+    border: 1px solid var(--glass-border);
+    overflow-x: auto;
+}
+
+code {
+    font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+}
+
+/* Glass Footer */
+footer {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--glass-border);
+    padding: 1.5rem 0;
 }
 
 footer p {
     text-align: center;
     margin-top: 10px;
     display: block;
-    font-size: 12px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
 }
 
-.nav-link.text-dark:hover {
-    color: white !important;
-    opacity: 100% !important;
+footer a {
+    color: var(--accent-blue) !important;
 }
 
-.nav-link.text-dark:link, .nav-link.text-dark:visited {
-    color: white !important;
-    opacity: 75%;
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
 }
 
-pre {
-    background-color: white !important;
-    padding: 0px 5px 5px 5px !important;
-    border-radius: 10px;
-    color: black;
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Selection */
+::selection {
+    background: var(--accent-purple);
+    color: white;
+}
+
+/* Categories Container */
+.categories-container {
+    margin-bottom: 1.5rem;
+}
+
+/* Infinite Scroll */
+#loading-indicator {
+    color: var(--text-secondary);
+}
+
+#no-more-posts {
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    border: 3px solid var(--glass-border);
+    border-top-color: var(--accent-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }

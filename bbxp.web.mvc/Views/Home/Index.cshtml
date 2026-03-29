@@ -1,13 +1,94 @@
 ﻿@model IndexModel
 
-<div>
+<div class="categories-container">
     @foreach(var category in Model.Categories)
     {
         <a class="btn btn-dark" href="/@category/@bbxp.lib.Common.LibConstants.POST_REQUEST_DEFAULT_LIMIT/">@category</a>
     }
 </div>
 
-@foreach (var post in Model.Posts)
-{
-    @await Html.PartialAsync("_Post", post)
+<div id="posts-container">
+    @foreach (var post in Model.Posts)
+    {
+        @await Html.PartialAsync("_Post", post)
+    }
+</div>
+
+<div id="loading-indicator" class="text-center py-4" style="display: none;">
+    <div class="spinner"></div>
+    <p class="mt-2">Loading more posts...</p>
+</div>
+
+<div id="no-more-posts" class="text-center py-4" style="display: none;">
+    <p>You've reached the end!</p>
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            const postsContainer = document.getElementById('posts-container');
+            const loadingIndicator = document.getElementById('loading-indicator');
+            const noMorePosts = document.getElementById('no-more-posts');
+
+            let currentOffset = @Model.Posts.Count;
+            const pageSize = @bbxp.lib.Common.LibConstants.POST_REQUEST_DEFAULT_LIMIT;
+            const category = '@ViewData["Title"]';
+            let isLoading = false;
+            let hasMorePosts = true;
+
+            function loadMorePosts() {
+                if (isLoading || !hasMorePosts) return;
+
+                isLoading = true;
+                loadingIndicator.style.display = 'block';
+
+                fetch(`/api/posts/${encodeURIComponent(category)}/${pageSize}/${currentOffset}`)
+                    .then(response => {
+                        if (response.status === 204) {
+                            hasMorePosts = false;
+                            loadingIndicator.style.display = 'none';
+                            noMorePosts.style.display = 'block';
+                            return null;
+                        }
+                        return response.text();
+                    })
+                    .then(html => {
+                        if (html) {
+                            postsContainer.insertAdjacentHTML('beforeend', html);
+                            currentOffset += pageSize;
+                        }
+                        isLoading = false;
+                        loadingIndicator.style.display = 'none';
+                    })
+                    .catch(error => {
+                        console.error('Error loading posts:', error);
+                        isLoading = false;
+                        loadingIndicator.style.display = 'none';
+                    });
+            }
+
+            function handleScroll() {
+                const scrollPosition = window.innerHeight + window.scrollY;
+                const threshold = document.body.offsetHeight - 500;
+
+                if (scrollPosition >= threshold) {
+                    loadMorePosts();
+                }
+            }
+
+            // Throttle scroll events
+            let scrollTimeout;
+            window.addEventListener('scroll', function () {
+                if (scrollTimeout) {
+                    window.cancelAnimationFrame(scrollTimeout);
+                }
+                scrollTimeout = window.requestAnimationFrame(handleScroll);
+            });
+
+            // Check if we need to load more on initial page load (if content is short)
+            if (document.body.offsetHeight <= window.innerHeight) {
+                loadMorePosts();
+            }
+        })();
+    </script>
 }
