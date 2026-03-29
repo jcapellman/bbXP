@@ -8,7 +8,7 @@ using System.Text;
 
 using bbxp.lib.Database;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 
 namespace bbxp.web.api
 {
@@ -55,17 +55,13 @@ namespace bbxp.web.api
                         In = ParameterLocation.Header,
                         Type = SecuritySchemeType.Http,
                         Scheme = "bearer",
-                        BearerFormat = "JWT",
-                        Reference = new OpenApiReference
-                        {
-                            Id = JwtBearerDefaults.AuthenticationScheme,
-                            Type = ReferenceType.SecurityScheme
-                        }
+                        BearerFormat = "JWT"
                     };
-                    c.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
-                    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    c.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, securityScheme);
+                    var securitySchemeReference = new OpenApiSecuritySchemeReference(JwtBearerDefaults.AuthenticationScheme);
+                    c.AddSecurityRequirement(_ => new OpenApiSecurityRequirement
                     {
-                        {securityScheme, Array.Empty<string>()}
+                        {securitySchemeReference, new List<string>()}
                     });
                 });
 
