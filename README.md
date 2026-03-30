@@ -9,6 +9,12 @@ This project technically started with my first web page in 1996 on GeoCities.  H
 The only remaining piece is a more stable and scalable editor.
 
 ## Major Change Log
+### March 29th, 2026 ###
+-Upgraded to .NET 10
+-Upgraded all packages and resolved CVEs
+-Updated the look and feel to be IRIX inspired
+-Performance Optimizations to the backend (Compiled EF Queries, utilizing Async on FirstOrDefault, Indexes and Pagination)
+
 ### July 3rd, 2024 ###
 -CI/CD migration to Google Cloud
 
