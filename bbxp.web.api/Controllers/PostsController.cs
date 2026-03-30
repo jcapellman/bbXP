@@ -28,14 +28,13 @@ namespace bbxp.web.api.Controllers
                     return cacheResult;
                 }
 
-                List<Posts> dbResult = [];
-
-                dbResult = category switch
+                // Use compiled queries for better performance (eliminates query translation overhead)
+                List<Posts> dbResult = category switch
                 {
                     LibConstants.POST_REQUEST_DEFAULT_CATEGORY =>
-                         await dbContext.Posts.Where(a => a.Active).OrderByDescending(a => a.PostDate).Take(postCount).ToListAsync(),
+                        await BbxpContext.GetActivePostsAsync(dbContext, postCount).ToListAsync(),
                     _ =>
-                        await dbContext.Posts.Where(a => a.Active && a.Category == category).OrderByDescending(a => a.PostDate).ToListAsync(),
+                        await BbxpContext.GetPostsByCategoryAsync(dbContext, category).ToListAsync(),
                 };
 
                 return AddToCache(category, dbResult);
@@ -50,7 +49,7 @@ namespace bbxp.web.api.Controllers
 
         [HttpGet]
         [Route("{url}")]
-        public ActionResult<Posts?> GetSinglePostAsync([FromRoute] string url)
+        public async Task<ActionResult<Posts?>> GetSinglePostAsync([FromRoute] string url)
         {
             try
             {
@@ -61,7 +60,8 @@ namespace bbxp.web.api.Controllers
                     return cacheResult;
                 }
 
-                var dbResult = dbContext.Posts.FirstOrDefault(a => a.Active && a.URL == url);
+                // Use compiled query for single post lookup
+                var dbResult = await BbxpContext.GetPostByUrlAsync(dbContext, url);
 
                 if (dbResult is null)
                 {
@@ -94,12 +94,13 @@ namespace bbxp.web.api.Controllers
                     return cacheResult;
                 }
 
+                // Use compiled queries for paged results
                 List<Posts> dbResult = category switch
                 {
                     LibConstants.POST_REQUEST_DEFAULT_CATEGORY =>
-                        await dbContext.Posts.Where(a => a.Active).OrderByDescending(a => a.PostDate).Skip(offset).Take(postCount).ToListAsync(),
+                        await BbxpContext.GetActivePostsPagedAsync(dbContext, offset, postCount).ToListAsync(),
                     _ =>
-                        await dbContext.Posts.Where(a => a.Active && a.Category == category).OrderByDescending(a => a.PostDate).Skip(offset).Take(postCount).ToListAsync(),
+                        await BbxpContext.GetPostsByCategoryPagedAsync(dbContext, category, offset, postCount).ToListAsync(),
                 };
 
                 return AddToCache(cacheKey, dbResult);

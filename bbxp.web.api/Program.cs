@@ -5,6 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using NLog;
 using NLog.Web;
 using System.Text;
+using System.IO.Compression;
+using Microsoft.AspNetCore.ResponseCompression;
 
 using bbxp.lib.Database;
 using Microsoft.EntityFrameworkCore;
@@ -66,6 +68,27 @@ namespace bbxp.web.api
                 });
 
                 builder.Services.AddMemoryCache();
+
+                // Response compression for reduced payload sizes (60-80% reduction for JSON)
+                builder.Services.AddResponseCompression(options =>
+                {
+                    options.EnableForHttps = true;
+                    options.Providers.Add<BrotliCompressionProvider>();
+                    options.Providers.Add<GzipCompressionProvider>();
+                    options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+                        ["application/json", "text/json", "application/xml", "text/xml"]);
+                });
+
+                builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
+                {
+                    options.Level = CompressionLevel.Fastest; // Balance between compression ratio and CPU
+                });
+
+                builder.Services.Configure<GzipCompressionProviderOptions>(options =>
+                {
+                    options.Level = CompressionLevel.Fastest;
+                });
+
                 builder.Services.AddDbContext<BbxpContext>(
                     options => options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(BbxpContext)), b => b.MigrationsAssembly("bbxp.web.api")));
 
@@ -103,6 +126,9 @@ namespace bbxp.web.api
                 }
 
                 app.UseCors("MyPolicy");
+
+                // Enable response compression (must be before other middleware that write responses)
+                app.UseResponseCompression();
 
                 app.UseHttpsRedirection();
 
