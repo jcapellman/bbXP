@@ -9,6 +9,7 @@ using System.IO.Compression;
 using Microsoft.AspNetCore.ResponseCompression;
 
 using bbxp.lib.Database;
+using bbxp.web.api.McpTools;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 
@@ -48,6 +49,10 @@ namespace bbxp.web.api
 
                 builder.Services.AddControllers();
                 builder.Services.AddEndpointsApiExplorer();
+
+                builder.Services.AddMcpServer()
+                    .WithHttpTransport()
+                    .WithTools<PostMcpTools>();
                 builder.Services.AddSwaggerGen(c =>
                 {
                     var securityScheme = new OpenApiSecurityScheme
@@ -137,6 +142,7 @@ namespace bbxp.web.api
                 app.UseAuthorization();
 
                 app.MapControllers();
+                app.MapMcp();
 
                 if (app.Environment.IsDevelopment())
                 {
